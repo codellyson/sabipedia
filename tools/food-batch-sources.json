@@ -1,0 +1,7 @@
+[
+  {"id":"sisi-jemimah","publisher":"Sisi Jemimah","sitemap":"https://sisijemimah.com/sitemap_index.xml","limit":20,"filter":"all"},
+  {"id":"all-nigerian-recipes","publisher":"All Nigerian Recipes","sitemap":"https://www.allnigerianrecipes.com/sitemap_index.xml","limit":20,"filter":"all"},
+  {"id":"nigerian-food-tv","publisher":"Nigerian Food TV","sitemap":"https://www.nigerianfoodtv.com/wp-sitemap.xml","limit":50,"filter":"all"},
+  {"id":"chef-lola","publisher":"Chef Lola's Kitchen","sitemap":"https://cheflolaskitchen.com/wp-sitemap.xml","limit":60,"filter":"nigerian"},
+  {"id":"nigerian-lazy-chef","publisher":"Nigerian Lazy Chef","sitemap":"https://nigerianlazychef.com/wp-sitemap.xml","limit":20,"filter":"all"}
+]

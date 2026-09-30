@@ -1,0 +1,12 @@
+{
+ "$schema": "node_modules/wrangler/config-schema.json",
+ "name": "nigeria-knowledge-bank",
+ "main": ".output/server/index.mjs",
+ "compatibility_date": "2026-09-27",
+ "compatibility_flags": ["nodejs_compat"],
+ "assets": {"directory": ".output/public", "binding": "ASSETS"},
+ "observability": {"enabled": true, "traces": {"enabled": true}},
+ "d1_databases": [{"binding": "DB", "database_name": "nigeria-knowledge-bank", "database_id": "00000000-0000-0000-0000-000000000001", "migrations_dir": "migrations"}],
+ "r2_buckets": [{"binding": "MEDIA", "bucket_name": "nigeria-knowledge-bank-media"}],
+ "vars": {"BETTER_AUTH_URL": "http://localhost:8788"}
+}

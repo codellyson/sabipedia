@@ -1,0 +1,395 @@
+[
+  {
+    "slug": "request-a-change-to-your-nin-details",
+    "content": {
+      "title": "Request a change to your NIN details",
+      "summary": "Use NIMC's official service to ask for a change to your name, date of birth, phone number or address.",
+      "category": "Government & Processes",
+      "community": "",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "Your National Identification Number (NIN)",
+        "A phone number and email address you can access",
+        "A supporting document for the detail you want to change",
+        "A way to pay the fee shown on the official portal"
+      ],
+      "steps": [
+        "Open NIMC's official self-service modification portal and verify your NIN.",
+        "Sign in and choose the detail you want to change.",
+        "Enter the requested information and provide the supporting document for that change.",
+        "Pay the fee shown on the portal and keep the payment record.",
+        "Check every detail before sending the request, then follow the status from your dashboard."
+      ],
+      "tips": [
+        "For a date-of-birth change, the portal asks for an NPC birth certificate or attestation number.",
+        "Resolve a mismatch in your supporting document before starting the request."
+      ],
+      "warnings": [
+        "NIMC says some fields cannot be changed. Check the current rules before paying.",
+        "Use only NIMC's official website and keep your NIN and login details private."
+      ],
+      "sources": [
+        "NIMC — Self-Service Modifications: https://nimc.gov.ng/self-service-modifications/ (checked 29 September 2026)",
+        "NIMC — Adult NIN modifications and supporting documents: https://nimc.gov.ng/nin/nin-modifications-adults/ (checked 29 September 2026)"
+      ],
+      "variations": [
+        "The document you need depends on the detail being changed. For example, a name change and an address change use different proof."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "apply-for-a-first-nigerian-passport",
+    "content": {
+      "title": "Apply for a first Nigerian passport",
+      "summary": "Start a fresh passport application online, pay, book an appointment and attend in person for biometric capture.",
+      "category": "Government & Processes",
+      "community": "",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "Your NIN",
+        "A valid email address",
+        "Birth certificate or declaration of age",
+        "State-of-origin or other supporting documents required for your application type",
+        "An ICAO-compliant passport photograph"
+      ],
+      "steps": [
+        "Open the Nigeria Immigration Service passport portal and choose Apply for Fresh Passport.",
+        "Verify your NIN and date of birth.",
+        "Choose a processing centre and passport booklet size.",
+        "Upload a compliant photograph and review the personal details brought in from your NIMC record.",
+        "Add your address, next of kin and the supporting documents requested for your application type.",
+        "Review the application, pay through the portal and book an appointment.",
+        "Take your payment and appointment slips to the selected passport office for biometric capture."
+      ],
+      "tips": [
+        "Check appointment availability before choosing a processing centre.",
+        "Test your photograph on the passport portal before submitting it."
+      ],
+      "warnings": [
+        "You must attend the selected passport office yourself for biometric capture.",
+        "Requirements and fees can change; confirm them on the official NIS portal before paying."
+      ],
+      "sources": [
+        "Nigeria Immigration Service — How to Apply for Standard Passport: https://immigration.gov.ng/info-center/how-to-apply-for-standard-passport/ (checked 29 September 2026)",
+        "Nigeria Immigration Service — Domestic Passport Application Portal: https://passport.immigration.gov.ng/ (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Minors, adopted children and citizens by naturalisation or registration have extra document requirements.",
+        "Applicants outside Nigeria use the nearest Nigerian embassy, high commission or consulate."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "register-a-business-name-with-cac",
+    "content": {
+      "title": "Register a business name with CAC",
+      "summary": "Check that a name is available, complete the online business-name form and receive the registration documents electronically.",
+      "category": "Government & Processes",
+      "community": "Small business owners",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "A CAC Company Registration Portal account",
+        "Your proposed business name",
+        "The proprietor's details and the documents requested by CAC",
+        "A way to pay the filing fee"
+      ],
+      "steps": [
+        "Create or sign in to your account on CAC's official Company Registration Portal.",
+        "Use the portal to check whether your proposed business name is available.",
+        "Complete the business-name pre-registration form and review the proprietor and business details.",
+        "Upload the documents requested by the portal.",
+        "Pay the filing fee through the portal and keep the receipt.",
+        "Follow the application in your account and download the electronic certificate and registration extract after approval."
+      ],
+      "tips": [
+        "Prepare more than one suitable name in case your first choice is unavailable.",
+        "An individual proprietor can register a business name without hiring a lawyer, accountant or chartered secretary."
+      ],
+      "warnings": [
+        "Check names, addresses and identification details carefully before submitting.",
+        "Use the official CAC portal; avoid giving your account password to an agent."
+      ],
+      "sources": [
+        "Corporate Affairs Commission — Business Name registration: https://www.cac.gov.ng/services/business-name (checked 29 September 2026)",
+        "CAC Company Registration Portal: https://icrp.cac.gov.ng/ (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Companies and incorporated trustees use different forms and requirements from a business name."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "renew-a-nigerian-drivers-licence",
+    "content": {
+      "title": "Renew a Nigerian driver's licence",
+      "summary": "Complete the renewal online, confirm payment and attend the required offices for checks and biometric capture.",
+      "category": "Government & Processes",
+      "community": "Drivers",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "Your existing driver's licence details",
+        "The completed renewal application",
+        "Payment for the licence period you choose",
+        "Time to attend the required state and FRSC offices in person"
+      ],
+      "steps": [
+        "Open the official Nigeria Driver's Licence portal and choose Renewal of Driver's Licence.",
+        "Complete the renewal form and check your personal and licence details.",
+        "Pay the licence fee online or through a listed bank and keep the payment record.",
+        "Confirm the payment at the State Board of Internal Revenue office when instructed.",
+        "Complete any VIO check shown for your application.",
+        "Go to the FRSC Driver's Licence Centre for photograph, fingerprints and signature.",
+        "Keep the temporary card or application form and use the portal to track when the permanent card is ready for collection."
+      ],
+      "tips": [
+        "The official portal allows renewal from 30 days before the current licence expires.",
+        "Print or save the application and acknowledgement slips."
+      ],
+      "warnings": [
+        "Biometric capture must be done in person.",
+        "Fees can depend on licence class, validity period and payment channel; check the current portal amount."
+      ],
+      "sources": [
+        "Federal Road Safety Corps — Nigeria Driver's Licence portal: https://nigeriadriverslicence.frsc.gov.ng/ (checked 29 September 2026)",
+        "FRSC Driver's Licence FAQ: https://nigeriadriverslicence.frsc.gov.ng/faq (checked 29 September 2026)"
+      ],
+      "variations": [
+        "A lost, stolen or damaged licence uses the reissue process and requires a police extract and affidavit."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "retrieve-your-nigerian-tax-id",
+    "content": {
+      "title": "Retrieve your Nigerian Tax ID",
+      "summary": "Use the official Tax ID portal to find the tax number already linked to your NIN or organisation record.",
+      "category": "Government & Processes",
+      "community": "Taxpayers",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "Your NIN if you are searching as an individual",
+        "The phone number used for your NIN registration",
+        "Your organisation name or CAC registration number if you are searching for a business"
+      ],
+      "steps": [
+        "Open the official Nigeria Revenue Service Tax ID portal.",
+        "Choose Individual, Corporate or Others.",
+        "For an individual search, choose NIN as the retrieval method and enter your NIN.",
+        "Read the consent notice and agree only if you want the portal to verify your identity for tax purposes.",
+        "Select Retrieve Tax ID and save the result securely."
+      ],
+      "tips": [
+        "Use the same phone number you gave NIMC when registering your NIN.",
+        "A company can search with its registered name or CAC number."
+      ],
+      "warnings": [
+        "Do not post your NIN or Tax ID publicly.",
+        "The Federal Inland Revenue Service has transitioned to the Nigeria Revenue Service; use the redirected official NRS portal."
+      ],
+      "sources": [
+        "Nigeria Revenue Service — Tax ID Retrieval Portal: https://taxid.nrs.gov.ng/ (checked 29 September 2026)",
+        "FIRS transition page for the Tax ID portal: https://taxid.firs.gov.ng/ (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Corporate and other organisations use different search fields from individuals."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "transfer-your-voter-registration",
+    "content": {
+      "title": "Transfer your voter registration to another polling unit",
+      "summary": "Ask INEC to move an existing voter record when you have changed where you live or vote.",
+      "category": "Government & Processes",
+      "community": "Registered voters",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "An existing voter registration",
+        "An email address and phone number you can access",
+        "Your voter details",
+        "The new state, local government area and polling location you want"
+      ],
+      "steps": [
+        "Open INEC's official Continuous Voter Registration portal.",
+        "Choose Transfers and sign in or create the account requested by the portal.",
+        "Find and confirm your existing voter record.",
+        "Choose the new voting location and complete the details requested for the transfer.",
+        "Upload or capture any proof requested by the portal.",
+        "Review the request, submit it and keep the application reference for tracking."
+      ],
+      "tips": [
+        "Use Locate Registration Centres on the same portal if you need to complete a step in person.",
+        "Check the portal later for the pickup location of an uncollected PVC."
+      ],
+      "warnings": [
+        "A transfer is for someone who is already registered. Do not create a second voter registration.",
+        "INEC opens and closes registration services around election periods; check that transfers are currently available."
+      ],
+      "sources": [
+        "Independent National Electoral Commission — Continuous Voter Registration Portal: https://cvr.inecnigeria.org/Public/getStarted (checked 29 September 2026)"
+      ],
+      "variations": [
+        "The same portal has separate services for a first registration, information update, and replacement of a lost or damaged PVC."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "start-a-jamb-utme-registration",
+    "content": {
+      "title": "Start a JAMB UTME registration",
+      "summary": "Create a JAMB profile with your NIN, buy an e-PIN and complete registration at an accredited CBT centre.",
+      "category": "Government & Processes",
+      "community": "UTME candidates",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "Your NIN",
+        "A unique mobile number that another candidate has not used for JAMB registration",
+        "A personal email address you can keep using",
+        "Your school results or awaiting-result information",
+        "Your preferred institutions, courses, UTME subjects and examination towns"
+      ],
+      "steps": [
+        "Check the current JAMB registration dates and requirements on the official website.",
+        "From your unique phone number, send NIN, a space and your 11-digit NIN to 55019 or 66019.",
+        "Keep the profile code sent to your phone.",
+        "Use the profile code to buy the current UTME e-PIN from a JAMB-listed payment channel.",
+        "Take the profile code and e-PIN to a JAMB-accredited CBT centre.",
+        "Give the centre your choices and qualification details, then check all displayed personal information carefully.",
+        "Complete the photograph and fingerprint capture yourself and collect the printed registration slip."
+      ],
+      "tips": [
+        "Use JAMB's eligibility checker before choosing a course and UTME subject combination.",
+        "If a profile code is lost, JAMB says to send RESEND from the same phone number to 55019 or 66019."
+      ],
+      "warnings": [
+        "Registration dates, prices and age rules change each year. Confirm the current year's notice before paying.",
+        "Register only at a JAMB-accredited CBT centre, not a cybercafe, and never share your password or e-PIN."
+      ],
+      "sources": [
+        "JAMB — 2026 UTME Training Manual: https://www.jamb.gov.ng/PDFs/2026/2026%20TRAINING%20MANUAL%20%20final.pdf (checked 29 September 2026)",
+        "JAMB Frequently Asked Questions: https://www.jamb.gov.ng/FAQ (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Direct Entry, foreign centres and candidates with biometric challenges follow additional JAMB instructions."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "apply-for-an-adult-birth-attestation",
+    "content": {
+      "title": "Apply for an adult birth attestation",
+      "summary": "Use the National Population Commission self-service portal to request birth attestation if you are 18 or older.",
+      "category": "Government & Processes",
+      "community": "Adults requesting birth records",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "You must be 18 years or older",
+        "A court-sworn affidavit",
+        "Your NIN, if you have one",
+        "A valid email address and active phone number",
+        "A device with a camera, stable internet and good lighting"
+      ],
+      "steps": [
+        "Open the National Population Commission Birth Attestation self-service portal.",
+        "Read and accept the privacy information if you agree to it.",
+        "Enter your personal and contact details and complete NIN verification when required.",
+        "Add the court affidavit and the location details requested by the portal.",
+        "Complete the live face capture against a plain background.",
+        "Check every detail carefully, pay the fee shown by the portal and save the payment reference sent to your email.",
+        "Use Check Status with the payment reference to download the certificate after the application succeeds."
+      ],
+      "tips": [
+        "The certificate can be downloaded once after a successful application, so save it safely.",
+        "Use the separate reprint service if you need another copy later."
+      ],
+      "warnings": [
+        "NPC says a person can apply for birth attestation only once. Check every entry before submitting.",
+        "People aged 0 to 17 use birth registration, not adult birth attestation."
+      ],
+      "sources": [
+        "National Population Commission — Birth Attestation Self-Service: https://attestation.nationalpopulation.gov.ng/ (checked 29 September 2026)",
+        "National Population Commission — Vital Registration FAQ: https://www.nationalpopulation.gov.ng/faq-vitalreg (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Applicants without a NIN may receive a temporary Birth ID and must later visit a NIMC office."
+      ],
+      "mediaIds": [],
+      "changeNote": "Source-backed starter submitted for moderator and community review."
+    }
+  },
+  {
+    "slug": "apply-for-a-federal-high-court-e-affidavit-online",
+    "content": {
+      "title": "How to apply for a Federal High Court e-affidavit online",
+      "summary": "Create and submit an affidavit application through the Federal High Court of Nigeria's official portal, then track it and download the court-certified copy when approved.",
+      "category": "Government & Processes",
+      "community": "Federal High Court applicants",
+      "location": "Nigeria",
+      "experiencedAt": "",
+      "requirements": [
+        "An email address and phone number you can access",
+        "Your National Identification Number (NIN)",
+        "A clear, recent passport photograph",
+        "A clear image of your signature on a plain white background",
+        "A valid government-issued ID, such as a NIN slip, international passport, driver's licence or voter's card",
+        "A bank card or another payment method accepted by the portal"
+      ],
+      "steps": [
+        "Open the official Federal High Court e-Affidavit portal at https://portal.fhc.gov.ng/. Read the privacy and service notices before continuing.",
+        "Choose Registration, enter your details carefully and submit the form. Open the verification message sent to your email and follow its link to verify the account.",
+        "Log in, open your profile and complete every required field. Upload the requested passport photograph, signature and means of identification, then save the profile.",
+        "Return to the affidavit area, start a new application and choose the affidavit type that matches what you need. Confirm with the organisation requesting the affidavit that it will accept this type of Federal High Court e-affidavit.",
+        "Select the court division or other options requested by the portal. Enter the facts and reason for the affidavit, including old and corrected information where the chosen template asks for them.",
+        "Preview the entire application. Correct spelling, names, dates, identification numbers and contact details before giving consent and submitting.",
+        "Pay the fee displayed by the official portal. Save the payment reference and receipt; the amount may depend on the service and can change.",
+        "Track the application in your account. Follow any instruction for virtual or physical oath-taking and respond to a court query within 72 hours.",
+        "After court approval, download the digitally signed and stamped affidavit. Keep its barcode and reference number intact so another person or organisation can verify it online."
+      ],
+      "tips": [
+        "Use only portal.fhc.gov.ng or a link reached from fhc.gov.ng.",
+        "Ask the bank, agency or other recipient which affidavit wording and supporting documents it requires before paying.",
+        "Keep your downloaded affidavit, receipt and reference number in more than one safe place."
+      ],
+      "warnings": [
+        "The Federal High Court says completed payments are final, non-refundable and non-transferable. Review the application carefully before paying.",
+        "Draft applications and queried applications can be deleted after 72 hours if you do not act. A fresh application and payment may then be required.",
+        "False or misleading information can lead to rejection or legal consequences.",
+        "Do not pay an unofficial person to fast-track the application, and do not share your password or payment details.",
+        "The court says oath-taking may be virtual or physical depending on the division and application. Do not assume every application finishes without a court visit."
+      ],
+      "sources": [
+        "Federal High Court of Nigeria — Official e-Affidavit Portal: https://portal.fhc.gov.ng/ (checked 29 September 2026)",
+        "Federal High Court of Nigeria — E-Affidavit Client Portal guide: https://fhc.gov.ng/e-affidavit-client-portal/ (checked 29 September 2026)",
+        "Federal High Court of Nigeria — E-Affidavit FAQ: https://fhc.gov.ng/faq/ (checked 29 September 2026)",
+        "Federal High Court of Nigeria — Portal Terms and Conditions: https://portal.fhc.gov.ng/assets/docs/terms.pdf (checked 29 September 2026)"
+      ],
+      "variations": [
+        "Available templates include different statements of fact, such as change or harmonisation of name. Choose the template that matches the purpose stated by the organisation requesting the affidavit."
+      ],
+      "mediaIds": [],
+      "changeNote": "Community video transcript converted into a source-checked guide. The unverified fixed-fee claim was removed, and the oath-taking step was qualified using the Federal High Court's own guidance."
+    }
+  }
+]

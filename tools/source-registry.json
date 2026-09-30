@@ -1,0 +1,11 @@
+[
+  {"id":"nimc-nin-modifications","guide":"request-a-change-to-your-nin-details","url":"https://nimc.gov.ng/nin/nin-modifications-adults/"},
+  {"id":"nis-fresh-passport","guide":"apply-for-a-first-nigerian-passport","url":"https://immigration.gov.ng/info-center/how-to-apply-for-standard-passport/"},
+  {"id":"cac-business-name","guide":"register-a-business-name-with-cac","url":"https://icrp.cac.gov.ng/support/faq/"},
+  {"id":"frsc-driver-licence","guide":"renew-a-nigerian-drivers-licence","url":"https://nigeriadriverslicence.frsc.gov.ng/"},
+  {"id":"nrs-tax-id","guide":"retrieve-your-nigerian-tax-id","url":"https://einvoice.nrs.gov.ng/understanding-taxid"},
+  {"id":"inec-voter-transfer","guide":"transfer-your-voter-registration","url":"https://cvr.inecnigeria.org/Public/getStarted"},
+  {"id":"jamb-registration-faq","guide":"start-a-jamb-utme-registration","url":"https://www.jamb.gov.ng/FAQ"},
+  {"id":"npc-vital-registration-faq","guide":"apply-for-an-adult-birth-attestation","url":"https://attestation.nationalpopulation.gov.ng/"},
+  {"id":"fhc-e-affidavit","guide":"apply-for-a-federal-high-court-e-affidavit-online","url":"https://fhc.gov.ng/e-affidavit-client-portal/"}
+]

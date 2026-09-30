@@ -1,0 +1,414 @@
+[
+  {
+    "slug": "planning-a-family-meal",
+    "content": {
+      "title": "Planning a family meal",
+      "summary": "Demo guide — A simple way to plan ingredients, portions and timing before cooking for visitors.",
+      "category": "Food & Cooking",
+      "community": "Household cooks",
+      "location": "Lagos",
+      "requirements": [
+        "A guest list",
+        "Paper or a notes app",
+        "Your usual recipes"
+      ],
+      "steps": [
+        "Ask how many people are coming and whether anyone has food allergies or dietary needs.",
+        "Choose dishes you already know how to prepare and list the ingredients for each.",
+        "Check what you have before making a shopping list.",
+        "Write a cooking order based on the time each dish needs, leaving room for serving and cleaning."
+      ],
+      "tips": [
+        "Separate items you can prepare ahead from tasks for the day."
+      ],
+      "warnings": [
+        "Follow current food-safety guidance for cooking and storage."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "A smaller household can use the same checklist for a weekly meal."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "organising-a-market-shopping-list",
+    "content": {
+      "title": "Organising a market shopping list",
+      "summary": "Demo guide — Group a shopping list by ingredient type and keep track of your spending.",
+      "category": "Food & Cooking",
+      "community": "Household shoppers",
+      "location": "Ibadan",
+      "requirements": [
+        "A shopping list",
+        "A budget",
+        "A reusable shopping bag"
+      ],
+      "steps": [
+        "List the meals or household tasks you are shopping for.",
+        "Group the items into produce, dry goods and other supplies.",
+        "Set a total budget and mark which items are essential.",
+        "Record purchases as you go and review the list before leaving."
+      ],
+      "tips": [
+        "Keep quantities beside each item."
+      ],
+      "warnings": [
+        "Prices and availability vary; this example does not set market prices."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Use a paper checklist or a notes app."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "recording-a-family-celebration",
+    "content": {
+      "title": "Recording a family celebration",
+      "summary": "Demo guide — Create a respectful record of a celebration through notes and consent-based interviews.",
+      "category": "Culture & Traditions",
+      "community": "Family historians",
+      "location": "Enugu",
+      "requirements": [
+        "A notebook",
+        "Permission from participants"
+      ],
+      "steps": [
+        "Ask the organisers which parts may be recorded or shared.",
+        "Invite a willing participant to explain the event in their own words.",
+        "Write the date, place and the speaker’s preferred name.",
+        "Read your notes back to the speaker and ask what should be corrected or kept private."
+      ],
+      "tips": [
+        "Record whose account you are documenting rather than claiming a universal tradition."
+      ],
+      "warnings": [
+        "Do not publish private or restricted practices without permission."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Different families may describe the same occasion differently."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "planning-a-community-meeting",
+    "content": {
+      "title": "Planning a community meeting",
+      "summary": "Demo guide — Prepare an agenda and a clear way for participants to contribute.",
+      "category": "Culture & Traditions",
+      "community": "Neighbourhood organisers",
+      "location": "Ilorin",
+      "requirements": [
+        "An agreed meeting place",
+        "A draft agenda",
+        "A note taker"
+      ],
+      "steps": [
+        "Ask participants what decisions the meeting needs to make.",
+        "Share the time, place and agenda in the group’s preferred channel.",
+        "Agree how people will take turns speaking and who will record decisions.",
+        "Read the agreed actions aloud and name the person responsible for each."
+      ],
+      "tips": [
+        "Ask about accessibility and language preferences before the meeting."
+      ],
+      "warnings": [
+        "This example is not a statement of any community’s formal customs."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "A small group may use an informal discussion rather than a chairperson."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "keeping-household-maintenance-notes",
+    "content": {
+      "title": "Keeping household maintenance notes",
+      "summary": "Demo guide — Keep dates, receipts and observations in one place for routine household upkeep.",
+      "category": "Everyday Life",
+      "community": "Residents",
+      "location": "Abuja",
+      "requirements": [
+        "A notebook or folder",
+        "Existing receipts"
+      ],
+      "steps": [
+        "List the household items or areas you want to track.",
+        "Create a page for each item with its purchase date and service contact, if available.",
+        "Record maintenance dates, what was done and any follow-up agreed.",
+        "Store receipts with the matching entry and review outstanding tasks regularly."
+      ],
+      "tips": [
+        "Photograph receipts if the printed text fades."
+      ],
+      "warnings": [
+        "Use a qualified professional for hazardous repairs."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "A shared home can keep the log in a folder everyone can access."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "organising-a-shared-water-rota",
+    "content": {
+      "title": "Organising a shared water collection rota",
+      "summary": "Demo guide — Agree responsibilities and keep a simple record when a household shares collection tasks.",
+      "category": "Everyday Life",
+      "community": "Shared households",
+      "location": "Kano",
+      "requirements": [
+        "A list of willing participants",
+        "An agreed collection arrangement"
+      ],
+      "steps": [
+        "Discuss the household’s needs and the availability of each participant.",
+        "Agree who is responsible on each day and how swaps will be communicated.",
+        "Write the rota somewhere everyone can access.",
+        "Review the arrangement together when household circumstances change."
+      ],
+      "tips": [
+        "Make room for participants who cannot carry heavy containers."
+      ],
+      "warnings": [
+        "Water quality needs separate assessment; a rota does not make water safe to drink."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Some households may share costs instead of collection tasks."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "preparing-for-a-public-office-visit",
+    "content": {
+      "title": "Preparing for a public office visit",
+      "summary": "Demo guide — Use a checklist to organise questions and documents before visiting an office.",
+      "category": "Government & Processes",
+      "community": "",
+      "location": "Across Nigeria",
+      "requirements": [
+        "The official office contact details",
+        "A list of questions",
+        "Any documents the office requests"
+      ],
+      "steps": [
+        "Identify the official agency responsible for the process you need.",
+        "Check its current published requirements and opening arrangements.",
+        "Write a checklist using those official requirements and organise the requested documents.",
+        "Keep a record of the visit, any official receipt and the next action the office gives you."
+      ],
+      "tips": [
+        "Date your checklist so you know when the requirements were checked."
+      ],
+      "warnings": [
+        "This demo does not state current fees, eligibility or legal requirements. Verify those directly with the responsible agency."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Some offices offer online services; use the official channel when available."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "keeping-application-records",
+    "content": {
+      "title": "Keeping an application record",
+      "summary": "Demo guide — Track submissions, reference numbers and follow-up dates for an administrative application.",
+      "category": "Government & Processes",
+      "community": "",
+      "location": "Across Nigeria",
+      "requirements": [
+        "A folder",
+        "The official application instructions"
+      ],
+      "steps": [
+        "Create a folder named for the application and date.",
+        "Save a copy of the information you submitted and the official acknowledgement.",
+        "Record any reference number and the contact channel provided by the agency.",
+        "Add follow-up dates from the agency’s instructions and keep subsequent messages together."
+      ],
+      "tips": [
+        "Keep reference numbers easy to find without sharing them publicly."
+      ],
+      "warnings": [
+        "Do not put identity documents or sensitive personal information in a public guide."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Use a physical folder if digital storage is not suitable."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "asking-how-to-address-someone",
+    "content": {
+      "title": "Asking how to address someone respectfully",
+      "summary": "Demo guide — Ask a person’s preference when you are unsure of their name, title or form of address.",
+      "category": "Language & Etiquette",
+      "community": "",
+      "location": "Across Nigeria",
+      "requirements": [
+        "A chance to ask politely"
+      ],
+      "steps": [
+        "Introduce yourself using the name you want others to use.",
+        "Ask the person how they would like you to address them.",
+        "Listen to their answer and repeat the name if you need help with pronunciation.",
+        "Use their preference and accept a correction without making the exchange awkward."
+      ],
+      "tips": [
+        "Personal preferences can differ within the same community."
+      ],
+      "warnings": [
+        "Do not assume a title from someone’s appearance, age or ethnicity."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "A person may prefer a different form of address in a formal setting."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "building-a-personal-language-notebook",
+    "content": {
+      "title": "Building a personal language notebook",
+      "summary": "Demo guide — Document phrases with a willing speaker and preserve the context in which they are used.",
+      "category": "Language & Etiquette",
+      "community": "Language learners",
+      "location": "Benin City",
+      "requirements": [
+        "A notebook",
+        "A willing language speaker"
+      ],
+      "steps": [
+        "Choose a small set of everyday situations you want to learn about.",
+        "Ask the speaker for a phrase and its meaning in each situation.",
+        "Record the speaker’s spelling or transcription preference and notes about when the phrase is appropriate.",
+        "Practise with the speaker and update your notes when they correct you."
+      ],
+      "tips": [
+        "Record an audio example only with explicit permission."
+      ],
+      "warnings": [
+        "This demo contains no verified translations or pronunciation claims."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Different speakers may use different words or spellings."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "documenting-a-craft-process",
+    "content": {
+      "title": "Documenting a craft process",
+      "summary": "Demo guide — Turn a demonstration into a clear sequence of notes with permission from the maker.",
+      "category": "Skills & Crafts",
+      "community": "Craft learners",
+      "location": "Abeokuta",
+      "requirements": [
+        "Permission from the maker",
+        "A notebook",
+        "A list of tools used"
+      ],
+      "steps": [
+        "Ask the maker which parts of the process can be documented.",
+        "List the materials and tools using the maker’s own terms.",
+        "Write one action per step while observing the demonstration.",
+        "Ask the maker to review the sequence and add important cautions before sharing it."
+      ],
+      "tips": [
+        "Describe what the maker does rather than guessing why."
+      ],
+      "warnings": [
+        "Get separate permission to publish photographs or commercially sensitive details."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "Some makers prefer diagrams or audio descriptions to written notes."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  },
+  {
+    "slug": "organising-a-beginner-sewing-kit",
+    "content": {
+      "title": "Organising a beginner sewing kit",
+      "summary": "Demo guide — Keep basic tools together and make a checklist before a small sewing project.",
+      "category": "Skills & Crafts",
+      "community": "Home sewing learners",
+      "location": "Port Harcourt",
+      "requirements": [
+        "A suitable storage box",
+        "The tools required by your chosen project"
+      ],
+      "steps": [
+        "Read the project instructions and list the tools they require.",
+        "Group measuring tools, marking tools and fasteners in separate compartments.",
+        "Check that reusable tools are in good condition before starting.",
+        "Return tools to their compartments and record supplies that need replacing."
+      ],
+      "tips": [
+        "Start with the supplies your chosen project actually needs."
+      ],
+      "warnings": [
+        "Store sharp tools securely and away from children."
+      ],
+      "sources": [
+        "Local development fixture. Content and contributor confirmations are illustrative, not real community validation."
+      ],
+      "variations": [
+        "A fabric pouch can replace a box for a small kit."
+      ],
+      "mediaIds": [],
+      "changeNote": "Initial demo publication."
+    }
+  }
+]
