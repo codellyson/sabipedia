@@ -573,6 +573,7 @@ h2 { font-weight: 700; letter-spacing: -.035em; }
 .topic-nav a,.site-nav a { color: var(--text); font-weight: 700; text-decoration: none; }
 .topic-nav a:hover,.site-nav a:hover { color: var(--green); text-decoration: none; }
 .header-search { display: flex; align-items: center; gap: 10px; width: min(260px,18vw); margin-left: auto; padding: 0 18px; border-radius: 999px; background: var(--canvas); }
+.search-lens { width: 20px; height: 20px; flex: 0 0 20px; color: var(--text); }
 .header-search input { height: 48px; min-height: 0; padding: 0; border: 0; background: transparent; }
 .header-search input:focus { box-shadow: none; }
 .site-nav { margin-left: 0; gap: 16px; }
@@ -731,6 +732,20 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 40px
 .step-mode-actions button { min-height: 64px; font-size: 18px; }
 .step-next { background: var(--green)!important; color: #fff!important; }
 
+/* The contributor editor uses one padded working surface and a related action bar. */
+.writer { max-width: 900px; }
+.writer-intro { margin-bottom: 30px; }
+.writer-intro .writer-return { margin-bottom: 26px; }
+.writer-intro h1 { margin-bottom: 10px; font-size: 38px; line-height: 1.15; }
+.writer-progress { margin-bottom: 24px; }
+.writer-panel { gap: 28px; padding: 34px 38px 38px; border-radius: 18px; background: var(--paper); box-shadow: var(--edge-shadow); }
+.writer-panel .section-heading { padding-bottom: 4px; }
+.writer-panel .section-heading h2 { margin-bottom: 8px; font-size: 28px; }
+.writer-form-field { gap: 10px; }
+.writer-input input,.writer-input textarea,button.writer-select { border-radius: 12px; }
+.writer-bottom { margin-top: 16px; padding: 16px 18px; border: 0; border-radius: 16px; background: var(--paper); box-shadow: var(--edge-shadow); }
+.draft-banner { border: 0; border-radius: 16px; box-shadow: var(--edge-shadow); }
+
 @media (max-width:1100px) {
   .topic-nav { display:none; }
   .header-search { width:min(300px,30vw); }
@@ -794,5 +809,7 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 40px
   .step-mode-body { padding:48px 28px; }
   .step-mode-body h1 { font-size:44px; }
   .step-mode-actions { grid-template-columns:110px 1fr; padding:16px; }
+  .writer-panel { gap: 24px; padding: 24px 20px 28px; border-radius: 14px; }
+  .writer-bottom { margin-left: 0; margin-right: 0; padding: 14px; }
   footer { align-items:flex-start; flex-direction:column; }
 }

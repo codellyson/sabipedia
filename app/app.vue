@@ -17,7 +17,7 @@ function submitSearch() {
     <div v-if="adminRoute" class="admin-shell">
       <aside class="admin-sidebar">
         <NuxtLink class="brand admin-brand" to="/"><span class="brand-mark" aria-hidden="true"><span>⌁</span></span><span>WikiHow<span class="brand-accent">Naija</span></span></NuxtLink>
-        <form class="admin-search" role="search" @submit.prevent="submitSearch"><span aria-hidden="true">⌕</span><input v-model="search" aria-label="Search" placeholder="Search"><kbd>⌘K</kbd></form>
+        <form class="admin-search" role="search" @submit.prevent="submitSearch"><svg class="search-lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input v-model="search" aria-label="Search" placeholder="Search"><kbd>⌘K</kbd></form>
         <nav class="admin-nav" aria-label="Editorial workspace">
           <NuxtLink to="/"><span aria-hidden="true">⌂</span>Home</NuxtLink>
           <NuxtLink to="/articles"><span aria-hidden="true">▤</span>Articles</NuxtLink>
@@ -41,7 +41,7 @@ function submitSearch() {
           <NuxtLink :to="{path:'/',query:{category:'Government & Processes'}}">Government</NuxtLink>
           <NuxtLink :to="{path:'/',query:{category:'Skills & Crafts'}}">Skills</NuxtLink>
         </nav>
-        <form class="header-search" role="search" @submit.prevent="submitSearch"><span aria-hidden="true">⌕</span><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
+        <form class="header-search" role="search" @submit.prevent="submitSearch"><svg class="search-lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
           <ClientOnly><NuxtLink v-if="!session.data" to="/login">Sign in</NuxtLink></ClientOnly>
