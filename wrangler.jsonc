@@ -9,5 +9,9 @@
  "d1_databases": [{"binding": "DB", "database_name": "nigeria-knowledge-bank", "database_id": "3378e8c9-2377-4e09-8af3-0e68a4543d0b", "migrations_dir": "migrations"}],
  "r2_buckets": [{"binding": "MEDIA", "bucket_name": "nigeria-knowledge-bank-media"}],
  "send_email": [{"name": "EMAIL"}],
- "vars": {"BETTER_AUTH_URL": "https://nigeria-knowledge-bank.codellyson.workers.dev"}
+ "vars": {
+  "BETTER_AUTH_URL": "https://nigeria-knowledge-bank.codellyson.workers.dev",
+  "TURNSTILE_SITE_KEY": "0x4AAAAAAFKiwWlEUZwQzc3x",
+  "TURNSTILE_HOSTNAMES": "nigeria-knowledge-bank.codellyson.workers.dev"
+ }
 }
