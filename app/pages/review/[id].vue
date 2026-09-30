@@ -67,7 +67,7 @@ async function review(){
 
 <template>
  <section v-if="submission" class="review-workspace">
-  <header class="review-workspace-header"><NuxtLink to="/review" class="writer-return">← Back to review queue</NuxtLink><div><p class="eyebrow">Guide review</p><h1>{{submission.content.title}}</h1><p>Submitted by {{submission.author}} on {{submitted}}</p></div><span class="decision-status" :class="submission.state==='published'?'is-published':submission.state==='rejected'?'is-rejected':''">{{submission.state==='awaiting_review'?'Waiting for review':submission.state==='published'?'Published':'Changes requested'}}</span></header>
+  <header class="review-workspace-header"><NuxtLink to="/review" class="writer-return"><UIcon name="i-lucide-arrow-left" class="button-icon"/>Back to review queue</NuxtLink><div><p class="eyebrow">Guide review</p><h1>{{submission.content.title}}</h1><p>Submitted by {{submission.author}} on {{submitted}}</p></div><span class="decision-status" :class="submission.state==='published'?'is-published':submission.state==='rejected'?'is-rejected':''">{{submission.state==='awaiting_review'?'Waiting for review':submission.state==='published'?'Published':'Changes requested'}}</span></header>
   <div class="review-workspace-layout">
    <main class="review-document-column">
     <div class="review-reader-label"><span>Reader preview</span><small>Select any words to leave a review note.</small></div>

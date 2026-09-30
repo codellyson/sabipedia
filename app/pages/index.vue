@@ -24,14 +24,14 @@ useSeoMeta({title:'Explore — wikihownaija',description:'Practical Nigerian kno
     <p class="hero-description">Everyday skills and local know-how, shared by people across Nigeria.</p>
     <form class="hero-search" role="search" @submit.prevent="navigateTo({path: '/', query: q.trim() ? {q:q.trim()} : {}})">
       <UInput v-model="q" class="hero-search-input" type="search" aria-label="Search practical knowledge" placeholder="How do I…" :ui="{base: 'hero-search-control'}" />
-      <UButton type="submit" class="search-submit" aria-label="Search guides">→</UButton>
+      <UButton type="submit" class="search-submit" aria-label="Search guides"><UIcon name="i-lucide-arrow-right" class="button-icon"/></UButton>
     </form>
     <div class="category-pills" role="group" aria-label="Filter by category">
       <UButton class="category-pill" :aria-pressed="category === ''" @click="category = ''">All guides</UButton>
       <UButton v-for="c in categories" :key="c" class="category-pill" :aria-pressed="category === c" @click="category = c">{{c}}</UButton>
     </div>
     <UCollapsible class="local-filters" :ui="{content:'animated-disclosure'}">
-      <template #default="{open}"><UButton class="disclosure-trigger"><span class="disclosure-chevron" :class="{'is-open':open}" aria-hidden="true">›</span>Find knowledge from your community <span v-if="community || location" class="filter-active">Filters active</span></UButton></template>
+      <template #default="{open}"><UButton class="disclosure-trigger"><UIcon name="i-lucide-chevron-right" class="disclosure-chevron button-icon" :class="{'is-open':open}" aria-hidden="true"/>Find knowledge from your community <span v-if="community || location" class="filter-active">Filters active</span></UButton></template>
       <template #content><div class="pair">
         <UFormField label="Community" class="writer-form-field"><ChoiceInput v-model="community" :items="options.communities" :loading="optionsStatus==='pending'" placeholder="Any community" /></UFormField>
         <UFormField label="Location" class="writer-form-field"><ChoiceInput v-model="location" :items="options.locations" :loading="optionsStatus==='pending'" placeholder="Any location" /></UFormField>
@@ -48,8 +48,8 @@ useSeoMeta({title:'Explore — wikihownaija',description:'Practical Nigerian kno
         <div class="card-footer"><p class="muted">{{[g.content.community,g.content.location].filter(Boolean).join(' · ')||'Across Nigeria'}}</p><span class="badge" :class="{verified:g.verified}">{{g.verified?'Community verified':`${g.confirmations} ${g.confirmations === 1 ? 'confirmation' : 'confirmations'}`}}</span></div>
       </NuxtLink>
     </TransitionGroup>
-    <div v-else-if="status!=='pending' && !error" class="empty"><h2>{{q||category||community||location?'No guides match these filters.':'The collection starts with what you know.'}}</h2><p>Document a practical skill, a local method, or a process you understand.</p><NuxtLink class="button secondary" to="/write">Know how? Document it. →</NuxtLink></div></MotionHeight>
+    <div v-else-if="status!=='pending' && !error" class="empty"><h2>{{q||category||community||location?'No guides match these filters.':'The collection starts with what you know.'}}</h2><p>Document a practical skill, a local method, or a process you understand.</p><NuxtLink class="button secondary" to="/write">Know how? Document it.<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></div></MotionHeight>
   </section>
-  <section class="contribute-strip"><div><h2>Someone can learn from what you know.</h2><p>A family recipe. A craft. A way of doing things in your community.</p></div><NuxtLink class="button secondary" to="/write">Document knowledge →</NuxtLink></section>
+  <section class="contribute-strip"><div><h2>Someone can learn from what you know.</h2><p>A family recipe. A craft. A way of doing things in your community.</p></div><NuxtLink class="button secondary" to="/write">Document knowledge<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></section>
  </div>
 </template>

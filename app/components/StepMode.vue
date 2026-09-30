@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RichDocument } from '~~/shared/rich-text'
 
-const props = defineProps<{guideId:string;title:string;steps:string[];stepDocuments?:RichDocument[];requirements:string[]}>()
+const props = defineProps<{guideId:string;title:string;steps:string[];stepDocuments?:RichDocument[];stepMediaIds?:string[][];requirements:string[]}>()
 const emit = defineEmits<{close:[]}>()
 const current = ref(0)
 const completed = ref<number[]>([])
@@ -22,19 +22,20 @@ function next() {
   <Teleport to="body">
     <section class="step-mode" role="dialog" aria-modal="true" :aria-label="`Step-by-step: ${title}`">
       <header class="step-mode-header">
-        <button class="step-round" aria-label="Close step-by-step mode" @click="$emit('close')">×</button>
+        <button class="step-round" aria-label="Close step-by-step mode" @click="$emit('close')"><UIcon name="i-lucide-x"/></button>
         <div><strong>FOLLOW ALONG</strong><span>Step {{current + 1}} of {{steps.length}}</span></div>
         <span class="step-round step-count" aria-label="Completed steps">{{completed.length}}</span>
       </header>
       <div class="step-mode-progress" aria-hidden="true"><span v-for="(_,i) in steps" :key="i" :class="{done:completed.includes(i),current:i===current}" /></div>
       <main class="step-mode-body">
         <p class="step-mode-number">STEP {{current + 1}}</p>
-        <h1>{{steps[current]}}</h1>
+        <div class="step-mode-instruction"><RichText :document="stepDocuments?.[current]" :text="steps[current]||''" /></div>
+        <div v-if="stepMediaIds?.[current]?.length" class="step-mode-images"><img v-for="id in stepMediaIds[current]" :key="id" :src="`/api/media/${id}`" :alt="`Image showing step ${current+1}`"></div>
         <div v-if="requirements.length" class="step-materials"><strong>For this guide</strong><span v-for="item in requirements.slice(0,4)" :key="item">{{item}}</span></div>
       </main>
       <footer class="step-mode-actions">
-        <button class="secondary" :disabled="current===0" @click="current--">Back</button>
-        <button class="step-next" @click="next">{{current===steps.length-1?'Finish guide':'Done · next step'}}</button>
+        <button class="secondary" :disabled="current===0" @click="current--"><UIcon name="i-lucide-arrow-left" class="button-icon"/>Back</button>
+        <button class="step-next" @click="next">{{current===steps.length-1?'Finish guide':'Done · next step'}}<UIcon name="i-lucide-arrow-right" class="button-icon"/></button>
       </footer>
     </section>
   </Teleport>

@@ -19,7 +19,7 @@ useSeoMeta({title:'Articles — WikiHowNaija'})
 
 <template>
  <section class="articles-page">
-  <header class="admin-page-title"><div><h1>Articles</h1><p>Find guides, follow their review status, and open the next piece of work.</p></div><NuxtLink class="button primary" to="/write">＋ New article</NuxtLink></header>
+  <header class="admin-page-title"><div><h1>Articles</h1><p>Find guides, follow their review status, and open the next piece of work.</p></div><NuxtLink class="button primary" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New article</NuxtLink></header>
   <p v-if="error" class="notice">The editorial workspace could not be loaded.</p>
   <nav class="article-tabs" aria-label="Article views">
    <button :class="{active:filter==='all'}" @click="filter='all'">All articles <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
@@ -27,13 +27,13 @@ useSeoMeta({title:'Articles — WikiHowNaija'})
    <button :class="{active:filter==='changes'}" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
    <button :class="{active:filter==='published'}" @click="filter='published'">Published <span>{{counts.published}}</span></button>
   </nav>
-  <div class="article-tools"><label class="article-search"><span aria-hidden="true">⌕</span><input v-model="search" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
+  <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
   <div class="article-list" role="table" aria-label="Articles">
    <div class="article-list-head" role="row"><span>Article</span><span>Status</span><span>Contributor</span><span>Updated</span><span /></div>
    <NuxtLink v-for="row in rows" :key="row.id" :to="row.to" class="article-row" role="row">
     <span class="article-identity"><strong>{{row.title}}</strong><small>{{row.category}} · {{row.summary}}</small></span>
     <span><em class="status-pill" :class="`is-${row.state}`">{{row.state==='review'?'Needs review':row.state==='changes'?'Changes requested':'Published'}}</em></span>
-    <span>{{row.author}}</span><span>{{relative(row.edited)}}</span><span aria-hidden="true">→</span>
+    <span>{{row.author}}</span><span>{{relative(row.edited)}}</span><UIcon name="i-lucide-arrow-right" class="row-icon" aria-hidden="true"/>
    </NuxtLink>
    <div v-if="!rows.length" class="empty">No articles match this view.</div>
   </div>

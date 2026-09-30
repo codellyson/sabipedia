@@ -46,10 +46,10 @@ async function resolve(id:string){busy.value=true;try{await $fetch('/api/review/
      <article v-for="item in visible" :key="item.id" class="review-inbox-row">
       <div class="review-inbox-main"><div class="review-kicker"><span>{{item.content.category}}</span><span>Submitted {{submitted(item.created_at)}}</span></div><h3>{{item.content.title}}</h3><p>{{item.content.summary}}</p><span class="review-contributor">By {{item.author}}</span></div>
       <div class="review-source-summary"><span>Sources</span><strong v-if="item.content.sources.length">{{item.content.sources.length}} supplied</strong><strong v-else>No source supplied</strong><small v-if="item.content.sources.length">{{sourceHost(item.content.sources[0]!)}}{{item.content.sources.length>1?` + ${item.content.sources.length-1} more`:''}}</small></div>
-      <NuxtLink class="button secondary review-open" :to="`/review/${item.id}`">Review guide <span aria-hidden="true">→</span></NuxtLink>
+      <NuxtLink class="button secondary review-open" :to="`/review/${item.id}`">Review guide <UIcon name="i-lucide-arrow-right" class="button-icon" aria-hidden="true"/></NuxtLink>
      </article>
     </div>
-    <nav v-if="pageCount>1" class="review-pagination" aria-label="Review queue pages"><UButton color="neutral" variant="outline" :disabled="page===1" @click="page--">← Previous</UButton><span>Page {{page}} of {{pageCount}}</span><UButton color="neutral" variant="outline" :disabled="page===pageCount" @click="page++">Next →</UButton></nav>
+    <nav v-if="pageCount>1" class="review-pagination" aria-label="Review queue pages"><UButton color="neutral" variant="outline" :disabled="page===1" @click="page--"><UIcon name="i-lucide-arrow-left" class="button-icon"/>Previous</UButton><span>Page {{page}} of {{pageCount}}</span><UButton color="neutral" variant="outline" :disabled="page===pageCount" @click="page++">Next<UIcon name="i-lucide-arrow-right" class="button-icon"/></UButton></nav>
    </section>
 
    <div class="review-heading"><div><h2>Recent decisions</h2><p>{{data.decisions.length}} shown</p></div></div>

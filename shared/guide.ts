@@ -9,9 +9,13 @@ export const guideInput = z.object({
  experiencedAt: z.string().regex(/^$|^\d{4}-\d{2}-\d{2}$/, 'Choose a valid date').default(''),
  requirements: z.array(text).max(40), steps: z.array(text).min(1).max(60),
  stepDocuments: z.array(z.custom<RichDocument>(isRichDocument, 'Use supported step formatting')).max(60).optional(),
+ stepMediaIds: z.array(z.array(z.string().uuid()).max(4)).max(60).optional(),
  tips: z.array(text).max(30), warnings: z.array(text).max(30), sources: z.array(text).max(30),
  variations: z.array(text).max(30), mediaIds: z.array(z.string().uuid()).max(20), changeNote: z.string().trim().max(600).default('')
 }).strict().superRefine((content,ctx) => {
  if (content.stepDocuments && content.stepDocuments.every(isRichDocument) && (content.stepDocuments.length !== content.steps.length || content.stepDocuments.some((doc,i) => richText(doc) !== content.steps[i]))) ctx.addIssue({code:'custom',path:['stepDocuments'],message:'Step formatting must match the procedure text'})
+ if (content.stepMediaIds?.length && content.stepMediaIds.length !== content.steps.length) ctx.addIssue({code:'custom',path:['stepMediaIds'],message:'Step images must stay with their step'})
+ const stepMedia=content.stepMediaIds?.flat()||[]
+ if (stepMedia.some(id=>!content.mediaIds.includes(id)) || new Set(stepMedia).size!==stepMedia.length) ctx.addIssue({code:'custom',path:['stepMediaIds'],message:'Each step image must belong to this guide and one step'})
 })
 export type GuideContent = z.infer<typeof guideInput>
