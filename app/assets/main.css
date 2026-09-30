@@ -468,6 +468,7 @@ button.media-remove { position: absolute; top: 7px; right: 7px; width: 32px; hei
 .writer-form-field { display: grid; gap: 8px; }
 .writer-form-field [data-slot='wrapper'] { display: grid; gap: 8px; }
 .writer-form-field [data-slot='labelWrapper'] { display: flex; align-items: center; gap: 8px; }
+.pair > .writer-form-field [data-slot='labelWrapper'] { min-height: 36px; }
 .writer-form-field [data-slot='description'], .writer-form-field [data-slot='help'] { font-size: 13px; line-height: 1.6; color: var(--muted); font-weight: 400; margin: 0; }
 .writer-form-field [data-slot='help'] { text-align: right; font-size: 12px; margin-top: 8px; }
 .writer-form-field [data-slot='error'] { color: var(--error); font-size: 13px; margin-top: 8px; }
@@ -556,7 +557,7 @@ button.theme-toggle { flex-shrink: 0; width: 40px; height: 40px; min-height: 40p
 
 /* Searchable choices share the existing control sizes and neutral surfaces. */
 .choice-input { position: relative; width: 100%; font-weight: 400; }
-.choice-input input.choice-control { width: 100%; min-height: 48px; padding: 12px 76px 12px 12px; border-radius: 8px; }
+.choice-input input.choice-control { width: 100%; min-height: 48px; padding: 12px 76px 12px 12px; border-radius: 12px; }
 .choice-input button.choice-trailing { position: absolute; top: 0; right: 4px; height: 48px; min-height: 48px; padding: 8px; gap: 4px; background: transparent; border: 0; scale: none; }
 .choice-input button.choice-clear { min-width: 32px; min-height: 32px; padding: 4px; scale: none; }
 .choice-menu { width: var(--reka-combobox-trigger-width); max-height: min(320px,var(--reka-combobox-content-available-height)); overflow: auto; background: var(--paper); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 4px; box-shadow: 0 4px 12px #00000014; z-index: 50; }
@@ -564,7 +565,7 @@ button.theme-toggle { flex-shrink: 0; width: 40px; height: 40px; min-height: 40p
 .choice-empty { padding: 12px; font-size: 13px; color: var(--muted); }
 
 .choice-field { position: relative; width: 100%; }
-.choice-field button.choice-reset { position: absolute; right: 36px; top: 8px; min-width: 32px; min-height: 32px; padding: 4px; border: 0; border-radius: 8px; scale: none; }
+.choice-field button.choice-reset { position: absolute; right: 36px; top: 8px; width: 32px; height: 32px; min-width: 32px; min-height: 32px!important; padding: 4px; border: 0; border-radius: 8px; scale: none; }
 
 /* 2026 editorial redesign */
 :root {
