@@ -6,5 +6,9 @@ export default defineNuxtConfig({
  nitro: { preset: 'cloudflare_module', cloudflare: { deployConfig: false, nodeCompat: true } },
  css: ['~/assets/main.css'],
  devtools: { enabled: false },
- app: { pageTransition: { name: 'page', mode: 'out-in' }, head: { title: 'wikihownaija', htmlAttrs: { lang: 'en' }, link: [{ rel: 'icon', href: '/favicon.svg' }] } }
+ app: { pageTransition: { name: 'page', mode: 'out-in' }, head: { title: 'WikiHowNaija', htmlAttrs: { lang: 'en' }, link: [
+  { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+  { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+  { rel: 'apple-touch-icon', sizes: '180x180', href: '/brand/whn-mark-180.png' }
+ ] } }
 })

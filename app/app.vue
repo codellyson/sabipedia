@@ -16,7 +16,7 @@ function submitSearch() {
   <UApp>
     <div v-if="adminRoute" class="admin-shell">
       <aside class="admin-sidebar">
-        <NuxtLink class="brand admin-brand" to="/"><span class="brand-mark" aria-hidden="true"><span>⌁</span></span><span>WikiHow<span class="brand-accent">Naija</span></span></NuxtLink>
+        <NuxtLink class="brand admin-brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
         <form class="admin-search" role="search" @submit.prevent="submitSearch"><svg class="search-lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input v-model="search" aria-label="Search" placeholder="Search"><kbd>⌘K</kbd></form>
         <nav class="admin-nav" aria-label="Editorial workspace">
           <NuxtLink to="/"><span aria-hidden="true">⌂</span>Home</NuxtLink>
@@ -34,7 +34,7 @@ function submitSearch() {
 
     <template v-else>
       <header class="site-header">
-        <NuxtLink class="brand" to="/"><span class="brand-mark" aria-hidden="true"><span>⌁</span></span><span>WikiHow<span class="brand-accent">Naija</span></span></NuxtLink>
+        <NuxtLink class="brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
         <nav class="topic-nav" aria-label="Popular topics">
           <NuxtLink :to="{path:'/',query:{category:'Food & Cooking'}}">Food</NuxtLink>
           <NuxtLink :to="{path:'/',query:{category:'Everyday Life'}}">Everyday life</NuxtLink>
