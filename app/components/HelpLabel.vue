@@ -16,7 +16,7 @@ defineProps<{ label: string; definition: string }>()
     type="button"
     class="help-trigger"
     :aria-label="`What does ${label} mean?`"
-   >?</UButton>
+   ><UIcon name="i-lucide-circle-help" aria-hidden="true" /></UButton>
   </UTooltip>
  </span>
 </template>
