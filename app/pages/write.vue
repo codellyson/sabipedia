@@ -8,6 +8,9 @@ const route = useRoute(), requestFetch = useRequestFetch(), session = authClient
 useSeoMeta({title:'Document a guide — wikihownaija'})
 const queryValue = (name:string) => typeof route.query[name] === 'string' ? String(route.query[name]) : ''
 const form = reactive({title:queryValue('topic'),summary:'',category:'',community:'',location:queryValue('location'),experiencedAt:queryValue('date'),requirements:'',tips:'',warnings:'',variations:'',sources:'',changeNote:''})
+type RequirementItem = {id:number;value:string}
+const requirementItems=ref<RequirementItem[]>([{id:1,value:''}])
+let nextRequirementId=2
 type StepCard = {id:number;document:RichDocument;mediaIds:string[]}
 type Attachment = {file:File;id?:string;stepId?:number;preview:string}
 const stepCards = ref<StepCard[]>([{id:1,document:documentFromText(''),mediaIds:[]}])
@@ -31,8 +34,16 @@ if (typeof route.query.edit === 'string') {
  mediaIds.value = [...c.mediaIds]; existingMedia.value = g.media
  guideId = g.id; baseVersionId = g.version_id
 }
+function loadRequirements(value:string){const values=value.split('\n').map(item=>item.trim()).filter(Boolean);requirementItems.value=(values.length?values:['']).map(value=>({id:nextRequirementId++,value}))}
+loadRequirements(form.requirements)
+watch(requirementItems,items=>{form.requirements=items.map(item=>item.value.trim()).filter(Boolean).join('\n')},{deep:true})
+function addRequirement(after=requirementItems.value.length-1){if(requirementItems.value.length>=40)return;const item={id:nextRequirementId++,value:''};requirementItems.value.splice(after+1,0,item);nextTick(()=>document.getElementById(`requirement-${item.id}`)?.focus())}
+function removeRequirement(index:number){if(requirementItems.value.length===1){requirementItems.value[0]!.value='';return}requirementItems.value.splice(index,1);nextTick(()=>document.getElementById(`requirement-${requirementItems.value[Math.max(0,index-1)]?.id}`)?.focus())}
+function moveRequirement(index:number,direction:number){const next=index+direction;if(next<0||next>=requirementItems.value.length)return;const [item]=requirementItems.value.splice(index,1);if(item)requirementItems.value.splice(next,0,item)}
+function requirementBackspace(event:KeyboardEvent,index:number){if(requirementItems.value[index]?.value||requirementItems.value.length===1)return;event.preventDefault();removeRequirement(index)}
+function pasteRequirements(event:ClipboardEvent,index:number){const text=event.clipboardData?.getData('text')||'';const values=text.split(/\r?\n/).map(item=>item.trim()).filter(Boolean);if(values.length<2)return;event.preventDefault();const room=40-requirementItems.value.length+1;const inserted=values.slice(0,room).map(value=>({id:nextRequirementId++,value}));requirementItems.value.splice(index,1,...inserted);nextTick(()=>document.getElementById(`requirement-${inserted.at(-1)?.id}`)?.focus())}
 const lines = (value:string) => value.split('\n').map(s => s.trim()).filter(Boolean)
-const content = computed(() => ({title:form.title.trim(),summary:form.summary.trim(),category:form.category as GuideContent['category'],community:form.community.trim(),location:form.location.trim(),experiencedAt:form.experiencedAt,requirements:lines(form.requirements),steps:stepCards.value.map(s => richText(s.document)),stepDocuments:stepCards.value.map(s => s.document),stepMediaIds:stepCards.value.map(s=>s.mediaIds),tips:lines(form.tips),warnings:lines(form.warnings),variations:lines(form.variations),sources:lines(form.sources),mediaIds:mediaIds.value,changeNote:form.changeNote.trim()}))
+const content = computed(() => ({title:form.title.trim(),summary:form.summary.trim(),category:form.category as GuideContent['category'],community:form.community.trim(),location:form.location.trim(),experiencedAt:form.experiencedAt,requirements:requirementItems.value.map(item=>item.value.trim()).filter(Boolean),steps:stepCards.value.map(s => richText(s.document)),stepDocuments:stepCards.value.map(s => s.document),stepMediaIds:stepCards.value.map(s=>s.mediaIds),tips:lines(form.tips),warnings:lines(form.warnings),variations:lines(form.variations),sources:lines(form.sources),mediaIds:mediaIds.value,changeNote:form.changeNote.trim()}))
 const signedIn = computed(() => !!session.value.data?.user)
 const localISO = (date=new Date()) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`
 const dateParts = (value:string) => (/^\d{4}-\d{2}-\d{2}$/.test(value) ? value : localISO()).split('-')
@@ -74,6 +85,7 @@ onMounted(() => {
 function resumeDraft() {
  if (!pendingDraft.value || staleDraft.value) return
  Object.assign(form,pendingDraft.value.form)
+ loadRequirements(form.requirements)
  loadDate(form.experiencedAt)
  stepCards.value = pendingDraft.value.stepDocuments.map((document,i)=>({id:i+1,document,mediaIds:[...(pendingDraft.value?.stepMediaIds?.[i]||[])]}))
  nextStepId = stepCards.value.length+1; mediaIds.value = [...pendingDraft.value.mediaIds]
@@ -202,7 +214,12 @@ function beforeSignIn() {saveDraft()}
 
       <template v-else-if="stage===2">
        <div class="section-heading"><p class="eyebrow">Question 3 of 5</p><h2>What should someone have before starting?</h2><p>List any papers, money, tools, online accounts, ingredients or other things they need. Put one item on each line.</p></div>
-       <UFormField label="What they will need" :error="errors.requirements" class="writer-form-field"><UTextarea v-model="form.requirements" class="writer-input" :rows="8" placeholder="NIN slip&#10;A valid ID&#10;The correction fee" /></UFormField>
+       <div class="writer-form-field"><label>What they will need</label><TransitionGroup tag="div" name="requirement" class="requirement-builder" role="list">
+        <div v-for="(item,i) in requirementItems" :key="item.id" class="requirement-row" role="listitem">
+         <span class="requirement-number" aria-hidden="true">{{i+1}}</span><UInput :id="`requirement-${item.id}`" v-model="item.value" class="writer-input" :aria-label="`Requirement ${i+1}`" :placeholder="i===0?'e.g. NIN slip':''" @keydown.enter.prevent="addRequirement(i)" @keydown.backspace="requirementBackspace($event,i)" @paste="pasteRequirements($event,i)" />
+         <div class="requirement-actions"><UButton type="button" class="quiet-button" :disabled="i===0" :aria-label="`Move requirement ${i+1} up`" @click="moveRequirement(i,-1)"><UIcon name="i-lucide-arrow-up"/></UButton><UButton type="button" class="quiet-button" :disabled="i===requirementItems.length-1" :aria-label="`Move requirement ${i+1} down`" @click="moveRequirement(i,1)"><UIcon name="i-lucide-arrow-down"/></UButton><UButton type="button" class="quiet-button" :aria-label="`Remove requirement ${i+1}`" @click="removeRequirement(i)"><UIcon name="i-lucide-trash-2"/></UButton></div>
+        </div>
+       </TransitionGroup><div class="requirement-builder-footer"><UButton type="button" class="secondary" :disabled="requirementItems.length>=40" @click="addRequirement()"><UIcon name="i-lucide-plus" class="button-icon"/>Add another item</UButton><span>Press Enter to add the next item.</span></div><p v-if="errors.requirements" class="field-error" role="alert">{{errors.requirements}}</p></div>
       </template>
 
       <template v-else-if="stage===3">
