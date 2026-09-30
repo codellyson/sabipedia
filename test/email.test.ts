@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { passwordResetEmail, reviewDecisionEmail } from '../server/utils/email.ts'
+import { passwordResetEmail, reviewDecisionEmail, verificationEmail } from '../server/utils/email.ts'
 
 test('password reset email escapes user-controlled HTML',()=>{
  const message=passwordResetEmail('<img src=x onerror=alert(1)>','https://example.com/reset?x=1&y=2')
@@ -8,6 +8,14 @@ test('password reset email escapes user-controlled HTML',()=>{
  assert.match(message.html,/&lt;img/)
  assert.match(message.html,/x=1&amp;y=2/)
  assert.match(message.text,/https:\/\/example\.com\/reset\?x=1&y=2/)
+})
+
+test('verification email contains a safe verification link and expiry',()=>{
+ const message=verificationEmail('<b>Ada</b>','https://example.com/verify?token=a&callbackURL=b')
+ assert.match(message.subject,/Verify/)
+ assert.doesNotMatch(message.html,/<b>Ada/)
+ assert.match(message.html,/token=a&amp;callbackURL=b/)
+ assert.match(message.text,/expires in one hour/)
 })
 
 test('review decision email includes the outcome, note and submissions link',()=>{

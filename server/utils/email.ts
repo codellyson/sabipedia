@@ -25,6 +25,15 @@ export function passwordResetEmail(name: string, url: string) {
   }
 }
 
+export function verificationEmail(name: string, url: string) {
+  const safeName=escapeHtml(name || 'there'),safeUrl=escapeHtml(url)
+  return {
+    subject: 'Verify your WikiHowNaija email',
+    text: `Hello ${name || 'there'},\n\nVerify your email to finish creating your WikiHowNaija account:\n${url}\n\nThis link expires in one hour. If you did not create this account, you can ignore this email.`,
+    html: `<p>Hello ${safeName},</p><p>Verify your email to finish creating your WikiHowNaija account.</p><p><a href="${safeUrl}">Verify my email</a></p><p>This link expires in one hour. If you did not create this account, you can ignore this email.</p>`,
+  }
+}
+
 export function reviewDecisionEmail(input: { name: string; title: string; published: boolean; note: string; url: string }) {
   const outcome=input.published?'has been published':'needs changes before it can be published'
   const subjectTitle=input.title.replace(/[\r\n]+/g,' ').trim()

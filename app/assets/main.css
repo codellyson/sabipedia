@@ -103,6 +103,9 @@ form { display: grid; gap: 20px; }
 .auth-card { padding: 20px; border: 1px solid var(--line); border-radius: 8px; }
 .auth-card h2 { margin-bottom: 10px; }
 .auth-card p { margin: 0 0 20px; }
+.auth-card .muted { font-size: 13px; }
+.auth-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 20px; }
+.turnstile-widget { min-height: 65px; margin-top: 4px; }
 .my-guides-page { max-width: 900px; margin: 48px auto 0; }
 .my-guides-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 40px; }
 .my-guides-heading h1 { margin: 8px 0 10px; }

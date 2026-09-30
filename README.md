@@ -18,7 +18,7 @@ A structured, community-maintained library of Nigerian practical procedures. Thi
 Requires Node 22+ and npm.
 
 1. `npm install`
-2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>` and `EMAIL_FROM=<a sender on a domain enabled in Cloudflare Email Sending>`. Local Email Sending is simulated by Wrangler unless the binding is explicitly configured for remote use. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
+2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>` and `EMAIL_FROM=<a sender on a domain enabled in Cloudflare Email Sending>`. When `EMAIL_FROM` is present, new accounts must verify their email before signing in. Local Email Sending is simulated by Wrangler unless the binding is explicitly configured for remote use. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
 3. `npm run db:migrate` applies Better Auth and product tables to local D1.
 4. `npm run db:seed` optionally adds 12 demo guides across all six categories, illustrative confirmations, revision history, one open dispute and two moderator review submissions. This command always targets local D1 and preserves existing data when rerun. Demo contributors have no login credentials; use the dev moderator login to explore review.
    Run `npm run db:clear-demo` to remove those demo guides, their attached submissions and feedback, and the demo accounts while preserving official-source submissions, community evidence, and real accounts.
@@ -36,7 +36,7 @@ New accounts get the contributor role. The local sign-in page has a one-click **
 
 ## Production setup
 
-The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the public HTTPS origin, set `EMAIL_FROM` to a sender on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
+The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the public HTTPS origin, set `EMAIL_FROM` to a sender on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. For bot protection, set `TURNSTILE_SITE_KEY`, store `TURNSTILE_SECRET` with Wrangler, and set `TURNSTILE_HOSTNAMES` to the comma-separated production hostnames. Never include localhost in the production allow-list. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
 
 ## Current limits
 

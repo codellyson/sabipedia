@@ -91,3 +91,8 @@ jobs:
 
       - name: Deploy Worker
         run: npx wrangler deploy
+
+      - name: Smoke test production
+        env:
+          APP_ORIGIN: https://nigeria-knowledge-bank.codellyson.workers.dev
+        run: node scripts/smoke-production.mjs
