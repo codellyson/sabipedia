@@ -549,9 +549,9 @@ button.theme-toggle { flex-shrink: 0; width: 40px; height: 40px; min-height: 40p
   background: var(--canvas);
 }
 :root.dark {
-  --ink: #f3f5f2; --text: #d7ddd9; --muted: #9aa59e; --line: #344039;
-  --paper: #15201a; --canvas: #101713; --soft: #233028; --green: #67c49e;
-  --orange-soft: #472419; --red-soft: #492421; --blue-soft: #1e3347;
+  --ink: #f5f5f4; --text: #dededb; --muted: #a3a3a0; --line: #343434;
+  --paper: #191919; --canvas: #101010; --soft: #262626; --green: #62c49b;
+  --orange-soft: #3c241b; --red-soft: #3d2220; --blue-soft: #1d2d3c;
   --edge-shadow: 0 0 0 1px rgba(255,255,255,.14);
 }
 body { font-size: 16px; line-height: 1.55; background: var(--canvas); }
