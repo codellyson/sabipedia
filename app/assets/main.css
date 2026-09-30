@@ -625,11 +625,13 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 40px
 .admin-page-title { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
 .admin-page-title h1 { margin: 0 0 10px; font-size: 56px; }
 .admin-page-title p { margin: 0; color: var(--muted); }
-.article-tabs { display: flex; gap: 34px; overflow-x: auto; border-bottom: 1px solid var(--line); }
-.article-tabs button { min-height: 54px; padding: 0; border: 0; border-bottom: 3px solid transparent; border-radius: 0; color: var(--muted); background: transparent; white-space: nowrap; }
-.article-tabs button:hover { background: transparent; }
-.article-tabs button.active { color: var(--ink); border-bottom-color: var(--ink); }
-.article-tabs span { margin-left: 5px; color: var(--muted); }
+.article-tabs { display: flex; align-items: center; gap: 4px; width: fit-content; max-width: 100%; padding: 4px; overflow-x: auto; border-radius: 14px; background: var(--soft); scrollbar-width: none; }
+.article-tabs::-webkit-scrollbar { display: none; }
+.article-tabs button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 10px; color: var(--muted); background: transparent; white-space: nowrap; box-shadow: none; }
+.article-tabs button:hover { color: var(--ink); background: color-mix(in srgb,var(--paper),transparent 35%); }
+.article-tabs button.active { color: var(--ink); background: var(--paper); box-shadow: var(--edge-shadow); }
+.article-tabs span { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; color: var(--muted); background: color-mix(in srgb,var(--canvas),transparent 35%); font-size: 12px; font-variant-numeric: tabular-nums; }
+.article-tabs button.active span { color: var(--ink); background: var(--soft); }
 .article-tools { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 26px 0 18px; color: var(--muted); }
 .article-search { width: min(480px,100%); }
 .article-list { overflow: hidden; border-radius: 16px; background: var(--paper); box-shadow: var(--edge-shadow); }

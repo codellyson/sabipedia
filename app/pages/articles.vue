@@ -22,10 +22,10 @@ useSeoMeta({title:'Articles — WikiHowNaija'})
   <header class="admin-page-title"><div><h1>Articles</h1><p>Find guides, follow their review status, and open the next piece of work.</p></div><NuxtLink class="button primary" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New article</NuxtLink></header>
   <p v-if="error" class="notice">The editorial workspace could not be loaded.</p>
   <nav class="article-tabs" aria-label="Article views">
-   <button :class="{active:filter==='all'}" @click="filter='all'">All articles <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
-   <button :class="{active:filter==='review'}" @click="filter='review'">Needs review <span>{{counts.review}}</span></button>
-   <button :class="{active:filter==='changes'}" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
-   <button :class="{active:filter==='published'}" @click="filter='published'">Published <span>{{counts.published}}</span></button>
+   <button type="button" :class="{active:filter==='all'}" :aria-pressed="filter==='all'" @click="filter='all'">All articles <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
+   <button type="button" :class="{active:filter==='review'}" :aria-pressed="filter==='review'" @click="filter='review'">Needs review <span>{{counts.review}}</span></button>
+   <button type="button" :class="{active:filter==='changes'}" :aria-pressed="filter==='changes'" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
+   <button type="button" :class="{active:filter==='published'}" :aria-pressed="filter==='published'" @click="filter='published'">Published <span>{{counts.published}}</span></button>
   </nav>
   <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
   <div class="article-list" role="table" aria-label="Articles">
