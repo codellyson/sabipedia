@@ -316,12 +316,16 @@ footer { padding: 48px; border-top: 1px solid var(--line); color: var(--muted); 
 .writer-intro > .eyebrow { margin: 0 0 12px; }
 .writer-intro h1 { margin: 0 0 12px; font-size: 31px; line-height: 1.5; letter-spacing: -1px; }
 .writer-intro .lead { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; }
-.writer-progress { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 32px; white-space: normal; }
-button.progress-step { display: flex; justify-content: flex-start; align-items: center; gap: 10px; min-height: 48px; padding: 12px 0; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: var(--muted); text-align: left; font-size: 14px; }
-button.progress-step:hover { background: transparent; border-color: var(--text); color: var(--ink); }
-button.progress-step[aria-current='step'] { color: var(--ink); border-color: var(--ink); }
-.progress-number { display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 50%; font-size: 12px; }
-[aria-current='step'] .progress-number { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.writer-progress { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 0; margin-bottom: 32px; white-space: normal; }
+button.progress-step { position: relative; display: grid; grid-template-rows: 34px auto; justify-items: center; align-items: start; gap: 8px; min-height: 64px; padding: 0 6px; border: 0; border-radius: 0; background: transparent; color: var(--muted); text-align: center; font-size: 13px; font-weight: 600; }
+button.progress-step:not(:last-child)::after { position: absolute; z-index: 0; top: 16px; left: calc(50% + 20px); width: calc(100% - 40px); height: 2px; background: var(--line); content: ''; }
+button.progress-step:hover { background: transparent; color: var(--ink); }
+button.progress-step:disabled { opacity: 1; }
+button.progress-step[aria-current='step'] { color: var(--ink); }
+.progress-number { position: relative; z-index: 1; display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--line); border-radius: 50%; background: var(--canvas); color: var(--muted); font-size: 12px; }
+.progress-step.is-complete .progress-number { border-color: var(--green); background: var(--green); color: #fff; }
+[aria-current='step'] .progress-number { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.progress-label { line-height: 1.25; }
 .writer-layout { display: block; }
 .writer-fields { min-width: 0; padding: 0; margin: 0; border: 0; }
 .writer-panel { display: grid; gap: 24px; padding: 0; background: var(--paper); border: 0; }
@@ -416,7 +420,7 @@ button.editor-tool[aria-pressed='true'] { background: var(--soft); color: var(--
  .writer-intro .lead { font-size: 14px; }
  .writer-progress { grid-template-columns: repeat(6,minmax(92px,1fr)); margin: 0 -20px 24px; padding: 0 20px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
  .writer-progress::-webkit-scrollbar { display: none; }
- button.progress-step { flex-direction: column; align-items: flex-start; gap: 8px; font-size: 12px; }
+ button.progress-step { min-width: 96px; font-size: 12px; }
  .writer-panel { padding: 0; }
  .section-heading h2 { font-size: 22px; }
  .draft-banner { flex-direction: column; align-items: flex-start; padding: 20px; }
@@ -558,7 +562,7 @@ body { font-size: 16px; line-height: 1.55; background: var(--canvas); }
 h1,h2,h3,strong { color: var(--ink); }
 h1 { font-size: clamp(42px,5vw,72px); line-height: .98; letter-spacing: -.055em; font-weight: 700; }
 h2 { font-weight: 700; letter-spacing: -.035em; }
-.button, button:not(.link) { min-height: 44px; border-radius: 14px; font-weight: 700; }
+.button, button:not(.link):not(.progress-step) { min-height: 44px; border-radius: 14px; font-weight: 700; }
 .button.primary, button.primary { background: var(--green); color: #fff; }
 .button.primary:hover, button.primary:hover { background: color-mix(in srgb,var(--green),#000 10%); color: #fff; }
 .button.secondary, button.secondary { background: var(--paper); border-color: var(--line); box-shadow: none; }
