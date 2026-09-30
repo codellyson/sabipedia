@@ -10,14 +10,15 @@ A structured, community-maintained library of Nigerian practical procedures. Thi
 - Structured guide submissions and corrections; moderator review publishes immutable revisions.
 - Per-revision confirmations with a unique user constraint. A guide is community verified at three independent confirmations, one matching relevant community/location when specified, and no open major dispute. The guide author cannot confirm their own revision. “Other” confirmations are recorded but do not count toward verification without a basis for assessing relevant knowledge.
 - Flag and resolve major disputes. Revision history preserves past confirmation totals and gives moderators access to full old revisions.
-- Authenticated R2 image/audio uploads. Files are exposed publicly only when referenced by a published guide version.
+- Authenticated R2 image/audio uploads. Files are exposed publicly only when referenced by a published guide version; draft media is limited to its contributor and editors.
+- Email/password account recovery through Cloudflare Email Sending, with one-hour reset links and session revocation after a password change.
 
 ## Local setup
 
 Requires Node 22+ and npm.
 
 1. `npm install`
-2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>`. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
+2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>` and `EMAIL_FROM=<a sender on a domain enabled in Cloudflare Email Sending>`. Local Email Sending is simulated by Wrangler unless the binding is explicitly configured for remote use. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
 3. `npm run db:migrate` applies Better Auth and product tables to local D1.
 4. `npm run db:seed` optionally adds 12 demo guides across all six categories, illustrative confirmations, revision history, one open dispute and two moderator review submissions. This command always targets local D1 and preserves existing data when rerun. Demo contributors have no login credentials; use the dev moderator login to explore review.
    Run `npm run db:clear-demo` to remove those demo guides, their attached submissions and feedback, and the demo accounts while preserving official-source submissions, community evidence, and real accounts.
@@ -35,7 +36,7 @@ New accounts get the contributor role. The local sign-in page has a one-click **
 
 ## Production setup
 
-Create a D1 database and R2 bucket in your Cloudflare account. Replace the placeholder `database_id` and bucket name in `wrangler.jsonc`, set `BETTER_AUTH_URL` to your public HTTPS origin, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. Apply the same migrations with `wrangler d1 migrations apply DB --remote` before deployment. No remote resources have been created or modified by this project.
+The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the public HTTPS origin, set `EMAIL_FROM` to a sender on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
 
 ## Current limits
 

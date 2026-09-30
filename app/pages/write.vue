@@ -3,7 +3,7 @@ import { categories, guideInput, type GuideContent } from '~~/shared/guide'
 import { documentFromText, isRichDocument, richText, type RichDocument } from '~~/shared/rich-text'
 import type { GuideDetail } from '~~/shared/types'
 import { authClient } from '../utils/auth'
-definePageMeta({key:route=>'/write:'+String(route.query.edit||'new')})
+definePageMeta({key:route=>'/write:'+String(route.query.edit||route.query.retry||'new')})
 const route = useRoute(), requestFetch = useRequestFetch(), session = authClient.useSession()
 useSeoMeta({title:'Document a guide — wikihownaija'})
 const queryValue = (name:string) => typeof route.query[name] === 'string' ? String(route.query[name]) : ''
@@ -26,6 +26,7 @@ const categoryItems:string[] = [...categories]
 const {data:options,status:optionsStatus,error:optionsError}=await useGuideOptions()
 const dirty = ref(false)
 let guideId:string|undefined, baseVersionId:string|undefined
+const retryId=typeof route.query.retry==='string'?route.query.retry:''
 if (typeof route.query.edit === 'string') {
  const g = await requestFetch<GuideDetail>('/api/guides/'+encodeURIComponent(route.query.edit)), c = g.content
  Object.assign(form,{title:c.title,summary:c.summary,category:c.category,community:c.community,location:c.location,experiencedAt:c.experiencedAt||'',requirements:c.requirements.join('\n'),tips:c.tips.join('\n'),warnings:c.warnings.join('\n'),variations:c.variations.join('\n'),sources:c.sources.join('\n'),changeNote:''})
@@ -33,6 +34,12 @@ if (typeof route.query.edit === 'string') {
  nextStepId = stepCards.value.length+1
  mediaIds.value = [...c.mediaIds]; existingMedia.value = g.media
  guideId = g.id; baseVersionId = g.version_id
+} else if(retryId){
+ const submission=await requestFetch<{guide_id:string|null;base_version_id:string|null;content:GuideContent;media:Array<{id:string;content_type:string}>}>('/api/submissions/'+encodeURIComponent(retryId)),c=submission.content
+ Object.assign(form,{title:c.title,summary:c.summary,category:c.category,community:c.community,location:c.location,experiencedAt:c.experiencedAt||'',requirements:c.requirements.join('\n'),tips:c.tips.join('\n'),warnings:c.warnings.join('\n'),variations:c.variations.join('\n'),sources:c.sources.join('\n'),changeNote:''})
+ stepCards.value=c.steps.map((text,i)=>({id:i+1,document:c.stepDocuments?.[i]||documentFromText(text),mediaIds:[...(c.stepMediaIds?.[i]||[])]}))
+ nextStepId=stepCards.value.length+1;mediaIds.value=[...c.mediaIds];existingMedia.value=submission.media
+ guideId=submission.guide_id||undefined;baseVersionId=submission.base_version_id||undefined
 }
 function loadRequirements(value:string){const values=value.split('\n').map(item=>item.trim()).filter(Boolean);requirementItems.value=(values.length?values:['']).map(value=>({id:nextRequirementId++,value}))}
 loadRequirements(form.requirements)
@@ -58,7 +65,7 @@ function loadDate(value:string) { const [year,month,day]=dateParts(value);dateYe
 function syncDate() { const max=new Date(Number(dateYear.value),Number(dateMonth.value),0).getDate();dateDay.value=String(Math.min(Number(dateDay.value),max)).padStart(2,'0');form.experiencedAt=`${dateYear.value}-${dateMonth.value}-${dateDay.value}` }
 watch([dateYear,dateMonth,dateDay],syncDate)
 function setRelativeDate(days:number) { const date=new Date();date.setDate(date.getDate()+days);loadDate(localISO(date)) }
-const draftKey = 'wikihownaija:guide-draft:'+(guideId || 'new')
+const draftKey = 'wikihownaija:guide-draft:'+(guideId || (retryId?`retry:${retryId}`:'new'))
 type Draft = {version:number;baseVersionId?:string;form:typeof form;stepDocuments:RichDocument[];stepMediaIds?:string[][];mediaIds:string[];savedAt:string}
 const pendingDraft = ref<Draft|null>(null), staleDraft = ref(false)
 function saveDraft() {
@@ -191,7 +198,7 @@ function beforeSignIn() {saveDraft()}
 <template>
  <section class="writer">
   <div class="writer-intro"><NuxtLink class="writer-return" :to="guideId ? '/guides/'+String(route.query.edit) : '/'"><UIcon name="i-lucide-arrow-left" class="button-icon"/>{{guideId ? 'Back to guide' : 'See all guides'}}</NuxtLink><h1>{{guideId?'Make this guide better.':'Share what you know.'}}</h1><p class="lead">{{guideId ? 'Update the details, explain your changes, then send them for review.' : 'Answer five simple questions. We will turn your answers into a helpful guide.'}}</p><p class="writer-media-promise"><UIcon name="i-lucide-image-plus" aria-hidden="true"/>You can add photos to each step.</p></div>
-  <div v-if="done" class="empty"><h2>Our review team has your guide.</h2><p>We will check it before it appears on the site. Thank you for sharing what you know.</p><NuxtLink class="button" to="/">See all guides</NuxtLink></div>
+  <div v-if="done" class="empty"><h2>Our review team has your guide.</h2><p>We will check it before it appears on the site. Thank you for sharing what you know.</p><NuxtLink class="button" to="/my-guides">See my guides</NuxtLink></div>
   <template v-else>
    <div v-if="pendingDraft" class="draft-banner" role="status"><div><strong>{{staleDraft?'This guide has changed since you saved your answers.':'You have saved answers on this device.'}}</strong><p>{{staleDraft?'Start with the latest version before suggesting a correction.':'Continue where you stopped. You may need to add your files again.'}}</p></div><div class="actions"><UButton v-if="!staleDraft" type="button" @click="resumeDraft">Continue writing</UButton><UButton type="button" class="secondary" @click="discardDraft">{{staleDraft?'Use latest version':'Start again'}}</UButton></div></div>
    <nav class="writer-progress" aria-label="Guide writing progress"><UButton v-for="(label,i) in stages" :key="label" class="progress-step" :class="{'is-complete':i<stage}" type="button" :aria-current="stage===i?'step':undefined" :disabled="busy||!!pendingDraft||i>furthestStage" @click="goTo(i)"><span class="progress-number">{{i+1}}</span><span class="progress-label">{{label}}</span></UButton></nav>
@@ -234,7 +241,7 @@ function beforeSignIn() {saveDraft()}
        <div class="extra-fields"><UFormField label="Helpful tips" class="writer-form-field"><UTextarea v-model="form.tips" class="writer-input" :rows="3" placeholder="One useful tip per line" /></UFormField><UFormField label="Things to watch out for" class="writer-form-field"><UTextarea v-model="form.warnings" class="writer-input" :rows="3" placeholder="One warning or common mistake per line" /></UFormField><UFormField class="writer-form-field"><template #label><HelpLabel label="What changes in other places?" definition="Tell us if people do any part differently in another town, state or community." /></template><UTextarea v-model="form.variations" class="writer-input" :rows="3" placeholder="Name the place and explain what is different" /></UFormField></div>
        <UCollapsible class="writer-extras" :ui="{content:'animated-disclosure'}"><template #default="{open}"><UButton type="button" class="disclosure-trigger"><UIcon name="i-lucide-chevron-right" class="disclosure-chevron button-icon" :class="{'is-open':open}" aria-hidden="true"/>Add general photos or audio <span class="field-hint">Optional</span></UButton></template><template #content><div class="extra-fields"><label class="upload-control">Choose files for the whole guide<input type="file" multiple accept="image/png,image/jpeg,image/webp,audio/mpeg,audio/mp4,audio/webm" @change="chooseFiles"><span class="field-hint">Use this for media that does not belong to one step. PNG, JPEG, WebP, MP3, M4A or WebM · up to 10 MB each.</span></label><div v-for="m in generalExistingMedia" :key="m.id" class="attachment-row"><span>Previously published {{m.content_type.startsWith('audio/')?'audio':'image'}}</span><UButton v-if="mediaIds.includes(m.id)" type="button" class="quiet-button" @click="mediaIds=mediaIds.filter(id=>id!==m.id)">Remove from guide</UButton><span v-else class="muted">Removed</span></div><div v-for="entry in attachments.map((item,index)=>({item,index})).filter(({item})=>!item.stepId)" :key="entry.index" class="attachment-row"><span>{{entry.item.file.name}} <small>({{(entry.item.file.size/1000000).toFixed(1)}} MB)</small></span><UButton type="button" class="quiet-button" :aria-label="`Remove ${entry.item.file.name}`" @click="removeAttachment(entry.index)">Remove</UButton></div></div></template></UCollapsible>
        <UFormField description="Add one answer per line. Ask the person before naming them." class="writer-form-field"><template #label><HelpLabel label="Where did you learn this?" definition="You can add a website, book, office or the name of the person who taught you." /></template><UTextarea v-model="form.sources" class="writer-input" :rows="3" placeholder="A website, book, office or person" /></UFormField>
-       <UFormField v-if="guideId" label="What did you change?" class="writer-form-field"><UTextarea v-model="form.changeNote" class="writer-input" maxlength="600" placeholder="Briefly explain your correction or addition." /></UFormField>
+       <UFormField v-if="guideId||retryId" label="What did you change?" class="writer-form-field"><UTextarea v-model="form.changeNote" class="writer-input" maxlength="600" placeholder="Briefly explain your correction or addition." /></UFormField>
       </template>
 
       <template v-else>

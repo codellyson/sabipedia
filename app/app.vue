@@ -10,6 +10,7 @@ const search = ref('')
 function submitSearch() {
   navigateTo({ path: '/', query: search.value.trim() ? { q: search.value.trim() } : {} })
 }
+async function signOut(){await authClient.signOut();await navigateTo('/')}
 </script>
 
 <template>
@@ -45,6 +46,8 @@ function submitSearch() {
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
           <ClientOnly><NuxtLink v-if="!session.data" to="/login">Sign in</NuxtLink></ClientOnly>
+          <ClientOnly><NuxtLink v-if="session.data" to="/my-guides">My guides</NuxtLink></ClientOnly>
+          <ClientOnly><button v-if="session.data" class="link" @click="signOut">Sign out</button></ClientOnly>
           <NuxtLink class="nav-cta" to="/write">Write</NuxtLink>
         </nav>
       </header>
