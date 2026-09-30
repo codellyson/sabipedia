@@ -763,6 +763,8 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 40px
 .writer-intro { margin-bottom: 30px; }
 .writer-intro .writer-return { margin-bottom: 26px; }
 .writer-intro h1 { margin-bottom: 10px; font-size: 38px; line-height: 1.15; }
+.writer-media-promise { display: inline-flex; align-items: center; gap: 8px; margin: 12px 0 0; color: var(--green); font-size: 14px; font-weight: 700; }
+.writer-media-promise svg { width: 18px; height: 18px; }
 .writer-progress { margin-bottom: 24px; }
 .writer-panel { gap: 28px; padding: 34px 38px 38px; border-radius: 18px; background: var(--paper); box-shadow: var(--edge-shadow); }
 .writer-panel .section-heading { padding-bottom: 4px; }
