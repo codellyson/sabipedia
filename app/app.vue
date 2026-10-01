@@ -51,8 +51,8 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
           <NuxtLink class="nav-cta" to="/write">Write</NuxtLink>
         </nav>
       </header>
-      <main><NuxtPage /></main>
-      <footer><NuxtLink class="footer-brand brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>Practical knowledge, documented and reviewed by Nigerians.</span></footer>
+      <main class="site-main"><NuxtPage /></main>
+      <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>Practical knowledge, documented and reviewed by Nigerians.</span></footer>
     </template>
   </UApp>
 </template>
