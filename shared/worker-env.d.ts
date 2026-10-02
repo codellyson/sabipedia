@@ -5,6 +5,7 @@ interface Env {
   DEV_LOGIN_PASSWORD?: string
   EMAIL?: SendEmail
   EMAIL_FROM?: string
+  MCP_RESOURCE_URL?: string
   TURNSTILE_SECRET?: string
   TURNSTILE_SITE_KEY?: string
   TURNSTILE_HOSTNAMES?: string

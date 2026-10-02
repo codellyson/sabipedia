@@ -1,7 +1,10 @@
 BETTER_AUTH_SECRET=replace-with-a-random-secret-at-least-32-characters
 BETTER_AUTH_URL=http://localhost:8788
+MCP_RESOURCE_URL=http://localhost:8788/api/mcp
+AUTH_ALLOWED_ORIGINS=
 # Use an address on a domain enabled in Cloudflare Email Sending.
-EMAIL_FROM=WikiHowNaija <notifications@example.com>
+EMAIL_FROM=notifications@example.com
+EMAIL_VERIFICATION_REQUIRED=0
 # Optional bot protection. Use a real widget for production.
 TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET=

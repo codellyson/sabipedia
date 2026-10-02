@@ -7,7 +7,7 @@ type TransactionalMessage = {
 
 export async function sendTransactionalEmail(env: Env, message: TransactionalMessage) {
   if (!env.EMAIL || !env.EMAIL_FROM) throw new Error('Email Sending is not configured')
-  await env.EMAIL.send({ from: env.EMAIL_FROM, ...message })
+  await env.EMAIL.send({ from: { email: env.EMAIL_FROM, name: 'WikiHowNaija' }, ...message })
 }
 
 function escapeHtml(value: string) {

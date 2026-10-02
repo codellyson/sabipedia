@@ -1,6 +1,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { passwordResetEmail, reviewDecisionEmail, verificationEmail } from '../server/utils/email.ts'
+import { passwordResetEmail, reviewDecisionEmail, sendTransactionalEmail, verificationEmail } from '../server/utils/email.ts'
+
+test('transactional email uses a named, configured sender',async()=>{
+ let sent: unknown
+ const env={EMAIL_FROM:'notifications@wikihownaija.kreativekorna.com',EMAIL:{send:async (message: unknown)=>{sent=message}}} as Env
+ await sendTransactionalEmail(env,{to:'reader@example.com',subject:'Test',text:'Hello',html:'<p>Hello</p>'})
+ assert.deepEqual((sent as {from:unknown}).from,{email:'notifications@wikihownaija.kreativekorna.com',name:'WikiHowNaija'})
+})
 
 test('password reset email escapes user-controlled HTML',()=>{
  const message=passwordResetEmail('<img src=x onerror=alert(1)>','https://example.com/reset?x=1&y=2')

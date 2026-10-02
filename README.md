@@ -12,13 +12,14 @@ A structured, community-maintained library of Nigerian practical procedures. Thi
 - Flag and resolve major disputes. Revision history preserves past confirmation totals and gives moderators access to full old revisions.
 - Authenticated R2 image/audio uploads. Files are exposed publicly only when referenced by a published guide version; draft media is limited to its contributor and editors.
 - Email/password account recovery through Cloudflare Email Sending, with one-hour reset links and session revocation after a password change.
+- A remote MCP endpoint for signed-in contributors. OAuth consent grants only `guide:submit`; the tools explain the submission criteria and send validated guides to the normal moderator queue.
 
 ## Local setup
 
 Requires Node 22+ and npm.
 
 1. `npm install`
-2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>` and `EMAIL_FROM=<a sender on a domain enabled in Cloudflare Email Sending>`. When `EMAIL_FROM` is present, new accounts must verify their email before signing in. Local Email Sending is simulated by Wrangler unless the binding is explicitly configured for remote use. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
+2. Create `.dev.vars` with `BETTER_AUTH_SECRET=<a random secret of at least 32 characters>` and `EMAIL_FROM=<an address on a domain enabled in Cloudflare Email Sending>`. `EMAIL_VERIFICATION_REQUIRED=1` can be enabled after existing accounts have verified their addresses. The `EMAIL` binding uses the remote service in local preview, so local password-reset and verification requests send real mail; keep the local `BETTER_AUTH_URL` and `MCP_RESOURCE_URL` ports aligned with the preview port. For the one-click local moderator login, also set `DEV_LOGIN_ENABLED=1` and `DEV_LOGIN_PASSWORD=<a separate random secret of at least 32 characters>`. Keep the file private. The example file lists the settings.
 3. `npm run db:migrate` applies Better Auth and product tables to local D1.
 4. `npm run db:seed` optionally adds 12 demo guides across all six categories, illustrative confirmations, revision history, one open dispute and two moderator review submissions. This command always targets local D1 and preserves existing data when rerun. Demo contributors have no login credentials; use the dev moderator login to explore review.
    Run `npm run db:clear-demo` to remove those demo guides, their attached submissions and feedback, and the demo accounts while preserving official-source submissions, community evidence, and real accounts.
@@ -36,7 +37,15 @@ New accounts get the contributor role. The local sign-in page has a one-click **
 
 ## Production setup
 
-The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the public HTTPS origin, set `EMAIL_FROM` to a sender on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. For bot protection, set `TURNSTILE_SITE_KEY`, store `TURNSTILE_SECRET` with Wrangler, and set `TURNSTILE_HOSTNAMES` to the comma-separated production hostnames. Never include localhost in the production allow-list. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
+The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the canonical public HTTPS origin, and use `AUTH_ALLOWED_ORIGINS` for any additional HTTPS origins that may submit API requests. Set `EMAIL_FROM` to a bare address on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. Set `EMAIL_VERIFICATION_REQUIRED=1` only after existing accounts have verified their addresses. For bot protection, set `TURNSTILE_SITE_KEY`, store `TURNSTILE_SECRET` with Wrangler, and set `TURNSTILE_HOSTNAMES` to the comma-separated production hostnames. Add those hostnames to the Turnstile widget's Hostname Management as well. Never include localhost in the production allow-lists. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
+
+## MCP guide submissions
+
+Connect an MCP client that supports the 2026-07-28 protocol and OAuth dynamic client registration to `https://wikihownaija.kreativekorna.com/api/mcp`. The client opens WikiHowNaija sign-in and consent. A user grants only `guide:submit`, and may deny the request. The consent page shows the client's declared name, ID, and callback URL. `MCP_RESOURCE_URL` must match the public MCP endpoint exactly; it can differ from the Better Auth issuer at `BETTER_AUTH_URL`.
+
+The `submission_criteria` tool explains the editorial rules. `submit_guide` accepts one practical procedure with a clear title, summary, category, ordered steps, and relevant context or evidence. It uses the same `guideInput` validation and submission service as the website. The tool cannot upload files or publish guides. Each accepted call creates a submission attributed to the authorized user in `awaiting_review`; moderators check accuracy and sources before publishing. Clients should ask the user for missing facts and never invent sources or firsthand experience.
+
+`npm run db:seed-production` previews the official-process, named-recipe and batch recipe candidates that have successful source checks from the last 30 days. It excludes promotional health claims, sparse procedures and duplicate titles. `npm run db:seed-production -- --apply` imports eligible candidates into the production moderator queue. The import is idempotent and preserves existing submissions and review decisions. Batch recipe drafts need accuracy and wording review before publication. The source-check caches are local and ignored by Git; regenerate them with `npm run scrape`, `npm run scrape:food` and `npm run scrape:food:batch` when stale.
 
 ## Current limits
 

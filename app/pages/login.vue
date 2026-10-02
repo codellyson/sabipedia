@@ -26,7 +26,11 @@ async function submit(){
    if(result.error.code==='EMAIL_NOT_VERIFIED'){sent.value=true;message.value='We sent a new verification link.'}
    else message.value=result.error.message||'Unable to sign in'
   }else if(signup.value && authConfig.value?.emailVerification)sent.value=true
-  else await navigateTo(destination.value)
+  else {
+   const redirect=(result.data as {redirect?:boolean;url?:string}|null)?.url
+   if(redirect && (result.data as {redirect?:boolean}|null)?.redirect) await navigateTo(redirect,{external:true})
+   else await navigateTo(destination.value)
+  }
  }catch{message.value='Could not connect. Try again.'}finally{busy.value=false;resetCaptcha()}
 }
 async function resend(){
