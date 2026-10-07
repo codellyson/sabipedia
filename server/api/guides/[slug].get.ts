@@ -7,6 +7,7 @@ export default defineEventHandler(async event => {
  const history=await db.prepare(`SELECT v.id,v.number,v.created_at,u.name author,json_extract(v.content,'$.changeNote') change_note,
  (SELECT count(*) FROM confirmation c WHERE c.version_id=v.id) confirmations FROM guide_version v JOIN user u ON u.id=v.author_id WHERE v.guide_id=? ORDER BY v.number DESC`).bind(row.id).all()
  const media=await db.prepare(`SELECT m.id,m.content_type FROM media m,json_each(?,'$.mediaIds') j WHERE m.id=j.value`).bind(row.content).all<{id:string;content_type:string}>()
+ const video=await db.prepare(`SELECT id,content_type FROM guide_video WHERE guide_id=? AND version_id=? AND status='published' ORDER BY created_at DESC LIMIT 1`).bind(row.id,row.version_id).first<{id:string;content_type:string}>()
  const current=present(row)
  const candidates=await db.prepare(`SELECT g.slug,v.content FROM guide g JOIN guide_version v ON v.id=g.current_version_id
   WHERE g.id<>? AND json_extract(v.content,'$.category')=? ORDER BY v.created_at DESC LIMIT 100`).bind(row.id,current.content.category).all<{slug:string;content:string}>()
@@ -19,5 +20,5 @@ export default defineEventHandler(async event => {
   const score=[...candidateWords].filter(word=>currentWords.has(word)).length
   return {slug:candidate.slug,title:content.title,summary:content.summary,category:content.category,score}
  }).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title)).slice(0,6).map(({score:_,...item})=>item)
- return {...current,history:history.results,media:media.results,related}
+ return {...current,history:history.results,media:media.results,video,related}
 })

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /api/media/
+Allow: /api/guide-videos/
+Disallow: /api/
+
+Sitemap: https://wikihownaija.kreativekorna.com/sitemap.xml

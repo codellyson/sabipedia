@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { confirmationReasons } from '~~/shared/guide'
 import type { GuideDetail, RevisionComparison } from '~~/shared/types'
+import { siteName, siteOrigin, socialImage } from '~~/shared/seo'
 import { authClient } from '~/utils/auth'
 
 const {data:options,status:optionsStatus,error:optionsError}=await useGuideOptions()
@@ -19,7 +20,39 @@ const generalMedia=computed(()=>{const guide=g.value;if(!guide)return[];const us
 onMounted(()=>{try{completed.value=JSON.parse(localStorage.getItem(storageKey.value)||'[]')}catch{}})
 watch(completed,value=>{try{localStorage.setItem(storageKey.value,JSON.stringify(value))}catch{}},{deep:true})
 function toggleStep(index:number){completed.value=completed.value.includes(index)?completed.value.filter(item=>item!==index):[...completed.value,index]}
-useSeoMeta({title:()=>g.value?.content.title+' — WikiHowNaija',description:()=>g.value?.content.summary})
+const guideUrl=computed(()=>`${siteOrigin}/guides/${encodeURIComponent(g.value?.slug || String(route.params.slug))}`)
+const guideImage=computed(()=>{
+ const firstImage=g.value?.media.find(item=>item.content_type.startsWith('image/'))
+ return firstImage ? `${siteOrigin}/api/media/${encodeURIComponent(firstImage.id)}` : socialImage
+})
+useSeoMeta({
+ title:()=>g.value?`${g.value.content.title} — ${siteName}`:siteName,
+ description:()=>g.value?.content.summary,
+ ogType:'article',
+ ogTitle:()=>g.value?.content.title,
+ ogDescription:()=>g.value?.content.summary,
+ ogImage:()=>guideImage.value,
+ twitterTitle:()=>g.value?.content.title,
+ twitterDescription:()=>g.value?.content.summary,
+ twitterImage:()=>guideImage.value,
+ articlePublishedTime:()=>g.value?.history.at(-1)?.created_at?.replace(' ','T')+'Z',
+ articleModifiedTime:()=>g.value?.created_at.replace(' ','T')+'Z',
+})
+useHeadSafe({script:computed(()=>g.value?[{
+ type:'application/ld+json',
+ textContent:JSON.stringify({
+  '@context':'https://schema.org',
+  '@type':'Article',
+  headline:g.value.content.title,
+  description:g.value.content.summary,
+  mainEntityOfPage:guideUrl.value,
+  image:guideImage.value,
+  datePublished:g.value.history.at(-1)?.created_at?.replace(' ','T')+'Z',
+  dateModified:g.value.created_at.replace(' ','T')+'Z',
+  author:{'@type':'Person',name:g.value.author},
+  publisher:{'@type':'Organization',name:siteName,url:siteOrigin},
+ })
+}]:[])})
 async function act(action:'confirm'|'flag'){
  if(!g.value)return
  busy.value=true;message.value=''
@@ -48,6 +81,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
       <button class="reader-start" @click="stepMode=true"><span><strong>Doing this now?</strong><small>Follow one step at a time and keep your place.</small></span><b>Start step-by-step <UIcon name="i-lucide-arrow-right" class="button-icon"/></b></button>
      </header>
 
+     <GuideVideoPanel :guide="g" :can-review="Boolean(canReview)" @published="refresh" />
      <p v-if="g.disputes" class="reader-warning">This guide has an unresolved major correction. Check its sources before following it.</p>
      <section id="how-to" class="reader-procedure"><div class="reader-section-title"><span>HOW TO</span><h2>Follow these steps</h2></div>
       <ol class="reader-steps"><li v-for="(step,i) in g.content.steps" :key="i" :class="{complete:completed.includes(i)}"><button class="step-check" :aria-label="completed.includes(i)?`Mark step ${i+1} incomplete`:`Mark step ${i+1} done`" @click="toggleStep(i)"><UIcon v-if="completed.includes(i)" name="i-lucide-check" class="button-icon"/><template v-else>{{i+1}}</template></button><div><h3><RichText :document="g.content.stepDocuments?.[i]" :text="step" /></h3><div v-if="g.content.stepMediaIds?.[i]?.length" class="reader-step-images"><img v-for="id in g.content.stepMediaIds[i]" :key="id" :src="`/api/media/${id}`" :alt="`Image showing step ${i+1}`" loading="lazy"></div><button class="step-done" @click="toggleStep(i)">{{completed.includes(i)?'Done':'Mark as done'}}</button></div></li></ol>

@@ -15,7 +15,7 @@ onBeforeUnmount(()=>clearTimeout(searchTimer))
 const {data:guides,status,error}=await useFetch('/api/guides',{query:{q:searchQuery,category,community:searchCommunity,location:searchLocation}})
 function clearCardWidth(element:Element) { (element as HTMLElement).style.width='' }
 function freezeCardWidth(element:Element) { (element as HTMLElement).style.width=element.getBoundingClientRect().width+'px' }
-useSeoMeta({title:'Explore — wikihownaija',description:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.'})
+useSeoMeta({title:'Practical Nigerian how-to guides — WikiHowNaija',description:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.',ogTitle:'Practical Nigerian how-to guides — WikiHowNaija',ogDescription:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.'})
 </script>
 <template>
  <div class="explore-page">

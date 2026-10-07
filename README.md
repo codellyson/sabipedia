@@ -39,6 +39,14 @@ New accounts get the contributor role. The local sign-in page has a one-click **
 
 The production D1 database and R2 media bucket are bound in `wrangler.jsonc`. Set `BETTER_AUTH_URL` to the canonical public HTTPS origin, and use `AUTH_ALLOWED_ORIGINS` for any additional HTTPS origins that may submit API requests. Set `EMAIL_FROM` to a bare address on a domain enabled in Cloudflare Email Sending, and add `BETTER_AUTH_SECRET` with Wrangler's secret command. Set `EMAIL_VERIFICATION_REQUIRED=1` only after existing accounts have verified their addresses. For bot protection, set `TURNSTILE_SITE_KEY`, store `TURNSTILE_SECRET` with Wrangler, and set `TURNSTILE_HOSTNAMES` to the comma-separated production hostnames. Add those hostnames to the Turnstile widget's Hostname Management as well. Never include localhost in the production allow-lists. Apply migrations with `wrangler d1 migrations apply DB --remote` before the first deployment.
 
+### Search indexing
+
+The canonical public origin is defined in `shared/seo.ts`. Update it and the sitemap URL in `public/robots.txt` if the public domain changes. The dynamic `/sitemap.xml` lists the home page and currently published guide versions from D1. Published guides include article structured data and social previews. Editorial, contribution, and account pages have `noindex` metadata. After deployment, submit `https://wikihownaija.kreativekorna.com/sitemap.xml` in your search engine webmaster tools.
+
+### Guide videos
+
+After a guide is published, a moderator can open it and choose **Generate video draft**. The browser records a short, silent, captioned summary from the approved title, summary, selected steps, and step photos. Keep the tab open during generation. The draft is saved in R2 and is visible only to moderators. A moderator watches it, confirms it matches the guide, and approves or rejects it. An approved video appears above the guide steps. When a new guide revision is published, the old video is hidden from readers and the editor sees a prompt to generate a new draft. Run `npm run db:migrate` locally, or apply D1 migrations remotely before deploying the feature.
+
 ## MCP guide submissions
 
 Connect an MCP client that supports the 2026-07-28 protocol and OAuth dynamic client registration to `https://wikihownaija.kreativekorna.com/api/mcp`. The client opens WikiHowNaija sign-in and consent. A user grants only `guide:submit`, and may deny the request. The consent page shows the client's declared name, ID, and callback URL. `MCP_RESOURCE_URL` must match the public MCP endpoint exactly; it can differ from the Better Auth issuer at `BETTER_AUTH_URL`.

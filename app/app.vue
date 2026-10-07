@@ -1,7 +1,23 @@
 <script setup lang="ts">
 import { authClient } from './utils/auth'
+import { siteDescription, siteName, siteOrigin, socialImage } from '~~/shared/seo'
 
 const route = useRoute()
+const publicPage = computed(() => route.path === '/' || /^\/guides\/[^/]+$/.test(route.path))
+const canonicalPath = computed(() => route.path === '/' ? '/' : route.path.replace(/\/+$/, ''))
+const indexablePage = computed(() => publicPage.value && (route.path !== '/' || Object.keys(route.query).length === 0))
+useHead({ link: computed(() => publicPage.value ? [{ rel: 'canonical', href: siteOrigin + canonicalPath.value }] : []) })
+useSeoMeta({
+  description: siteDescription,
+  ogSiteName: siteName,
+  ogType: 'website',
+  ogTitle: siteName,
+  ogDescription: siteDescription,
+  ogImage: socialImage,
+  ogUrl: computed(() => publicPage.value ? siteOrigin + canonicalPath.value : undefined),
+  twitterCard: 'summary_large_image',
+  robots: computed(() => indexablePage.value ? 'index, follow' : 'noindex, follow'),
+})
 const session = authClient.useSession()
 const canReview = computed(() => session.value.data?.user.role?.split(',').some(role => ['admin', 'moderator'].includes(role)))
 const adminRoute = computed(() => route.path === '/articles' || route.path.startsWith('/review'))
