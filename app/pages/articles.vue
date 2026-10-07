@@ -44,7 +44,7 @@ useSeoMeta({title:'Articles — WikiHowNaija'})
    <button type="button" data-view="changes" :class="{active:filter==='changes'}" :aria-pressed="filter==='changes'" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
    <button type="button" data-view="published" :class="{active:filter==='published'}" :aria-pressed="filter==='published'" @click="filter='published'">Published <span>{{counts.published}}</span></button>
   </nav>
-  <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
+  <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search articles" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
   <div class="article-list" role="table" aria-label="Articles">
    <div class="article-list-head" role="row"><span>Article</span><span>Status</span><span>Contributor</span><span>Updated</span><span /></div>
    <TransitionGroup tag="div" name="article-row" class="article-list-body" role="rowgroup">
