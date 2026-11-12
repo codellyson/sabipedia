@@ -13,7 +13,7 @@ export default defineEventHandler(async event => {
  if(!body.data.note) throw createError({statusCode:400,statusMessage:'Explain what needs changing'})
  await db.prepare("UPDATE submission SET state='rejected',moderator_note=?,reviewed_by=?,reviewed_at=datetime('now') WHERE id=? AND state='awaiting_review'").bind(body.data.note,user.id,id).run();notify(false);return {state:'rejected'}
  }
- if(s.author_id===user.id) throw createError({statusCode:403,statusMessage:'Another moderator must publish your own submission'})
+ if(s.author_id===user.id && !user.role?.split(',').includes('admin')) throw createError({statusCode:403,statusMessage:'Another moderator must publish your own submission'})
  const gid=s.guide_id||crypto.randomUUID(),vid=crypto.randomUUID()
  const slug=String(content.title).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100)+'-'+gid.slice(0,8)
  const statements=[]
