@@ -52,17 +52,17 @@ async function resolve(id:string){busy.value=true;try{await $fetch('/api/review/
     <nav v-if="pageCount>1" class="review-pagination" aria-label="Review queue pages"><UButton color="neutral" variant="outline" :disabled="page===1" @click="page--"><UIcon name="i-lucide-arrow-left" class="button-icon"/>Previous</UButton><span>Page {{page}} of {{pageCount}}</span><UButton color="neutral" variant="outline" :disabled="page===pageCount" @click="page++">Next<UIcon name="i-lucide-arrow-right" class="button-icon"/></UButton></nav>
    </section>
 
-   <div class="review-heading"><div><h2>Recent decisions</h2><p>{{data.decisions.length}} shown</p></div></div>
+   <div class="review-heading"><div><h2>Recent decisions</h2><p>{{Math.min(data.decisions.length,20)}} shown</p></div></div>
    <p v-if="!data.decisions.length" class="empty">No completed reviews yet.</p>
    <div v-else class="review-table-wrap">
     <table class="review-table decision-table">
      <thead><tr><th>Guide</th><th>Decision</th><th>Review note</th><th>Reviewed</th><th><span class="sr-only">Actions</span></th></tr></thead>
-     <tbody><tr v-for="decision in data.decisions" :key="decision.id">
+     <tbody><tr v-for="decision in data.decisions.slice(0,20)" :key="decision.id">
       <td><NuxtLink v-if="decision.slug" :to="'/guides/'+decision.slug"><strong>{{decision.title}}</strong></NuxtLink><strong v-else>{{decision.title}}</strong><span class="review-cell-meta">Submitted by {{decision.author}}</span></td>
-      <td><span class="decision-status" :class="`is-${decision.state}`">{{decision.state==='published'?'Published':'Changes requested'}}</span></td>
+      <td><span class="decision-status" :class="`is-${decision.state}`">{{decision.state==='published'?'Published':'Rejected'}}</span></td>
       <td>{{decision.moderator_note||'No review note'}}</td>
       <td>{{decision.reviewer||'Moderator'}}<span class="review-cell-meta">{{decision.reviewed_at||'Earlier decision'}}</span></td>
-      <td class="review-row-action"><UButton v-if="decision.state==='rejected'" color="neutral" variant="outline" size="sm" :disabled="busy" @click="reopen(decision.id)">Reopen</UButton><span v-else class="muted">Create a new revision to amend</span></td>
+      <td class="review-row-action"><UButton v-if="decision.state==='rejected'" color="neutral" variant="outline" size="sm" :disabled="busy" @click="reopen(decision.id)">Reopen</UButton></td>
      </tr></tbody>
     </table>
    </div>

@@ -3,7 +3,7 @@ import type { GuideContent } from '~~/shared/guide'
 
 type Submission={id:string;state:'awaiting_review';author:string;content:GuideContent;created_at:string}
 type Decision={id:string;state:'published'|'rejected';title:string;author:string;reviewer:string|null;moderator_note:string|null;reviewed_at:string|null;slug:string|null}
-type ReviewData={submissions:Submission[];decisions:Decision[]}
+type ReviewData={submissions:Submission[];decisions:Decision[];totals:{published?:number;rejected?:number}}
 const {data,error}=await useFetch<ReviewData>('/api/review')
 const search=ref(''),filter=ref<'all'|'review'|'published'|'changes'>('all')
 const tabsEl=ref<HTMLElement|null>(null)
@@ -28,7 +28,8 @@ const rows=computed(()=>{
  const term=search.value.trim().toLowerCase()
  return [...pending,...decisions].filter(row=>(filter.value==='all'||row.state===filter.value)&&(!term||[row.title,row.summary,row.author,row.category].some(value=>value.toLowerCase().includes(term))))
 })
-const counts=computed(()=>({review:data.value?.submissions.length||0,published:data.value?.decisions.filter(item=>item.state==='published').length||0,changes:data.value?.decisions.filter(item=>item.state==='rejected').length||0}))
+const counts=computed(()=>({review:data.value?.submissions.length||0,published:data.value?.totals.published||0,changes:data.value?.totals.rejected||0}))
+const capped=computed(()=>(data.value?.decisions.length||0)<counts.value.published+counts.value.changes)
 const relative=(value:string)=>{if(!value)return 'Recently';const date=new Date(value.includes('T')?value:value.replace(' ','T')+'Z'),minutes=Math.max(1,Math.round((Date.now()-date.valueOf())/60000));return minutes<60?`${minutes} min ago`:minutes<1440?`${Math.round(minutes/60)} hr ago`:new Intl.DateTimeFormat('en-NG',{day:'numeric',month:'short'}).format(date)}
 useSeoMeta({title:'Guides — WikiHowNaija'})
 </script>
@@ -39,22 +40,23 @@ useSeoMeta({title:'Guides — WikiHowNaija'})
   <p v-if="error" class="notice">The editorial workspace could not be loaded.</p>
   <nav ref="tabsEl" class="article-tabs" aria-label="Guide views">
    <i class="article-tab-indicator" :class="{ready:indicatorReady}" :style="indicatorStyle" aria-hidden="true" />
-   <button type="button" data-view="all" :class="{active:filter==='all'}" :aria-pressed="filter==='all'" @click="filter='all'">All guides <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
+   <button type="button" data-view="all" :class="{active:filter==='all'}" :aria-pressed="filter==='all'" @click="filter='all'">All guides <span>{{counts.review+counts.published+counts.changes}}</span></button>
    <button type="button" data-view="review" :class="{active:filter==='review'}" :aria-pressed="filter==='review'" @click="filter='review'">Needs review <span>{{counts.review}}</span></button>
-   <button type="button" data-view="changes" :class="{active:filter==='changes'}" :aria-pressed="filter==='changes'" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
+   <button type="button" data-view="changes" :class="{active:filter==='changes'}" :aria-pressed="filter==='changes'" @click="filter='changes'">Rejected <span>{{counts.changes}}</span></button>
    <button type="button" data-view="published" :class="{active:filter==='published'}" :aria-pressed="filter==='published'" @click="filter='published'">Published <span>{{counts.published}}</span></button>
   </nav>
   <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} {{rows.length===1?'guide':'guides'}}</span></div>
   <div class="article-list" role="table" aria-label="Guides">
-   <div class="article-list-head" role="row"><span>Article</span><span>Status</span><span>Contributor</span><span>Updated</span><span /></div>
+   <div class="article-list-head" role="row"><span>Guide</span><span>Status</span><span>Contributor</span><span>Updated</span><span /></div>
    <TransitionGroup tag="div" name="article-row" class="article-list-body" role="rowgroup">
     <NuxtLink v-for="row in rows" :key="row.id" :to="row.to" class="article-row" role="row">
      <span class="article-identity"><strong>{{row.title}}</strong><small>{{row.category}} · {{row.summary}}</small></span>
-     <span><em class="status-pill" :class="`is-${row.state}`">{{row.state==='review'?'Needs review':row.state==='changes'?'Changes requested':'Published'}}</em></span>
+     <span><em class="status-pill" :class="`is-${row.state}`">{{row.state==='review'?'Needs review':row.state==='changes'?'Rejected':'Published'}}</em></span>
      <span>{{row.author}}</span><span>{{relative(row.edited)}}</span><UIcon name="i-lucide-arrow-right" class="row-icon" aria-hidden="true"/>
     </NuxtLink>
    </TransitionGroup>
    <Transition name="article-empty"><div v-if="!rows.length" class="empty">No guides match this view.</div></Transition>
+   <p v-if="capped" class="article-capped">Showing the latest {{data?.decisions.length}} decisions.</p>
   </div>
  </section>
 </template>
