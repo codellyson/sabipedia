@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod'
 import { z } from 'zod'
 import type { GuideContent } from '../../shared/guide'
+import { aiName } from '../../shared/ai-name.ts'
 
 export const aiReviewModel = 'claude-opus-5-5'
 export const aiChecks = ['copied', 'internal_note', 'vague', 'sources', 'junk'] as const
@@ -71,18 +72,18 @@ export async function reviewGuide(apiKey: string, content: GuideContent): Promis
       { type: 'text' as const, text: `Submission to review:\n${JSON.stringify(guideForReview(content), null, 1)}` },
     ] }],
   })
-  if (response.stop_reason === 'refusal' || !response.parsed_output) return { status: 'failed', error: 'The AI check returned no verdict', checkedAt: new Date().toISOString() }
+  if (response.stop_reason === 'refusal' || !response.parsed_output) return { status: 'failed', error: `${aiName} returned no verdict`, checkedAt: new Date().toISOString() }
   return { status: 'done', model: aiReviewModel, checkedAt: new Date().toISOString(), ...response.parsed_output }
 }
 
 export async function runAiReview(env: Pick<Env, 'DB' | 'ANTHROPIC_API_KEY'>, submissionId: string, content: GuideContent) {
   let result: AiReview
-  if (!env.ANTHROPIC_API_KEY) result = { status: 'failed', error: 'The AI check is not configured', checkedAt: new Date().toISOString() }
+  if (!env.ANTHROPIC_API_KEY) result = { status: 'failed', error: `${aiName} is not set up`, checkedAt: new Date().toISOString() }
   else {
     try { result = await reviewGuide(env.ANTHROPIC_API_KEY, content) }
     catch (error) {
       console.error('AI review failed', submissionId, error instanceof Error ? error.message : error)
-      result = { status: 'failed', error: 'The AI check could not run', checkedAt: new Date().toISOString() }
+      result = { status: 'failed', error: `${aiName} could not run`, checkedAt: new Date().toISOString() }
     }
   }
   await env.DB.prepare('UPDATE submission SET ai_review=? WHERE id=?').bind(JSON.stringify(result), submissionId).run()

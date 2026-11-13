@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { categories, type GuideContent } from '~~/shared/guide'
 import type { AiReview } from '~~/server/utils/ai-review'
+import { aiName } from '~~/shared/ai-name'
 
 type Submission = {id:string;author:string;content:GuideContent;created_at:string;ai_review:AiReview|null}
-const aiVerdict={looks_ready:['AI: looks ready','is-published'],needs_changes:['AI: needs changes','is-warning'],reject:['AI: likely reject','is-rejected']} as const
+const aiVerdict={looks_ready:[`${aiName}: looks ready`,'is-published'],needs_changes:[`${aiName}: needs changes`,'is-warning'],reject:[`${aiName}: likely reject`,'is-rejected']} as const
 type Decision = {id:string;state:'published'|'rejected';title:string;author:string;reviewer:string|null;moderator_note:string|null;reviewed_at:string|null;slug:string|null}
 type ReviewData = {submissions:Submission[];disputes:Array<{id:string;slug:string;note:string;author:string}>;decisions:Decision[]}
 
