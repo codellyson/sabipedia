@@ -49,7 +49,7 @@ useSeoMeta({
 const structuredData=computed(()=>{
  const guide=g.value;if(!guide)return null
  const c=guide.content,isRecipe=c.category==='Food & Cooking'
- const author=guide.author.startsWith('WikiHowNaija')?{'@type':'Organization',name:siteName,url:siteOrigin}:{'@type':'Person',name:guide.author}
+ const author=/^(Sabipedia|WikiHowNaija)\b/.test(guide.author)?{'@type':'Organization',name:siteName,url:siteOrigin}:{'@type':'Person',name:guide.author}
  const steps=c.steps.map((text,i)=>({'@type':'HowToStep',position:i+1,text}))
  return {
   '@context':'https://schema.org',

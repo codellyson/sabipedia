@@ -1,4 +1,4 @@
-# wikihownaija
+# Sabipedia
 
 A structured, community-maintained library of Nigerian practical procedures. This is a separate project from Passalong. The product requirements are in the Passalong guide `h3h42u4a`.
 
@@ -49,7 +49,7 @@ After a guide is published, a moderator can open it and choose **Generate video 
 
 ## MCP guide submissions
 
-Connect an MCP client that supports the 2026-07-28 protocol and OAuth dynamic client registration to `https://wikihownaija.kreativekorna.com/api/mcp`. The client opens WikiHowNaija sign-in and consent. A user grants only `guide:submit`, and may deny the request. The consent page shows the client's declared name, ID, and callback URL. `MCP_RESOURCE_URL` must match the public MCP endpoint exactly; it can differ from the Better Auth issuer at `BETTER_AUTH_URL`.
+Connect an MCP client that supports the 2026-07-28 protocol and OAuth dynamic client registration to `https://wikihownaija.kreativekorna.com/api/mcp`. The client opens Sabipedia sign-in and consent. A user grants only `guide:submit`, and may deny the request. The consent page shows the client's declared name, ID, and callback URL. `MCP_RESOURCE_URL` must match the public MCP endpoint exactly; it can differ from the Better Auth issuer at `BETTER_AUTH_URL`.
 
 The `submission_criteria` tool explains the editorial rules. `submit_guide` accepts one practical procedure with a clear title, summary, category, ordered steps, and relevant context or evidence. It uses the same `guideInput` validation and submission service as the website. The tool cannot upload files or publish guides. Each accepted call creates a submission attributed to the authorized user in `awaiting_review`; moderators check accuracy and sources before publishing. Clients should ask the user for missing facts and never invent sources or firsthand experience.
 

@@ -5,7 +5,7 @@ import type { GuideDetail } from '~~/shared/types'
 import { authClient } from '../utils/auth'
 definePageMeta({key:route=>'/write:'+String(route.query.edit||route.query.retry||'new')})
 const route = useRoute(), requestFetch = useRequestFetch(), session = authClient.useSession()
-useSeoMeta({title:'Document a guide — wikihownaija'})
+useSeoMeta({title:'Document a guide — Sabipedia'})
 const queryValue = (name:string) => typeof route.query[name] === 'string' ? String(route.query[name]) : ''
 const form = reactive({title:queryValue('topic'),summary:'',category:'',community:'',location:queryValue('location'),experiencedAt:queryValue('date'),requirements:'',tips:'',warnings:'',variations:'',sources:'',changeNote:''})
 type RequirementItem = {id:number;value:string}

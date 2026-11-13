@@ -6,7 +6,7 @@ type Submission={id:string;state:'awaiting_review'|'published'|'rejected';conten
 const route=useRoute()
 const {data:submission,error,refresh}=await useFetch<Submission>('/api/review/submissions/'+encodeURIComponent(String(route.params.id)))
 if(error.value)throw createError({statusCode:error.value.statusCode||404,statusMessage:error.value.statusMessage||'Submission not found'})
-useSeoMeta({title:()=>submission.value?`Review ${submission.value.content.title} — wikihownaija`:'Review guide — wikihownaija'})
+useSeoMeta({title:()=>submission.value?`Review ${submission.value.content.title} — Sabipedia`:'Review guide — Sabipedia'})
 const decision=ref<'publish'|'reject'|''>(''),note=ref(''),busy=ref(false),message=ref('')
 const checkedSources=ref<number[]>([])
 const documentRoot=ref<HTMLElement>(),selectionDraft=ref<{quote:string;startOffset:number;endOffset:number}|null>(null),annotationNote=ref('')

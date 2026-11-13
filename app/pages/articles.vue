@@ -31,7 +31,7 @@ const rows=computed(()=>{
 const counts=computed(()=>({review:data.value?.submissions.length||0,published:data.value?.totals.published||0,changes:data.value?.totals.rejected||0}))
 const capped=computed(()=>(data.value?.decisions.length||0)<counts.value.published+counts.value.changes)
 const relative=(value:string)=>{if(!value)return 'Recently';const date=new Date(value.includes('T')?value:value.replace(' ','T')+'Z'),minutes=Math.max(1,Math.round((Date.now()-date.valueOf())/60000));return minutes<60?`${minutes} min ago`:minutes<1440?`${Math.round(minutes/60)} hr ago`:new Intl.DateTimeFormat('en-NG',{day:'numeric',month:'short'}).format(date)}
-useSeoMeta({title:'Guides — WikiHowNaija'})
+useSeoMeta({title:'Guides — Sabipedia'})
 </script>
 
 <template>

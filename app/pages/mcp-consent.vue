@@ -7,7 +7,7 @@ const query = route.fullPath.split('?').slice(1).join('?')
 const { data, error } = await useFetch<{ clientName: string; clientId: string; redirectUri: string | null; scopes: string[] }>(`/api/mcp-consent?${query}`)
 const busy = ref(false)
 const message = ref('')
-useSeoMeta({ title: 'Authorize guide submissions — WikiHowNaija' })
+useSeoMeta({ title: 'Authorize guide submissions — Sabipedia' })
 
 async function decide(accept: boolean) {
   busy.value = true
@@ -27,7 +27,7 @@ async function decide(accept: boolean) {
     <h1>Authorize guide submissions</h1>
     <p v-if="error" role="alert">This authorization request is invalid or expired.</p>
     <div v-else-if="data" class="auth-card">
-      <p><strong>{{ data.clientName }}</strong> requests permission to submit guides under your WikiHowNaija account.</p>
+      <p><strong>{{ data.clientName }}</strong> requests permission to submit guides under your Sabipedia account.</p>
       <p class="muted">Application ID: {{ data.clientId }}<br>Callback: {{ data.redirectUri }}</p>
       <p>The guides will appear in your submissions and wait for moderator review before publication.</p>
       <p v-if="data.scopes.includes('guide:submit')">Permission: submit guide drafts for review.</p>

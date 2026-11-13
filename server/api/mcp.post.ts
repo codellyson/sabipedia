@@ -38,7 +38,7 @@ export default defineEventHandler(async event => {
     const handler = createMcpHandler(() => {
       const server = new McpServer({ name: 'wikihownaija', version: '1.0.0' })
       server.registerTool('submission_criteria', {
-        description: 'Read the acceptance criteria before drafting a WikiHowNaija guide.',
+        description: 'Read the acceptance criteria before drafting a Sabipedia guide.',
         inputSchema: z.object({}),
       }, async () => ({ content: [{ type: 'text', text: JSON.stringify({
         topic: 'One practical Nigerian procedure that the contributor knows or can substantiate.',
@@ -47,7 +47,7 @@ export default defineEventHandler(async event => {
         review: 'Every submission is attributed to the authorized user and goes to the moderator queue. It is not published automatically.',
       }) }] }))
       server.registerTool('submit_guide', {
-        description: 'Submit a complete guide as the authorized WikiHowNaija user for moderator review. Follow submission_criteria. Only submit facts and firsthand experience the user has confirmed; do not invent sources or personal experience. This tool never publishes.',
+        description: 'Submit a complete guide as the authorized Sabipedia user for moderator review. Follow submission_criteria. Only submit facts and firsthand experience the user has confirmed; do not invent sources or personal experience. This tool never publishes.',
         inputSchema,
       }, async input => {
         try {

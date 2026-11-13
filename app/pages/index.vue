@@ -24,7 +24,7 @@ const sections=computed(()=>{
  if(filtered.value) return [{title:category.value||(searchQuery.value?`Results for “${searchQuery.value}”`:'Matching guides'),category:'',guides:list,total:list.length}]
  return categories.map(c=>{const items=list.filter(g=>g.content.category===c);return {title:c,category:c,guides:items.slice(0,5),total:items.length}}).filter(s=>s.total)
 })
-const pageTitle=computed(()=>topic.value?`${topic.value} guides from Nigeria — WikiHowNaija`:'Practical Nigerian how-to guides — WikiHowNaija')
+const pageTitle=computed(()=>topic.value?`${topic.value} guides from Nigeria — Sabipedia`:'Practical Nigerian how-to guides — Sabipedia')
 const pageDescription=computed(()=>topic.value?`Step-by-step ${topic.value.toLowerCase()} guides for life in Nigeria, with sources and community checks.`:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.')
 useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDescription:pageDescription})
 </script>

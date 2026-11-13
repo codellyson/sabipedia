@@ -7,7 +7,7 @@ type TransactionalMessage = {
 
 export async function sendTransactionalEmail(env: Env, message: TransactionalMessage) {
   if (!env.EMAIL || !env.EMAIL_FROM) throw new Error('Email Sending is not configured')
-  await env.EMAIL.send({ from: { email: env.EMAIL_FROM, name: 'WikiHowNaija' }, ...message })
+  await env.EMAIL.send({ from: { email: env.EMAIL_FROM, name: 'Sabipedia' }, ...message })
 }
 
 function escapeHtml(value: string) {
@@ -19,18 +19,18 @@ function escapeHtml(value: string) {
 export function passwordResetEmail(name: string, url: string) {
   const safeName=escapeHtml(name || 'there'),safeUrl=escapeHtml(url)
   return {
-    subject: 'Reset your WikiHowNaija password',
-    text: `Hello ${name || 'there'},\n\nUse this link to choose a new WikiHowNaija password:\n${url}\n\nThis link expires in one hour. If you did not request it, you can ignore this email.`,
-    html: `<p>Hello ${safeName},</p><p>Use the button below to choose a new WikiHowNaija password.</p><p><a href="${safeUrl}">Reset my password</a></p><p>This link expires in one hour. If you did not request it, you can ignore this email.</p>`,
+    subject: 'Reset your Sabipedia password',
+    text: `Hello ${name || 'there'},\n\nUse this link to choose a new Sabipedia password:\n${url}\n\nThis link expires in one hour. If you did not request it, you can ignore this email.`,
+    html: `<p>Hello ${safeName},</p><p>Use the button below to choose a new Sabipedia password.</p><p><a href="${safeUrl}">Reset my password</a></p><p>This link expires in one hour. If you did not request it, you can ignore this email.</p>`,
   }
 }
 
 export function verificationEmail(name: string, url: string) {
   const safeName=escapeHtml(name || 'there'),safeUrl=escapeHtml(url)
   return {
-    subject: 'Verify your WikiHowNaija email',
-    text: `Hello ${name || 'there'},\n\nVerify your email to finish creating your WikiHowNaija account:\n${url}\n\nThis link expires in one hour. If you did not create this account, you can ignore this email.`,
-    html: `<p>Hello ${safeName},</p><p>Verify your email to finish creating your WikiHowNaija account.</p><p><a href="${safeUrl}">Verify my email</a></p><p>This link expires in one hour. If you did not create this account, you can ignore this email.</p>`,
+    subject: 'Verify your Sabipedia email',
+    text: `Hello ${name || 'there'},\n\nVerify your email to finish creating your Sabipedia account:\n${url}\n\nThis link expires in one hour. If you did not create this account, you can ignore this email.`,
+    html: `<p>Hello ${safeName},</p><p>Verify your email to finish creating your Sabipedia account.</p><p><a href="${safeUrl}">Verify my email</a></p><p>This link expires in one hour. If you did not create this account, you can ignore this email.</p>`,
   }
 }
 

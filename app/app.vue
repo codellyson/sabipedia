@@ -33,7 +33,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
   <UApp>
     <div v-if="adminRoute" class="admin-shell">
       <aside class="admin-sidebar">
-        <NuxtLink class="brand admin-brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
+        <NuxtLink class="brand admin-brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
         <form class="admin-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search" placeholder="Search"><kbd>⌘K</kbd></form>
         <nav class="admin-nav" aria-label="Editorial workspace">
           <NuxtLink to="/"><UIcon name="i-lucide-house" class="nav-icon"/>Home</NuxtLink>
@@ -51,7 +51,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
 
     <template v-else>
       <header class="site-header">
-        <NuxtLink class="brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
+        <NuxtLink class="brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
         <form v-if="route.path !== '/'" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
@@ -62,7 +62,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
         </nav>
       </header>
       <main class="site-main"><NuxtPage /></main>
-      <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="WikiHowNaija home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="WikiHowNaija"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>Practical knowledge, documented and reviewed by Nigerians.</span></footer>
+      <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>Practical knowledge, documented and reviewed by Nigerians.</span></footer>
     </template>
   </UApp>
 </template>
