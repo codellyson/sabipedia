@@ -5,6 +5,7 @@
  "compatibility_date": "2026-09-27",
  "compatibility_flags": ["nodejs_compat"],
  "assets": {"directory": ".output/public", "binding": "ASSETS"},
+ "routes": [{"pattern": "sabipedia.kreativekorna.com", "custom_domain": true}, {"pattern": "wikihownaija.kreativekorna.com", "custom_domain": true}],
  "placement": {"mode": "smart"},
  "observability": {"enabled": true, "traces": {"enabled": true}},
  "d1_databases": [{"binding": "DB", "database_name": "nigeria-knowledge-bank", "database_id": "3378e8c9-2377-4e09-8af3-0e68a4543d0b", "migrations_dir": "migrations"}],
@@ -12,11 +13,11 @@
  "send_email": [{"name": "EMAIL", "remote": true}],
  "vars": {
   "BETTER_AUTH_URL": "https://nigeria-knowledge-bank.codellyson.workers.dev",
-  "MCP_RESOURCE_URL": "https://wikihownaija.kreativekorna.com/api/mcp",
-  "AUTH_ALLOWED_ORIGINS": "https://wikihownaija.kreativekorna.com",
+  "MCP_RESOURCE_URL": "https://sabipedia.kreativekorna.com/api/mcp",
+  "AUTH_ALLOWED_ORIGINS": "https://sabipedia.kreativekorna.com,https://wikihownaija.kreativekorna.com",
   "EMAIL_FROM": "notifications@wikihownaija.kreativekorna.com",
   "EMAIL_VERIFICATION_REQUIRED": "0",
   "TURNSTILE_SITE_KEY": "0x4AAAAAAFKiwWlEUZwQzc3x",
-  "TURNSTILE_HOSTNAMES": "nigeria-knowledge-bank.codellyson.workers.dev,wikihownaija.kreativekorna.com"
+  "TURNSTILE_HOSTNAMES": "nigeria-knowledge-bank.codellyson.workers.dev,sabipedia.kreativekorna.com,wikihownaija.kreativekorna.com"
  }
 }

@@ -7,7 +7,7 @@ interface __BaseEnv_Env {
 	EMAIL: SendEmail;
 	ASSETS: Fetcher;
 	TURNSTILE_SITE_KEY: "0x4AAAAAAFKiwWlEUZwQzc3x";
-	TURNSTILE_HOSTNAMES: "nigeria-knowledge-bank.codellyson.workers.dev,wikihownaija.kreativekorna.com";
+	TURNSTILE_HOSTNAMES: "nigeria-knowledge-bank.codellyson.workers.dev,sabipedia.kreativekorna.com,wikihownaija.kreativekorna.com";
 	BETTER_AUTH_SECRET: string;
 	ANTHROPIC_API_KEY?: string;
 	DEV_LOGIN_ENABLED: string;
