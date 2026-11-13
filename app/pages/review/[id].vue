@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { GuideContent } from '~~/shared/guide'
 import type { AiReview } from '~~/server/utils/ai-review'
+import { findQuote } from '~~/shared/find-quote'
 
 type Annotation={id:string;quote:string;note:string;start_offset:number;end_offset:number;reviewer:string;created_at:string}
 type Submission={id:string;state:'awaiting_review'|'published'|'rejected';content:GuideContent;created_at:string;author:string;author_email:string;guide_id:string|null;base_version_id:string|null;ai_review:AiReview|null;annotations:Annotation[]}
@@ -38,12 +39,33 @@ function rangeFor(start:number,end:number){
  try{range.setStart(a.node,a.offset);range.setEnd(b.node,b.offset);return range}catch{return null}
 }
 const aiFlags=computed(()=>submission.value?.ai_review?.status==='done'?submission.value.ai_review.flags:[])
-const flagSpans=ref<({start:number;end:number}|null)[]>([])
-function locateFlags(){
- const text=documentRoot.value?.textContent||''
- flagSpans.value=aiFlags.value.map(flag=>{const quote=flag.quote.trim(),start=quote?text.indexOf(quote):-1;return start<0?null:{start,end:start+quote.length}})
+type FlagSpan={start:number;end:number;exact:boolean;anchor:string}
+const flagSpans=ref<(FlagSpan|null)[]>([])
+const activeFlag=ref<number|null>(null)
+// Where a flag's note attaches when its quote is not found word for word: the field it names, else the title.
+function fieldAnchor(field:string,content:GuideContent):[string,string]{
+ const first=(items:string[],label:string):[string,string]=>items[0]?[items[0],label]:[content.title,'the title']
+ if(field==='summary')return [content.summary,'the summary']
+ if(field==='requirements')return ['What you need','What you need']
+ if(field==='steps')return ['How to do it','How to do it']
+ if(field==='sources'&&content.sources.length)return ['Sources & references','Sources']
+ if(field==='tips')return first(content.tips,'the tips')
+ if(field==='warnings')return first(content.warnings,'the warnings')
+ if(field==='variations')return first(content.variations,'the variations')
+ return [content.title,'the title']
 }
-const adoptedFlags=computed(()=>flagSpans.value.map(span=>!!span&&!!submission.value?.annotations.some(a=>a.start_offset===span.start&&a.end_offset===span.end)))
+function locateFlags(){
+ const text=documentRoot.value?.textContent||'',content=submission.value?.content
+ flagSpans.value=aiFlags.value.map(flag=>{
+  if(!content||!text)return null
+  const [target,anchor]=fieldAnchor(flag.field??'general',content),field=findQuote(text,target)
+  const exact=flag.quote.trim()?findQuote(text,flag.quote,field?.start)||findQuote(text,flag.quote):null
+  if(exact)return {...exact,exact:true,anchor:''}
+  const span=field||findQuote(text,content.title)
+  return span?{...span,exact:false,anchor}:null
+ })
+}
+const adoptedFlags=computed(()=>flagSpans.value.map((span,i)=>!!span&&!!submission.value?.annotations.some(a=>a.start_offset===span.start&&a.end_offset===span.end&&a.note===aiFlags.value[i]?.detail)))
 const openFlags=computed(()=>aiFlags.value.filter((_,i)=>!adoptedFlags.value[i]).length)
 function renderHighlights(){
  locateFlags()
@@ -52,15 +74,15 @@ function renderHighlights(){
  highlights.delete('review-annotations');highlights.delete('ai-flags')
  const ranges=(submission.value?.annotations||[]).map(item=>rangeFor(item.start_offset,item.end_offset)).filter(Boolean)
  if(ranges.length)highlights.set('review-annotations',new HighlightCtor(...ranges))
- const flagRanges=flagSpans.value.map((span,i)=>span&&!adoptedFlags.value[i]?rangeFor(span.start,span.end):null).filter(Boolean)
+ const flagRanges=flagSpans.value.map((span,i)=>span?.exact&&!adoptedFlags.value[i]?rangeFor(span.start,span.end):null).filter(Boolean)
  if(flagRanges.length)highlights.set('ai-flags',new HighlightCtor(...flagRanges))
 }
-function showFlag(index:number){const span=flagSpans.value[index];if(span)showRange(span.start,span.end)}
+function showFlag(index:number){activeFlag.value=activeFlag.value===index?null:index;const span=flagSpans.value[index];if(span&&activeFlag.value===index)showRange(span.start,span.end)}
 async function adoptFlag(index:number){
  const span=flagSpans.value[index],flag=aiFlags.value[index]
  if(!submission.value||!span||!flag)return
  busy.value=true;message.value=''
- try{await $fetch(`/api/review/submissions/${submission.value.id}/annotations`,{method:'POST',body:{quote:flag.quote.trim().slice(0,1000),note:flag.detail,startOffset:span.start,endOffset:span.end}});await refresh();await nextTick();renderHighlights()}
+ try{await $fetch(`/api/review/submissions/${submission.value.id}/annotations`,{method:'POST',body:{quote:(documentRoot.value?.textContent||'').slice(span.start,span.end).slice(0,1000),note:flag.detail,startOffset:span.start,endOffset:span.end}});await refresh();await nextTick();renderHighlights()}
  catch(e:any){message.value=e.data?.statusMessage||'Could not save review note'}finally{busy.value=false}
 }
 function captureSelection(){
@@ -113,10 +135,14 @@ async function review(){
       <div class="review-ai-head"><span class="decision-status" :class="verdictClass[submission.ai_review.verdict]">{{verdictLabels[submission.ai_review.verdict]}}</span><small v-if="aiFlags.length">{{aiFlags.length}} {{aiFlags.length===1?'issue':'issues'}} · {{aiFlags.length-openFlags}} added as notes</small></div>
       <p class="review-ai-summary">{{submission.ai_review.summary}}</p>
       <ol v-if="aiFlags.length" class="review-ai-flags">
-       <li v-for="(flag,index) in aiFlags" :key="index" :class="{'is-adopted':adoptedFlags[index]}">
-        <button type="button" class="review-ai-flag" :disabled="!flagSpans[index]" @click="showFlag(index)"><strong>{{checkLabels[flag.check]}}</strong><span>{{flag.detail}}</span><q v-if="flag.quote">{{flag.quote}}</q></button>
-        <span v-if="adoptedFlags[index]" class="review-ai-adopted"><UIcon name="i-lucide-check" class="button-icon" aria-hidden="true"/>Added as note</span>
-        <UButton v-else-if="flagSpans[index]&&submission.state==='awaiting_review'" type="button" color="neutral" variant="outline" size="xs" :disabled="busy" @click="adoptFlag(index)">Add as review note</UButton>
+       <li v-for="(flag,index) in aiFlags" :key="index" :class="{'is-adopted':adoptedFlags[index],'is-open':activeFlag===index}">
+        <button type="button" class="review-ai-flag" :aria-expanded="activeFlag===index" @click="showFlag(index)"><strong>{{checkLabels[flag.check]}}<UIcon v-if="adoptedFlags[index]" name="i-lucide-check" class="button-icon" aria-label="Added as note"/></strong><span>{{flag.detail}}</span></button>
+        <template v-if="activeFlag===index">
+         <q v-if="flag.quote&&flagSpans[index]?.exact">{{flag.quote}}</q>
+         <small v-else-if="flagSpans[index]" class="review-ai-anchor">Note will attach to {{flagSpans[index]!.anchor}}</small>
+         <span v-if="adoptedFlags[index]" class="review-ai-adopted"><UIcon name="i-lucide-check" class="button-icon" aria-hidden="true"/>Added as note</span>
+         <UButton v-else-if="flagSpans[index]&&submission.state==='awaiting_review'" type="button" color="neutral" variant="outline" size="xs" :disabled="busy" @click="adoptFlag(index)">Add as review note</UButton>
+        </template>
        </li>
       </ol>
       <p v-else class="review-selection-help">No problems flagged.</p>

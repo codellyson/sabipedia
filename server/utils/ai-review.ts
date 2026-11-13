@@ -5,12 +5,14 @@ import type { GuideContent } from '../../shared/guide'
 
 export const aiReviewModel = 'claude-opus-5-5'
 export const aiChecks = ['copied', 'internal_note', 'vague', 'sources', 'junk'] as const
+export const aiFlagFields = ['title', 'summary', 'requirements', 'steps', 'tips', 'warnings', 'variations', 'sources', 'general'] as const
 
 const verdictSchema = z.object({
   verdict: z.enum(['looks_ready', 'needs_changes', 'reject']),
   summary: z.string(),
   flags: z.array(z.object({
     check: z.enum(aiChecks),
+    field: z.enum(aiFlagFields),
     detail: z.string(),
     quote: z.string(),
   })),
@@ -30,7 +32,7 @@ Run exactly these checks and raise a flag only when the problem is real:
 - junk: spam, gibberish, test posts, advertising, or content off-topic for a Nigerian how-to guide site.
 
 Verdict: "looks_ready" when no flag would stop publishing, "needs_changes" when the contributor should fix flagged issues, "reject" for junk or wholesale copying.
-Summary: one plain sentence for the moderator. Each flag: the check, a short specific detail saying what to fix, and the exact offending text in quote (empty string if none). Do not flag style preferences.`
+Summary: one plain sentence for the moderator. Each flag: the check; the field it is about ("general" when it concerns the whole guide, e.g. no sources at all); a short specific detail saying what to fix; and in quote the offending text copied character for character from that field, at most about 15 words, or an empty string when there is no specific text. Raise one flag per distinct problem; group repeats of the same problem into one flag. Do not flag style preferences.`
 
 const sourceUrls = (sources: string[]) => [...new Set(sources.flatMap(s => s.match(/https?:\/\/[^\s)>\]]+/g) || []))].slice(0, 3)
 
