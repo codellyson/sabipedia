@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { categories, type GuideContent } from '~~/shared/guide'
+import type { AiReview } from '~~/server/utils/ai-review'
 
-type Submission = {id:string;author:string;content:GuideContent;created_at:string}
+type Submission = {id:string;author:string;content:GuideContent;created_at:string;ai_review:AiReview|null}
+const aiVerdict={looks_ready:['AI: looks ready','is-published'],needs_changes:['AI: needs changes','is-warning'],reject:['AI: likely reject','is-rejected']} as const
 type Decision = {id:string;state:'published'|'rejected';title:string;author:string;reviewer:string|null;moderator_note:string|null;reviewed_at:string|null;slug:string|null}
 type ReviewData = {submissions:Submission[];disputes:Array<{id:string;slug:string;note:string;author:string}>;decisions:Decision[]}
 
@@ -44,7 +46,7 @@ async function resolve(id:string){busy.value=true;try{await $fetch('/api/review/
     <p v-if="!filtered.length" class="empty">No guides match these filters.</p>
     <div v-else class="review-inbox-list">
      <article v-for="item in visible" :key="item.id" class="review-inbox-row">
-      <div class="review-inbox-main"><div class="review-kicker"><span>{{item.content.category}}</span><span>Submitted {{submitted(item.created_at)}}</span></div><h3>{{item.content.title}}</h3><p>{{item.content.summary}}</p><span class="review-contributor">By {{item.author}}</span></div>
+      <div class="review-inbox-main"><div class="review-kicker"><span>{{item.content.category}}</span><span>Submitted {{submitted(item.created_at)}}</span></div><h3>{{item.content.title}}</h3><p>{{item.content.summary}}</p><div class="review-row-foot"><span class="review-contributor">By {{item.author}}</span><span v-if="item.ai_review?.status==='done'" class="decision-status" :class="aiVerdict[item.ai_review.verdict][1]">{{aiVerdict[item.ai_review.verdict][0]}}<template v-if="item.ai_review.flags.length"> · {{item.ai_review.flags.length}} {{item.ai_review.flags.length===1?'issue':'issues'}}</template></span></div></div>
       <div class="review-source-summary"><span>Sources</span><strong v-if="item.content.sources.length">{{item.content.sources.length}} supplied</strong><strong v-else>No source supplied</strong><small v-if="item.content.sources.length">{{sourceHost(item.content.sources[0]!)}}{{item.content.sources.length>1?` + ${item.content.sources.length-1} more`:''}}</small></div>
       <NuxtLink class="button secondary review-open" :to="`/review/${item.id}`">Review guide <UIcon name="i-lucide-arrow-right" class="button-icon" aria-hidden="true"/></NuxtLink>
      </article>

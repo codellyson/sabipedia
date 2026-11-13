@@ -11,7 +11,7 @@ export default defineEventHandler(async event => {
   ORDER BY COALESCE(s.reviewed_at,s.created_at) DESC LIMIT 200`).all(),
  db.prepare(`SELECT state,COUNT(*) n FROM submission WHERE state IN ('published','rejected') GROUP BY state`).all<{state:string;n:number}>()])
  return {
-  submissions:submissions.results.map((r: Record<string,unknown>)=>({...r,content:JSON.parse(String(r.content))})),
+  submissions:submissions.results.map((r: Record<string,unknown>)=>({...r,content:JSON.parse(String(r.content)),ai_review:r.ai_review?JSON.parse(String(r.ai_review)):null})),
   disputes:disputes.results,
   decisions:decisions.results,
   totals:Object.fromEntries(totals.results.map(r=>[r.state,r.n])) as {published?:number;rejected?:number}
