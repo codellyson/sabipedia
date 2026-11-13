@@ -30,22 +30,22 @@ const rows=computed(()=>{
 })
 const counts=computed(()=>({review:data.value?.submissions.length||0,published:data.value?.decisions.filter(item=>item.state==='published').length||0,changes:data.value?.decisions.filter(item=>item.state==='rejected').length||0}))
 const relative=(value:string)=>{if(!value)return 'Recently';const date=new Date(value.includes('T')?value:value.replace(' ','T')+'Z'),minutes=Math.max(1,Math.round((Date.now()-date.valueOf())/60000));return minutes<60?`${minutes} min ago`:minutes<1440?`${Math.round(minutes/60)} hr ago`:new Intl.DateTimeFormat('en-NG',{day:'numeric',month:'short'}).format(date)}
-useSeoMeta({title:'Articles — WikiHowNaija'})
+useSeoMeta({title:'Guides — WikiHowNaija'})
 </script>
 
 <template>
  <section class="articles-page">
-  <header class="admin-page-title"><div><h1>Articles</h1><p>Find guides, follow their review status, and open the next piece of work.</p></div><NuxtLink class="button primary" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New article</NuxtLink></header>
+  <header class="admin-page-title"><div><h1>Guides</h1><p>Find guides, follow their review status, and open the next piece of work.</p></div><NuxtLink class="button primary" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New guide</NuxtLink></header>
   <p v-if="error" class="notice">The editorial workspace could not be loaded.</p>
-  <nav ref="tabsEl" class="article-tabs" aria-label="Article views">
+  <nav ref="tabsEl" class="article-tabs" aria-label="Guide views">
    <i class="article-tab-indicator" :class="{ready:indicatorReady}" :style="indicatorStyle" aria-hidden="true" />
-   <button type="button" data-view="all" :class="{active:filter==='all'}" :aria-pressed="filter==='all'" @click="filter='all'">All articles <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
+   <button type="button" data-view="all" :class="{active:filter==='all'}" :aria-pressed="filter==='all'" @click="filter='all'">All guides <span>{{(data?.submissions.length||0)+(data?.decisions.length||0)}}</span></button>
    <button type="button" data-view="review" :class="{active:filter==='review'}" :aria-pressed="filter==='review'" @click="filter='review'">Needs review <span>{{counts.review}}</span></button>
    <button type="button" data-view="changes" :class="{active:filter==='changes'}" :aria-pressed="filter==='changes'" @click="filter='changes'">Changes requested <span>{{counts.changes}}</span></button>
    <button type="button" data-view="published" :class="{active:filter==='published'}" :aria-pressed="filter==='published'" @click="filter='published'">Published <span>{{counts.published}}</span></button>
   </nav>
-  <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search articles" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} articles</span></div>
-  <div class="article-list" role="table" aria-label="Articles">
+  <div class="article-tools"><label class="article-search"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="Search title, contributor or topic"></label><span>{{rows.length}} {{rows.length===1?'guide':'guides'}}</span></div>
+  <div class="article-list" role="table" aria-label="Guides">
    <div class="article-list-head" role="row"><span>Article</span><span>Status</span><span>Contributor</span><span>Updated</span><span /></div>
    <TransitionGroup tag="div" name="article-row" class="article-list-body" role="rowgroup">
     <NuxtLink v-for="row in rows" :key="row.id" :to="row.to" class="article-row" role="row">
@@ -54,7 +54,7 @@ useSeoMeta({title:'Articles — WikiHowNaija'})
      <span>{{row.author}}</span><span>{{relative(row.edited)}}</span><UIcon name="i-lucide-arrow-right" class="row-icon" aria-hidden="true"/>
     </NuxtLink>
    </TransitionGroup>
-   <Transition name="article-empty"><div v-if="!rows.length" class="empty">No articles match this view.</div></Transition>
+   <Transition name="article-empty"><div v-if="!rows.length" class="empty">No guides match this view.</div></Transition>
   </div>
  </section>
 </template>
