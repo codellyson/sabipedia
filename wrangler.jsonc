@@ -5,6 +5,7 @@
  "compatibility_date": "2026-09-27",
  "compatibility_flags": ["nodejs_compat"],
  "assets": {"directory": ".output/public", "binding": "ASSETS"},
+ "placement": {"mode": "smart"},
  "observability": {"enabled": true, "traces": {"enabled": true}},
  "d1_databases": [{"binding": "DB", "database_name": "nigeria-knowledge-bank", "database_id": "3378e8c9-2377-4e09-8af3-0e68a4543d0b", "migrations_dir": "migrations"}],
  "r2_buckets": [{"binding": "MEDIA", "bucket_name": "nigeria-knowledge-bank-media"}],

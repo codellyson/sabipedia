@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { confirmationReasons } from '~~/shared/guide'
+import { categorySlug, confirmationReasons } from '~~/shared/guide'
 import type { GuideDetail, RevisionComparison } from '~~/shared/types'
 import { siteName, siteOrigin, socialImage } from '~~/shared/seo'
 import { authClient } from '~/utils/auth'
 
-const {data:options,status:optionsStatus,error:optionsError}=await useGuideOptions()
+const {data:options,status:optionsStatus,error:optionsError}=useGuideOptions(false)
 const route=useRoute()
 const session=authClient.useSession()
 const canReview=computed(()=>session.value.data?.user.role?.split(',').some(role=>['admin','moderator'].includes(role)))
@@ -45,21 +45,30 @@ useSeoMeta({
  articlePublishedTime:()=>g.value?.history.at(-1)?.created_at?.replace(' ','T')+'Z',
  articleModifiedTime:()=>g.value?.created_at.replace(' ','T')+'Z',
 })
-useHeadSafe({script:computed(()=>g.value?[{
- type:'application/ld+json',
- textContent:JSON.stringify({
+// Recipe markup earns recipe cards for food guides; every other guide is a HowTo.
+const structuredData=computed(()=>{
+ const guide=g.value;if(!guide)return null
+ const c=guide.content,isRecipe=c.category==='Food & Cooking'
+ const author=guide.author.startsWith('WikiHowNaija')?{'@type':'Organization',name:siteName,url:siteOrigin}:{'@type':'Person',name:guide.author}
+ const steps=c.steps.map((text,i)=>({'@type':'HowToStep',position:i+1,text}))
+ return {
   '@context':'https://schema.org',
-  '@type':'Article',
-  headline:g.value.content.title,
-  description:g.value.content.summary,
+  '@type':isRecipe?'Recipe':'HowTo',
+  name:c.title,
+  description:c.summary,
+  url:guideUrl.value,
   mainEntityOfPage:guideUrl.value,
-  image:guideImage.value,
-  datePublished:g.value.history.at(-1)?.created_at?.replace(' ','T')+'Z',
-  dateModified:g.value.created_at.replace(' ','T')+'Z',
-  author:{'@type':'Person',name:g.value.author},
+  image:[guideImage.value],
+  datePublished:guide.history.at(-1)?.created_at?.replace(' ','T')+'Z',
+  dateModified:guide.created_at.replace(' ','T')+'Z',
+  author,
   publisher:{'@type':'Organization',name:siteName,url:siteOrigin},
- })
-}]:[])})
+  ...(isRecipe
+   ?{recipeCuisine:'Nigerian',recipeIngredient:c.requirements,recipeInstructions:steps,keywords:`Nigerian, ${c.title.replace(/^How to make /i,'')}`}
+   :{supply:c.requirements.map(name=>({'@type':'HowToSupply',name})),step:steps}),
+ }
+})
+useHeadSafe({script:computed(()=>structuredData.value?[{type:'application/ld+json',textContent:JSON.stringify(structuredData.value)}]:[])})
 async function act(action:'confirm'|'flag'){
  if(!g.value)return
  busy.value=true;message.value=''
@@ -74,7 +83,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
  <article v-if="g" class="guide-reader">
   <StepMode v-if="stepMode" :guide-id="g.id" :title="g.content.title" :steps="g.content.steps" :step-documents="g.content.stepDocuments" :step-media-ids="g.content.stepMediaIds" :requirements="g.content.requirements" @close="closeStepMode" />
   <nav class="guide-breadcrumb" aria-label="Breadcrumb">
-   <NuxtLink to="/">Home</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><NuxtLink :to="{path:'/',query:{category:g.content.category}}">{{g.content.category}}</NuxtLink>
+   <NuxtLink to="/">Home</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><NuxtLink :to="`/topics/${categorySlug(g.content.category)}`">{{g.content.category}}</NuxtLink>
    <ClientOnly><button v-if="canReview&&!revisionComparison" class="guide-editor-chip" :disabled="revisionBusy" @click="showRevision(g.version_id)">Editor · see edits</button></ClientOnly>
   </nav>
   <InlineRevisionDocument v-if="revisionComparison" :comparison="revisionComparison" @close="revisionComparison=null" />

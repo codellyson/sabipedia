@@ -3,9 +3,9 @@ import { authClient } from './utils/auth'
 import { siteDescription, siteName, siteOrigin, socialImage } from '~~/shared/seo'
 
 const route = useRoute()
-const publicPage = computed(() => route.path === '/' || /^\/guides\/[^/]+$/.test(route.path))
+const publicPage = computed(() => route.path === '/' || /^\/(guides|topics)\/[^/]+$/.test(route.path))
 const canonicalPath = computed(() => route.path === '/' ? '/' : route.path.replace(/\/+$/, ''))
-const indexablePage = computed(() => publicPage.value && (route.path !== '/' || Object.keys(route.query).length === 0))
+const indexablePage = computed(() => publicPage.value && (route.path.startsWith('/guides/') || Object.keys(route.query).length === 0))
 useHead({ link: computed(() => publicPage.value ? [{ rel: 'canonical', href: siteOrigin + canonicalPath.value }] : []) })
 useSeoMeta({
   description: siteDescription,

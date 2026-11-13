@@ -941,8 +941,8 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 .home-search input:focus-visible { outline: none; border-color: var(--focus-border); }
 .home-cats { display: flex; gap: 8px; margin: 16px 0 0; overflow-x: auto; scrollbar-width: none; }
 .home-cats::-webkit-scrollbar { display: none; }
-.home .home-cats button { flex: none; min-height: 36px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; font-weight: 600; }
-.home .home-cats button[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.home .home-cats a { display: inline-flex; align-items: center; flex: none; color: var(--text); text-decoration: none; min-height: 36px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; font-weight: 600; }
+.home .home-cats a[aria-current='page'] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .home .local-filters { max-width: 640px; margin: 8px 0 0; }
 .home .local-filters .disclosure-trigger { justify-content: flex-start; }
 .home-sections { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px 48px; }
@@ -958,8 +958,8 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 .home-row-summary { display: -webkit-box; overflow: hidden; color: var(--muted); font-size: 14px; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .home-row-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--muted); font-size: 12px; }
 .home-verified { display: inline-flex; align-items: center; gap: 3px; color: var(--green); font-weight: 600; }
-.home button.home-more { min-height: 40px; margin-top: 6px; padding: 6px 0; border: 0; color: var(--ink); font-size: 14px; font-weight: 600; }
-.home button.home-more:hover { background: transparent; text-decoration: underline; }
+.home .home-more { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; min-height: 40px; margin-top: 6px; padding: 6px 0; border: 0; color: var(--ink); font-size: 14px; font-weight: 600; }
+.home .home-more:hover { background: transparent; text-decoration: underline; }
 @media (max-width: 760px) {
   .home-sections { grid-template-columns: minmax(0,1fr); gap: 32px; }
   .home .contribute-strip { margin-top: 48px; padding-top: 32px; }

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { isRichDocument, richText, type RichDocument } from './rich-text.ts'
 export const categories = ['Food & Cooking','Culture & Traditions','Everyday Life','Government & Processes','Language & Etiquette','Skills & Crafts'] as const
+export const categorySlug = (category: string) => category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 export const confirmationReasons = ['I do this myself','This is common in my community','I learned it from a family/community member','I have a source','Other'] as const
 const text = z.string().trim().min(1).max(4000)
 export const guideInput = z.object({

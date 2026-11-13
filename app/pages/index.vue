@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { categories } from '~~/shared/guide'
-const {data:options,status:optionsStatus,error:optionsError}=await useGuideOptions()
+import { categories, categorySlug } from '~~/shared/guide'
+definePageMeta({alias:'/topics/:topic'})
+const {data:options,status:optionsStatus,error:optionsError}=useGuideOptions(false)
 const route=useRoute()
 const queryValue=(key:string)=>typeof route.query[key]==='string'?String(route.query[key]):''
-const q=ref(queryValue('q')),category=ref(queryValue('category')),community=ref(queryValue('community')),location=ref(queryValue('location'))
+const topic=computed(()=>typeof route.params.topic==='string'?categories.find(c=>categorySlug(c)===route.params.topic)||null:null)
+if(route.params.topic&&!topic.value) throw createError({statusCode:404,statusMessage:'Topic not found'})
+const category=computed(()=>topic.value||queryValue('category'))
+const q=ref(queryValue('q')),community=ref(queryValue('community')),location=ref(queryValue('location'))
 watch(() => route.query.q, value => { q.value=typeof value==='string'?value:'' })
 const searchQuery=ref(q.value), searchCommunity=ref(''), searchLocation=ref('')
 let searchTimer:ReturnType<typeof setTimeout>|undefined
@@ -20,19 +24,21 @@ const sections=computed(()=>{
  if(filtered.value) return [{title:category.value||(searchQuery.value?`Results for “${searchQuery.value}”`:'Matching guides'),category:'',guides:list,total:list.length}]
  return categories.map(c=>{const items=list.filter(g=>g.content.category===c);return {title:c,category:c,guides:items.slice(0,5),total:items.length}}).filter(s=>s.total)
 })
-useSeoMeta({title:'Practical Nigerian how-to guides — WikiHowNaija',description:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.',ogTitle:'Practical Nigerian how-to guides — WikiHowNaija',ogDescription:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.'})
+const pageTitle=computed(()=>topic.value?`${topic.value} guides from Nigeria — WikiHowNaija`:'Practical Nigerian how-to guides — WikiHowNaija')
+const pageDescription=computed(()=>topic.value?`Step-by-step ${topic.value.toLowerCase()} guides for life in Nigeria, with sources and community checks.`:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.')
+useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDescription:pageDescription})
 </script>
 <template>
  <div class="home">
   <section class="home-top" aria-labelledby="home-title">
-   <h1 id="home-title">Practical how-tos for life in Nigeria</h1>
+   <h1 id="home-title">{{topic?`${topic} guides`:'Practical how-tos for life in Nigeria'}}</h1>
    <form class="home-search" role="search" @submit.prevent="navigateTo({path: '/', query: q.trim() ? {q:q.trim()} : {}})">
     <UIcon name="i-lucide-search" class="home-search-icon" aria-hidden="true"/>
     <input v-model="q" type="search" aria-label="Search guides" placeholder="How do I…" autocomplete="off">
    </form>
    <div class="home-cats" role="group" aria-label="Filter by category">
-    <button type="button" :aria-pressed="category === ''" @click="category = ''">All</button>
-    <button v-for="c in categories" :key="c" type="button" :aria-pressed="category === c" @click="category = c">{{c}}</button>
+    <NuxtLink to="/" :aria-current="category === '' ? 'page' : undefined">All</NuxtLink>
+    <NuxtLink v-for="c in categories" :key="c" :to="`/topics/${categorySlug(c)}`" :aria-current="category === c ? 'page' : undefined">{{c}}</NuxtLink>
    </div>
    <UCollapsible class="local-filters" :ui="{content:'animated-disclosure'}">
     <template #default="{open}"><UButton class="disclosure-trigger"><UIcon name="i-lucide-chevron-right" class="disclosure-chevron button-icon" :class="{'is-open':open}" aria-hidden="true"/>Filter by community or location <span v-if="community || location" class="filter-active">Filters active</span></UButton></template>
@@ -64,7 +70,7 @@ useSeoMeta({title:'Practical Nigerian how-to guides — WikiHowNaija',descriptio
       </NuxtLink>
      </li>
     </ul>
-    <button v-if="s.total > s.guides.length" type="button" class="home-more" @click="category = s.category">See all {{s.total}} in {{s.title}}<UIcon name="i-lucide-arrow-right" class="button-icon" aria-hidden="true"/></button>
+    <NuxtLink v-if="s.total > s.guides.length" class="home-more" :to="`/topics/${categorySlug(s.category)}`">See all {{s.total}} in {{s.title}}<UIcon name="i-lucide-arrow-right" class="button-icon" aria-hidden="true"/></NuxtLink>
    </section>
   </div>
   <div v-else-if="status!=='pending' && !error" class="empty"><h2>{{q||category||community||location?'No guides match these filters.':'The collection starts with what you know.'}}</h2><p>Document a practical skill, a local method, or a process you understand.</p><NuxtLink class="button secondary" to="/write">Know how? Document it.<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></div>
