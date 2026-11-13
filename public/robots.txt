@@ -4,4 +4,4 @@ Allow: /api/media/
 Allow: /api/guide-videos/
 Disallow: /api/
 
-Sitemap: https://sabipedia.kreativekorna.com/sitemap.xml
+Sitemap: https://sabipedia.com/sitemap.xml
