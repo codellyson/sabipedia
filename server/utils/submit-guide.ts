@@ -1,4 +1,5 @@
 import { guideInput, type GuideContent } from '../../shared/guide'
+import { runAiReview } from './ai-review'
 
 export type GuideSubmissionInput = {
   content: GuideContent
@@ -6,7 +7,8 @@ export type GuideSubmissionInput = {
   baseVersionId?: string
 }
 
-export async function submitGuide(db: D1Database, authorId: string, input: GuideSubmissionInput) {
+export async function submitGuide(env: Pick<Env, 'DB' | 'ANTHROPIC_API_KEY'>, authorId: string, input: GuideSubmissionInput, waitUntil: (task: Promise<unknown>) => void) {
+  const db = env.DB
   const parsed = guideInput.safeParse(input.content)
   if (!parsed.success) throw createError({ statusCode: 400, statusMessage: parsed.error.issues[0]?.message || 'Check the guide fields' })
   const { guideId, baseVersionId } = input
@@ -20,5 +22,6 @@ export async function submitGuide(db: D1Database, authorId: string, input: Guide
   }
   const id = crypto.randomUUID()
   await db.prepare('INSERT INTO submission(id,guide_id,base_version_id,author_id,content) VALUES(?,?,?,?,?)').bind(id, guideId || null, baseVersionId || null, authorId, JSON.stringify(parsed.data)).run()
+  waitUntil(runAiReview(env, id, parsed.data).catch(error => console.error('Could not store AI review', id, error)))
   return { id, state: 'awaiting_review' as const }
 }

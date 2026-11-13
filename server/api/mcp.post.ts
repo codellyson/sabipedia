@@ -51,7 +51,7 @@ export default defineEventHandler(async event => {
         inputSchema,
       }, async input => {
         try {
-          const result = await submitGuide(env.DB, userId, { content: { ...input, mediaIds: [] } })
+          const result = await submitGuide(env, userId, { content: { ...input, mediaIds: [] } }, task => event.waitUntil(task))
           return { content: [{ type: 'text', text: JSON.stringify({ ...result, message: 'Submitted for moderator review', submissionsUrl: new URL('/my-guides', env.BETTER_AUTH_URL).toString() }) }] }
         } catch (error) {
           return { isError: true, content: [{ type: 'text', text: error instanceof Error ? error.message : 'Could not submit this guide' }] }
