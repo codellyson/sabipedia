@@ -290,6 +290,14 @@ button.review-annotation-link:hover { background: transparent; }
 .review-source-checks small { display: block; margin-top: 4px; }
 .review-check-progress { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
 .review-source-warning { margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--ink); background: var(--soft); font-size: 12px; }
+.review-ai .review-selection-help, .review-ai .review-source-warning { margin-bottom: 12px; }
+.review-ai-verdict { display: inline-block; margin: 0; padding: 2px 8px; border-radius: 999px; background: var(--soft); font-size: 12px; font-weight: 600; }
+.review-ai-verdict.is-needs_changes, .review-ai-verdict.is-reject { box-shadow: inset 3px 0 0 var(--ink); }
+.review-ai-summary { margin: 8px 0 12px; font-size: 13px; }
+.review-ai-flags { display: grid; gap: 10px; margin: 0 0 12px; padding: 0; list-style: none; font-size: 12px; }
+.review-ai-flags li { display: grid; gap: 2px; padding-left: 10px; border-left: 2px solid var(--soft); }
+.review-ai-flags span { color: var(--muted); }
+.review-ai-flags blockquote { margin: 4px 0 0; font-style: italic; }
 .review-note-field { margin-top: 16px; }
 .review-final-action { width: 100%; margin-top: 16px; }
 .revision-note { margin: 0 0 20px; padding: 16px; border-left: 3px solid var(--ink); background: var(--soft); }

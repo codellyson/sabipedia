@@ -11,3 +11,5 @@ TURNSTILE_SECRET=
 TURNSTILE_HOSTNAMES=localhost,127.0.0.1
 DEV_LOGIN_ENABLED=1
 DEV_LOGIN_PASSWORD=replace-with-a-separate-random-secret-at-least-32-characters
+# Optional AI second opinion on new submissions. Leave empty to skip the check.
+ANTHROPIC_API_KEY=

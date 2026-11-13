@@ -9,6 +9,7 @@ interface __BaseEnv_Env {
 	TURNSTILE_SITE_KEY: "0x4AAAAAAFKiwWlEUZwQzc3x";
 	TURNSTILE_HOSTNAMES: "nigeria-knowledge-bank.codellyson.workers.dev,wikihownaija.kreativekorna.com";
 	BETTER_AUTH_SECRET: string;
+	ANTHROPIC_API_KEY?: string;
 	DEV_LOGIN_ENABLED: string;
 	DEV_LOGIN_PASSWORD: string;
 	BETTER_AUTH_URL: string;

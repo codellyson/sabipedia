@@ -23,6 +23,7 @@
     "db:seed-production": "node --experimental-strip-types tools/seed-production.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "@better-auth/mcp": "^1.7.7",
     "@better-auth/oauth-provider": "^1.7.7",
     "@iconify-json/lucide": "^1.2.137",
