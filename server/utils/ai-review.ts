@@ -57,7 +57,7 @@ function guideForReview(content: GuideContent) {
 
 export async function reviewGuide(apiKey: string, content: GuideContent): Promise<AiReview> {
   const pages = await Promise.all(sourceUrls(content.sources).map(fetchSource))
-  const client = new Anthropic({ apiKey, maxRetries: 1, timeout: 25_000 })
+  const client = new Anthropic({ apiKey, maxRetries: 0, timeout: 25_000 })
   const response = await client.messages.parse({
     model: aiReviewModel,
     max_tokens: 4000,
