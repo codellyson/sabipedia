@@ -5,6 +5,7 @@
  "compatibility_date": "2026-09-27",
  "compatibility_flags": ["nodejs_compat"],
  "assets": {"directory": ".output/public", "binding": "ASSETS"},
+ "workers_dev": true,
  "routes": [{"pattern": "sabipedia.kreativekorna.com", "custom_domain": true}, {"pattern": "wikihownaija.kreativekorna.com", "custom_domain": true}],
  "placement": {"mode": "smart"},
  "observability": {"enabled": true, "traces": {"enabled": true}},
