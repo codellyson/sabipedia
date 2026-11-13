@@ -6,6 +6,7 @@ export default defineNuxtConfig({
  nitro: { preset: 'cloudflare_module', cloudflare: { deployConfig: false, nodeCompat: true } },
  css: ['~/assets/main.css'],
  devtools: { enabled: false },
+ routeRules: { '/topics/**': { redirect: { to: '/how-to/**', statusCode: 301 } } },
  app: { pageTransition: { name: 'page', mode: 'out-in' }, head: { title: 'Sabipedia', htmlAttrs: { lang: 'en' }, link: [
   { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
   { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

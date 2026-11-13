@@ -999,3 +999,19 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 
 @media (max-width: 600px) { h1 { font-size: 26px; } }
 .article-capped { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+
+/* Hub home */
+.home-top h1:has(+ .home-lede) { margin-bottom: 4px; }
+.home-lede { margin: 0 0 16px; color: var(--muted); }
+.hub-section .home-section-head a { color: inherit; text-decoration: none; }
+.hub-section .home-section-head > a { color: var(--muted); font-size: 14px; }
+.hub-section .home-section-head a:hover { text-decoration: underline; }
+.hub-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 16px 0 8px; padding: 0; list-style: none; }
+.hub-topics a { display: grid; gap: 2px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; }
+.hub-topics a:hover { border-color: var(--ink); }
+.hub-topics strong { font-weight: 500; }
+.hub-topics span { color: var(--muted); font-size: 13px; }
+.site-header .main-nav { display: flex; gap: 4px; margin-right: auto; }
+.site-header .main-nav a { padding: 6px 10px; border-radius: 6px; color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; }
+.site-header .main-nav a:hover { color: var(--ink); }
+.site-header .main-nav a.router-link-active { color: var(--ink); background: var(--soft); }

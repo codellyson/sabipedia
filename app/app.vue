@@ -3,7 +3,7 @@ import { authClient } from './utils/auth'
 import { siteDescription, siteName, siteOrigin, socialImage } from '~~/shared/seo'
 
 const route = useRoute()
-const publicPage = computed(() => route.path === '/' || /^\/(guides|topics)\/[^/]+$/.test(route.path))
+const publicPage = computed(() => route.path === '/' || route.path === '/how-to' || /^\/(guides|how-to)\/[^/]+$/.test(route.path))
 const canonicalPath = computed(() => route.path === '/' ? '/' : route.path.replace(/\/+$/, ''))
 const indexablePage = computed(() => publicPage.value && (route.path.startsWith('/guides/') || Object.keys(route.query).length === 0))
 useHead({ link: computed(() => publicPage.value ? [{ rel: 'canonical', href: siteOrigin + canonicalPath.value }] : []) })
@@ -24,7 +24,7 @@ const adminRoute = computed(() => route.path === '/articles' || route.path.start
 const search = ref('')
 
 function submitSearch() {
-  navigateTo({ path: '/', query: search.value.trim() ? { q: search.value.trim() } : {} })
+  navigateTo({ path: '/how-to', query: search.value.trim() ? { q: search.value.trim() } : {} })
 }
 async function signOut(){await authClient.signOut();await navigateTo('/')}
 </script>
@@ -52,7 +52,8 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
     <template v-else>
       <header class="site-header">
         <NuxtLink class="brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
-        <form v-if="route.path !== '/'" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
+        <nav class="main-nav" aria-label="Sections"><NuxtLink to="/how-to">How to</NuxtLink></nav>
+        <form v-if="route.path !== '/' && !route.path.startsWith('/how-to')" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
           <ClientOnly><NuxtLink v-if="!session.data" to="/login">Sign in</NuxtLink></ClientOnly>
