@@ -9,6 +9,7 @@ const storageKey = computed(() => `wikihownaija:progress:${props.guideId}`)
 
 onMounted(() => {
   try { completed.value = JSON.parse(localStorage.getItem(storageKey.value) || '[]') } catch {}
+  current.value = Math.max(0, props.steps.findIndex((_, i) => !completed.value.includes(i)))
 })
 watch(completed, value => { try { localStorage.setItem(storageKey.value, JSON.stringify(value)) } catch {} }, {deep:true})
 function next() {
