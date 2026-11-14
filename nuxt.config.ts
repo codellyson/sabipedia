@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
  modules: ['@nuxt/ui'],
  ui: { fonts: false, colorMode: true, theme: { unstyled: true } },
+ // Icons named only in script (header phone menu) are not found by the bundle scan.
+ icon: { clientBundle: { icons: ['lucide:clipboard-check','lucide:file-text','lucide:log-out','lucide:log-in','lucide:menu'] } },
  colorMode: { preference: 'system', fallback: 'light', storageKey: 'wikihownaija-color-mode', disableTransition: true },
  compatibilityDate: '2026-09-27',
  nitro: { preset: 'cloudflare_module', cloudflare: { deployConfig: false, nodeCompat: true } },

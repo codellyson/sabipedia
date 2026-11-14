@@ -1078,3 +1078,8 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 .site-header .main-nav a { border-radius: 10px; }
 @media (prefers-reduced-motion: reduce) { .state-icon-layer { transition-duration: 0ms; } }
 button.writer-select:not(.link), button.date-select-control:not(.link) { font-weight: 400; }
+button.nav-menu { display: none; }
+.nav-menu-list { min-width: 200px; }
+.nav-menu-list .nav-menu-item, .nav-menu-list button.nav-menu-item:not(.link) { justify-content: flex-start; gap: 12px; width: 100%; padding: 12px; border: 0; color: var(--text); font-weight: 400; text-decoration: none; }
+.nav-menu-separator { height: 1px; margin: 4px; background: var(--line); }
+@media (max-width: 600px) { button.nav-menu { display: inline-grid; place-items: center; width: 44px; min-height: 44px; padding: 0; } .site-nav { flex-wrap: nowrap; gap: 8px; } .site-header .brand .brand-logo { display: none; } .site-header .brand .brand-symbol { display: block; width: 36px; height: 36px; } }

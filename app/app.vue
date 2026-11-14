@@ -27,6 +27,13 @@ function submitSearch() {
   navigateTo({ path: '/how-to', query: search.value.trim() ? { q: search.value.trim() } : {} })
 }
 async function signOut(){await authClient.signOut();await navigateTo('/')}
+// Phones hide the account links and search in the header; this menu carries them.
+const phoneMenu=computed(()=>[
+ [{label:'Search guides',icon:'i-lucide-search',to:'/how-to'},
+  ...(canReview.value?[{label:'Editor',icon:'i-lucide-clipboard-check',to:'/review'}]:[]),
+  ...(session.value.data?[{label:'My guides',icon:'i-lucide-file-text',to:'/my-guides'}]:[])],
+ [session.value.data?{label:'Sign out',icon:'i-lucide-log-out',onSelect:signOut}:{label:'Sign in',icon:'i-lucide-log-in',to:'/login'}]
+])
 </script>
 
 <template>
@@ -59,6 +66,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
           <ClientOnly><NuxtLink v-if="!session.data" to="/login">Sign in</NuxtLink></ClientOnly>
           <ClientOnly><NuxtLink v-if="session.data" to="/my-guides">My guides</NuxtLink></ClientOnly>
           <ClientOnly><button v-if="session.data" class="link" @click="signOut">Sign out</button></ClientOnly>
+          <ClientOnly><UDropdownMenu :items="phoneMenu" :content="{align:'end',sideOffset:8}" :ui="{content:'writer-select-menu nav-menu-list',item:'writer-select-option nav-menu-item',itemLeadingIcon:'writer-icon',separator:'nav-menu-separator'}"><UButton class="secondary nav-menu" icon="i-lucide-menu" aria-label="Menu" :ui="{leadingIcon:'button-icon'}" /></UDropdownMenu></ClientOnly>
           <NuxtLink class="nav-cta" to="/write">Write</NuxtLink>
         </nav>
       </header>
