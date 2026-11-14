@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { categories, categorySlug } from '~~/shared/guide'
+import { languages } from '~~/shared/learn'
 const q=ref('')
 const {data:guides,error}=await useFetch('/api/guides')
+const {data:learn}=await useFetch('/api/learn')
+const learnCount=(slug:string)=>learn.value?.find(l=>l.language===slug)
 const topics=computed(()=>categories.map(c=>({name:c,slug:categorySlug(c),total:(guides.value||[]).filter(g=>g.content.category===c).length})).filter(t=>t.total))
 const latest=computed(()=>(guides.value||[]).slice(0,5))
 const pageTitle='Sabipedia — practical knowledge for life in Nigeria'
@@ -34,6 +37,13 @@ useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDesc
       <span class="home-row-meta"><span>{{g.content.category}}</span><span>{{g.content.steps.length}} steps</span></span>
      </NuxtLink>
     </li>
+   </ul>
+  </section>
+
+  <section class="home-section hub-section" aria-labelledby="hub-learn">
+   <header class="home-section-head"><h2 id="hub-learn"><NuxtLink to="/learn">Learn a language</NuxtLink></h2><NuxtLink to="/learn">Everyday phrases with audio</NuxtLink></header>
+   <ul class="hub-topics">
+    <li v-for="l in languages" :key="l.slug"><NuxtLink :to="`/learn/${l.slug}`"><strong>{{l.native}}</strong><span>{{learnCount(l.slug)?`${learnCount(l.slug)!.phrases} ${learnCount(l.slug)!.phrases===1?'phrase':'phrases'}`:'Coming soon'}}</span></NuxtLink></li>
    </ul>
   </section>
 

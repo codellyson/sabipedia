@@ -7,7 +7,7 @@ const route=useRoute()
 const destination=computed(()=>{
  const next=route.query.next
  if(typeof next!=='string')return '/write'
- try{const url=new URL(next,'https://wikihownaija.invalid'),allowed=new Set(['/write','/my-guides']);return url.origin==='https://wikihownaija.invalid' && allowed.has(url.pathname) ? url.pathname+url.search : '/write'}catch{return '/write'}
+ try{const url=new URL(next,'https://wikihownaija.invalid'),allowed=new Set(['/write','/my-guides']);return url.origin==='https://wikihownaija.invalid' && (allowed.has(url.pathname)||url.pathname.startsWith('/learn/')) ? url.pathname+url.search : '/write'}catch{return '/write'}
 })
 const signup=ref(false),name=ref(''),email=ref(''),password=ref(''),message=ref(''),busy=ref(false),sent=ref(false),captchaToken=ref(''),captchaKey=ref(0)
 const captchaRequired=computed(()=>Boolean(authConfig.value?.turnstileSiteKey))

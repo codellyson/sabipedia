@@ -34,7 +34,7 @@ export function verificationEmail(name: string, url: string) {
   }
 }
 
-export function reviewDecisionEmail(input: { name: string; title: string; published: boolean; note: string; url: string }) {
+export function reviewDecisionEmail(input: { name: string; title: string; published: boolean; note: string; url: string; kind?: string }) {
   const outcome=input.published?'has been published':'needs changes before it can be published'
   const subjectTitle=input.title.replace(/[\r\n]+/g,' ').trim()
   const safeName=escapeHtml(input.name || 'there'),safeTitle=escapeHtml(input.title),safeUrl=escapeHtml(input.url)
@@ -43,7 +43,7 @@ export function reviewDecisionEmail(input: { name: string; title: string; publis
   const noteHtml=note?`<h2>Editor’s note</h2><p>${escapeHtml(note).replace(/\n/g,'<br>')}</p>`:''
   return {
     subject: input.published?`Published: ${subjectTitle}`:`Changes requested: ${subjectTitle}`,
-    text: `Hello ${input.name || 'there'},\n\nYour guide “${input.title}” ${outcome}.${noteText}\n\nSee your submissions: ${input.url}`,
-    html: `<p>Hello ${safeName},</p><p>Your guide <strong>“${safeTitle}”</strong> ${outcome}.</p>${noteHtml}<p><a href="${safeUrl}">See my submissions</a></p>`,
+    text: `Hello ${input.name || 'there'},\n\nYour ${input.kind || 'guide'} “${input.title}” ${outcome}.${noteText}\n\nSee your submissions: ${input.url}`,
+    html: `<p>Hello ${safeName},</p><p>Your ${escapeHtml(input.kind || 'guide')} <strong>“${safeTitle}”</strong> ${outcome}.</p>${noteHtml}<p><a href="${safeUrl}">See my submissions</a></p>`,
   }
 }
