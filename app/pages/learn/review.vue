@@ -38,7 +38,7 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
     <ol class="phrase-list">
      <li v-for="(p,i) in item.content.phrases" :key="i" class="phrase" :class="{'is-changed':changed(item,i)}">
       <div class="phrase-text"><strong>{{p.text}}</strong><span v-if="p.pronunciation" class="phrase-say">{{p.pronunciation}}</span><span class="phrase-meaning">{{p.meaning}}</span><span v-if="changed(item,i)" class="phrase-changed">Changed</span></div>
-      <div class="phrase-play"><button class="phrase-play-main" @click="play(p.audioId)"><UIcon name="i-lucide-play" class="button-icon" aria-hidden="true"/>Play</button></div>
+      <div class="phrase-play"><button class="phrase-play-main" @click="play(p.audioId)"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</button></div>
       <p v-if="p.note" class="phrase-note">{{p.note}}</p>
      </li>
     </ol>

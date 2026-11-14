@@ -33,7 +33,7 @@ onBeforeUnmount(()=>{stop();player?.pause()})
  <div class="recorder" role="group" :aria-label="`Recording for ${props.label}`">
   <template v-if="state==='recording'"><button type="button" class="recorder-stop" @click="stop"><span class="recorder-dot" aria-hidden="true"/>Stop · 0:{{String(seconds).padStart(2,'0')}}</button></template>
   <template v-else>
-   <button v-if="model" type="button" class="secondary" @click="play"><UIcon name="i-lucide-play" class="button-icon" aria-hidden="true"/>Play</button>
+   <button v-if="model" type="button" class="secondary" @click="play"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</button>
    <button type="button" class="secondary" :disabled="state==='saving'" @click="start"><UIcon name="i-lucide-mic" class="button-icon" aria-hidden="true"/>{{model?'Re-record':'Record'}}</button>
    <label class="button secondary recorder-upload">Upload<input type="file" accept="audio/mpeg,audio/mp4,audio/webm,.m4a,.mp3" :disabled="state==='saving'" @change="pick"></label>
    <span v-if="state==='saving'" class="field-hint" role="status">Saving…</span>

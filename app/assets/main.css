@@ -1066,3 +1066,11 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 @media (max-width: 600px) { .phrase { grid-template-columns: minmax(0,1fr); } .learn-mine-row { flex-direction: column; } }
 .site-header .main-nav a { white-space: nowrap; }
 @media (max-width: 480px) { .site-header { gap: 8px; } .site-header .brand-logo { height: 30px; } .site-header .main-nav { gap: 0; } .site-header .main-nav a { padding: 6px 8px; } .nav-cta { padding: 0 14px; } }
+.hub-topics a { height: 100%; }
+.phrase.is-changed { padding-inline: 12px; border-radius: 10px; }
+.state-icon { position: relative; display: inline-grid; }
+.state-icon-layer { grid-area: 1 / 1; width: 100%; height: 100%; scale: .25; opacity: 0; filter: blur(4px); transition-property: opacity, filter, scale; transition-duration: 300ms; transition-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+.state-icon-layer.is-on { scale: 1; opacity: 1; filter: blur(0); }
+.icon-play-nudge { translate: 1px 0; }
+.site-header .main-nav a { border-radius: 10px; }
+@media (prefers-reduced-motion: reduce) { .state-icon-layer { transition-duration: 0ms; } }

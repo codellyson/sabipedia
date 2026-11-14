@@ -39,8 +39,8 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
    <li v-for="(p,i) in page.content.phrases" :key="i" class="phrase">
     <div class="phrase-text"><strong>{{p.text}}</strong><span v-if="p.pronunciation" class="phrase-say" lang="en">{{p.pronunciation}}</span><span class="phrase-meaning" lang="en">{{p.meaning}}</span></div>
     <div class="phrase-play" lang="en">
-     <button class="phrase-play-main" :aria-label="`Play ${p.text}`" @click="play(p.audioId)"><UIcon :name="playing===p.audioId?'i-lucide-volume-2':'i-lucide-play'" class="button-icon" aria-hidden="true"/>Play</button>
-     <button class="secondary" :aria-label="`Play ${p.text} slowly`" @click="play(p.audioId,true)">Slow</button>
+     <button class="phrase-play-main" :aria-label="`Play ${p.text}`" @click="play(p.audioId)"><StateIcon icon="i-lucide-play" active-icon="i-lucide-volume-2" :active="playing===p.audioId"/>Play</button>
+     <button class="secondary" :aria-label="`Play ${p.text} slowly`" @click="play(p.audioId,true)"><StateIcon icon="i-lucide-snail" active-icon="i-lucide-volume-2" :active="playing===p.audioId+':slow'"/>Slow</button>
     </div>
     <p v-if="p.note" class="phrase-note" lang="en">{{p.note}}</p>
     <div class="phrase-flag" lang="en">
