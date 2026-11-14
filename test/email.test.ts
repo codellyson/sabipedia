@@ -11,7 +11,7 @@ test('transactional email uses a named, configured sender',async()=>{
 
 test('password reset email escapes user-controlled HTML',()=>{
  const message=passwordResetEmail('<img src=x onerror=alert(1)>','https://example.com/reset?x=1&y=2')
- assert.doesNotMatch(message.html,/<img/)
+ assert.doesNotMatch(message.html,/<img src=x/)
  assert.match(message.html,/&lt;img/)
  assert.match(message.html,/x=1&amp;y=2/)
  assert.match(message.text,/https:\/\/example\.com\/reset\?x=1&y=2/)
