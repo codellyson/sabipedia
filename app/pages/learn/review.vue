@@ -17,6 +17,7 @@ async function decide(item:Item,action:'publish'|'reject'){
 async function resolve(flag:Flag){busy.value=flag.id;try{await $fetch(`/api/learn/flags/${flag.id}`,{method:'POST'});await refresh()}catch(e:any){message.value=e?.data?.statusMessage||'Could not close the report.'}finally{busy.value=''}}
 const {data:reviewers,refresh:refreshReviewers}=await useFetch<Array<{user_id:string;language:string;name:string;email:string}>>('/api/learn/reviewers',{immediate:false})
 watch(()=>me.value?.isAdmin,admin=>{if(admin)refreshReviewers()},{immediate:true})
+const languageItems=languages.map(l=>({label:l.name,value:l.slug as string}))
 const invite=reactive({email:'',language:'yoruba'}),inviteMessage=ref('')
 async function setReviewer(email:string,language:string,remove=false){
  inviteMessage.value=''
@@ -28,7 +29,7 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
 <template>
  <section class="learn-review">
   <header><nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink></nav><h1>Phrase review</h1><p v-if="data" class="home-lede">You review {{data.languages.map(l=>languageBySlug(l)?.name).join(', ')}}. Listen to every recording before you publish.</p></header>
-  <div v-if="error" class="notice"><p>{{error.statusCode===401?'Sign in to review phrase pages.':'You are not a reviewer for any language yet.'}}</p><NuxtLink v-if="error.statusCode===401" class="button secondary" :to="{path:'/login',query:{next:'/learn/review'}}">Sign in</NuxtLink></div>
+  <div v-if="error" class="notice"><p>{{error.statusCode===401?'Sign in to review phrase pages.':'You are not a reviewer for any language yet.'}}</p><UButton v-if="error.statusCode===401" class="button secondary" :to="{path:'/login',query:{next:'/learn/review'}}">Sign in</UButton></div>
   <template v-else-if="data">
    <p v-if="message" role="status" class="notice">{{message}}</p>
    <h2>Waiting for review <small>{{data.submissions.length}}</small></h2>
@@ -38,14 +39,14 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
     <ol class="phrase-list">
      <li v-for="(p,i) in item.content.phrases" :key="i" class="phrase" :class="{'is-changed':changed(item,i)}">
       <div class="phrase-text"><strong>{{p.text}}</strong><span v-if="p.pronunciation" class="phrase-say">{{p.pronunciation}}</span><span class="phrase-meaning">{{p.meaning}}</span><span v-if="changed(item,i)" class="phrase-changed">Changed</span></div>
-      <div class="phrase-play"><button class="phrase-play-main" @click="play(p.audioId)"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</button></div>
+      <div class="phrase-play"><UButton class="phrase-play-main" @click="play(p.audioId)"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</UButton></div>
       <p v-if="p.note" class="phrase-note">{{p.note}}</p>
      </li>
     </ol>
-    <label><span>Note to the speaker <small>(needed when sending back)</small></span><textarea v-model="notes[item.id]" rows="2" maxlength="2000" /></label>
+    <UFormField label="Note to the speaker" hint="Needed when sending back" class="writer-form-field"><UTextarea v-model="notes[item.id]" :rows="2" maxlength="2000" class="writer-input" /></UFormField>
     <div class="learn-review-actions">
-     <button class="secondary" :disabled="busy===item.id" @click="decide(item,'reject')">Send back</button>
-     <button class="primary" :disabled="busy===item.id||(item.author_id===data.userId&&!me?.isAdmin)" @click="decide(item,'publish')">Publish</button>
+     <UButton class="secondary" :disabled="busy===item.id" @click="decide(item,'reject')">Send back</UButton>
+     <UButton class="primary" :disabled="busy===item.id||(item.author_id===data.userId&&!me?.isAdmin)" @click="decide(item,'publish')">Publish</UButton>
      <span v-if="item.author_id===data.userId&&!me?.isAdmin" class="field-hint">Another reviewer must publish your own page.</span>
     </div>
    </article>
@@ -53,13 +54,13 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
    <p v-if="!data.flags.length" class="field-hint">No open reports.</p>
    <ul v-else class="home-list"><li v-for="f in data.flags" :key="f.id" class="learn-mine-row">
     <div><strong>{{f.phrase}}</strong><span class="home-row-meta"><NuxtLink :to="`/learn/${f.language}/${f.slug}`">{{f.title}}</NuxtLink><span>reported by {{f.author}}</span></span><p class="phrase-note">{{f.note}}</p></div>
-    <span class="learn-flag-actions"><NuxtLink class="button secondary" :to="`/learn/write?lesson=${f.lesson_id}`">Correct</NuxtLink><button class="secondary" :disabled="busy===f.id" @click="resolve(f)">Close</button></span>
+    <span class="learn-flag-actions"><UButton class="button secondary" :to="`/learn/write?lesson=${f.lesson_id}`">Correct</UButton><UButton class="secondary" :disabled="busy===f.id" @click="resolve(f)">Close</UButton></span>
    </li></ul>
   </template>
   <section v-if="me?.isAdmin" class="learn-reviewers"><h2>Language reviewers</h2>
-   <form class="pair" @submit.prevent="setReviewer(invite.email,invite.language)"><label>Account email<input v-model="invite.email" type="email" required></label><label>Language<select v-model="invite.language"><option v-for="l in languages" :key="l.slug" :value="l.slug">{{l.name}}</option></select></label><button type="submit" class="primary">Add reviewer</button></form>
+   <form class="pair" @submit.prevent="setReviewer(invite.email,invite.language)"><UFormField label="Account email" class="writer-form-field"><UInput v-model="invite.email" type="email" required class="writer-input" /></UFormField><UFormField label="Language" class="writer-form-field"><USelect v-model="invite.language" :items="languageItems" value-key="value" :ui="{base:'writer-select',content:'writer-select-menu',item:'writer-select-option'}" /></UFormField><UButton type="submit" class="primary">Add reviewer</UButton></form>
    <p v-if="inviteMessage" role="alert" class="field-hint">{{inviteMessage}}</p>
-   <ul class="home-list"><li v-for="r in reviewers||[]" :key="r.user_id+r.language" class="learn-mine-row"><div><strong>{{r.name}}</strong><span class="home-row-meta"><span>{{r.email}}</span><span>{{languageBySlug(r.language)?.name}}</span></span></div><button class="secondary" @click="setReviewer(r.email,r.language,true)">Remove</button></li></ul>
+   <ul class="home-list"><li v-for="r in reviewers||[]" :key="r.user_id+r.language" class="learn-mine-row"><div><strong>{{r.name}}</strong><span class="home-row-meta"><span>{{r.email}}</span><span>{{languageBySlug(r.language)?.name}}</span></span></div><UButton class="secondary" @click="setReviewer(r.email,r.language,true)">Remove</UButton></li></ul>
   </section>
  </section>
 </template>

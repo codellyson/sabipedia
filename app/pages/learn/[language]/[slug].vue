@@ -39,13 +39,13 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
    <li v-for="(p,i) in page.content.phrases" :key="i" class="phrase">
     <div class="phrase-text"><strong>{{p.text}}</strong><span v-if="p.pronunciation" class="phrase-say" lang="en">{{p.pronunciation}}</span><span class="phrase-meaning" lang="en">{{p.meaning}}</span></div>
     <div class="phrase-play" lang="en">
-     <button class="phrase-play-main" :aria-label="`Play ${p.text}`" @click="play(p.audioId)"><StateIcon icon="i-lucide-play" active-icon="i-lucide-volume-2" :active="playing===p.audioId"/>Play</button>
-     <button class="secondary" :aria-label="`Play ${p.text} slowly`" @click="play(p.audioId,true)"><StateIcon icon="i-lucide-snail" active-icon="i-lucide-volume-2" :active="playing===p.audioId+':slow'"/>Slow</button>
+     <UButton class="phrase-play-main" :aria-label="`Play ${p.text}`" @click="play(p.audioId)"><StateIcon icon="i-lucide-play" active-icon="i-lucide-volume-2" :active="playing===p.audioId"/>Play</UButton>
+     <UButton class="secondary" :aria-label="`Play ${p.text} slowly`" @click="play(p.audioId,true)"><StateIcon icon="i-lucide-snail" active-icon="i-lucide-volume-2" :active="playing===p.audioId+':slow'"/>Slow</UButton>
     </div>
     <p v-if="p.note" class="phrase-note" lang="en">{{p.note}}</p>
     <div class="phrase-flag" lang="en">
-     <button v-if="flagging!==i" class="link" @click="flagging=i;flagMessage='';flagNote=''">Report a problem</button>
-     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><label>What is wrong with this phrase or recording?<textarea v-model="flagNote" rows="2" maxlength="1000" required /></label><div class="phrase-flag-actions"><button class="secondary" type="button" @click="flagging=null">Cancel</button><button type="submit" class="primary" :disabled="flagBusy">Send report</button></div></form>
+     <UButton v-if="flagging!==i" class="link" @click="flagging=i;flagMessage='';flagNote=''">Report a problem</UButton>
+     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><UFormField label="What is wrong with this phrase or recording?" class="writer-form-field"><UTextarea v-model="flagNote" :rows="2" maxlength="1000" required class="writer-input" /></UFormField><div class="phrase-flag-actions"><UButton class="secondary" @click="flagging=null">Cancel</UButton><UButton type="submit" class="primary" :disabled="flagBusy">Send report</UButton></div></form>
      <p v-else><NuxtLink :to="{path:'/login',query:{next:route.fullPath}}">Sign in</NuxtLink> to report a problem.</p>
      <p v-if="flagMessage&&flagAt===i" role="status" class="field-hint">{{flagMessage}}</p>
     </div>

@@ -2,6 +2,7 @@
 const model=defineModel<string|undefined>()
 const props=defineProps<{label:string}>()
 const state=ref<'idle'|'recording'|'saving'>('idle'),seconds=ref(0),message=ref('')
+const fileInput=ref<HTMLInputElement>()
 let recorder:MediaRecorder|undefined,timer:ReturnType<typeof setInterval>|undefined,player:HTMLAudioElement|undefined
 async function upload(blob:Blob,name:string){
  state.value='saving';message.value=''
@@ -31,11 +32,12 @@ onBeforeUnmount(()=>{stop();player?.pause()})
 </script>
 <template>
  <div class="recorder" role="group" :aria-label="`Recording for ${props.label}`">
-  <template v-if="state==='recording'"><button type="button" class="recorder-stop" @click="stop"><span class="recorder-dot" aria-hidden="true"/>Stop · 0:{{String(seconds).padStart(2,'0')}}</button></template>
+  <template v-if="state==='recording'"><UButton class="recorder-stop" @click="stop"><span class="recorder-dot" aria-hidden="true"/>Stop · 0:{{String(seconds).padStart(2,'0')}}</UButton></template>
   <template v-else>
-   <button v-if="model" type="button" class="secondary" @click="play"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</button>
-   <button type="button" class="secondary" :disabled="state==='saving'" @click="start"><UIcon name="i-lucide-mic" class="button-icon" aria-hidden="true"/>{{model?'Re-record':'Record'}}</button>
-   <label class="button secondary recorder-upload">Upload<input type="file" accept="audio/mpeg,audio/mp4,audio/webm,.m4a,.mp3" :disabled="state==='saving'" @change="pick"></label>
+   <UButton v-if="model" class="secondary" @click="play"><UIcon name="i-lucide-play" class="button-icon icon-play-nudge" aria-hidden="true"/>Play</UButton>
+   <UButton class="secondary" icon="i-lucide-mic" :ui="{leadingIcon:'button-icon'}" :disabled="state==='saving'" @click="start">{{model?'Re-record':'Record'}}</UButton>
+   <UButton class="secondary" icon="i-lucide-upload" :ui="{leadingIcon:'button-icon'}" :disabled="state==='saving'" @click="fileInput?.click()">Upload</UButton>
+   <input ref="fileInput" type="file" accept="audio/mpeg,audio/mp4,audio/webm,.m4a,.mp3" hidden @change="pick">
    <span v-if="state==='saving'" class="field-hint" role="status">Saving…</span>
    <span v-else-if="!model" class="field-hint">Needs a recording</span>
   </template>

@@ -47,6 +47,6 @@ useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDesc
    </ul>
   </section>
 
-  <section class="contribute-strip"><div><h2>Someone can learn from what you know.</h2><p>A family recipe. A craft. A way of doing things in your community.</p></div><NuxtLink class="button secondary" to="/write">Document knowledge<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></section>
+  <section class="contribute-strip"><div><h2>Someone can learn from what you know.</h2><p>A family recipe. A craft. A way of doing things in your community.</p></div><UButton class="button secondary" to="/write" trailing-icon="i-lucide-arrow-right" :ui="{trailingIcon:'button-icon'}">Document knowledge</UButton></section>
  </div>
 </template>

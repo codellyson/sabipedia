@@ -524,7 +524,7 @@ button.media-remove { position: absolute; top: 7px; right: 7px; width: 32px; hei
 .writer-form-field [data-slot='wrapper'] { display: grid; gap: 8px; }
 .writer-form-field [data-slot='labelWrapper'] { display: flex; align-items: center; gap: 8px; }
 .pair > .writer-form-field [data-slot='labelWrapper'] { min-height: 36px; }
-.writer-form-field [data-slot='description'], .writer-form-field [data-slot='help'] { font-size: 13px; line-height: 1.6; color: var(--muted); font-weight: 400; margin: 0; }
+.writer-form-field [data-slot='description'], .writer-form-field [data-slot='help'], .writer-form-field [data-slot='hint'] { font-size: 13px; line-height: 1.6; color: var(--muted); font-weight: 400; margin: 0; }
 .writer-form-field [data-slot='help'] { text-align: right; font-size: 12px; margin-top: 8px; }
 .writer-form-field [data-slot='error'] { color: var(--error); font-size: 13px; margin-top: 8px; }
 button.writer-select, button.writer-select:hover { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; padding: 11px 12px; background: var(--paper); border: 1px solid var(--line); color: var(--text); font-size: 15px; font-weight: 400; text-align: left; }
@@ -1050,8 +1050,6 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 .phrase-editor-head button.link { padding: 0; min-height: 0; font-size: 13px; color: var(--muted); }
 @media (max-width: 600px) { .phrase-editor-head span { gap: 4px; } .phrase-editor-head button.link { min-height: 44px; padding: 0 8px; } }
 .recorder { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.recorder-upload { position: relative; overflow: hidden; cursor: pointer; }
-.recorder-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .recorder button.recorder-stop { background: #b91c1c; color: #fff; }
 .recorder-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: recorder-pulse 1s ease-in-out infinite; }
 @keyframes recorder-pulse { 50% { opacity: .3; } }
@@ -1077,3 +1075,4 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
 .icon-play-nudge { translate: 1px 0; }
 .site-header .main-nav a { border-radius: 10px; }
 @media (prefers-reduced-motion: reduce) { .state-icon-layer { transition-duration: 0ms; } }
+button.writer-select:not(.link), button.date-select-control:not(.link) { font-weight: 400; }

@@ -14,6 +14,6 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
   <ul v-else-if="pages?.length" class="home-list">
    <li v-for="p in pages" :key="p.slug"><NuxtLink :to="`/learn/${language!.slug}/${p.slug}`" class="home-row"><strong>{{p.title}}</strong><span class="home-row-summary">{{p.summary}}</span><span class="home-row-meta"><span>{{p.phrases}} {{p.phrases===1?'phrase':'phrases'}}</span></span></NuxtLink></li>
   </ul>
-  <div v-else class="empty"><h2>No {{language!.name}} pages yet.</h2><p>Native speakers are recording the first ones.</p><NuxtLink class="button secondary" to="/learn/write">Speak {{language!.name}}? Add a page</NuxtLink></div>
+  <div v-else class="empty"><h2>No {{language!.name}} pages yet.</h2><p>Native speakers are recording the first ones.</p><UButton class="button secondary" to="/learn/write">Speak {{language!.name}}? Add a page</UButton></div>
  </div>
 </template>
