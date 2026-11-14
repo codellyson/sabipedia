@@ -1107,3 +1107,8 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
 }
 @media (max-width: 600px) { main, .site-footer { padding-left: 20px; padding-right: 20px; } }
 @media (max-width: 360px) { .site-header .main-nav a { padding: 0 6px; } .site-header .site-nav > a.nav-cta { padding: 0 12px; } }
+/* Guide folds: chevron trails at the right so headings share the content's left edge. */
+.guide-fold summary .guide-chevron, .guide-needs summary .guide-chevron { order: 2; color: var(--muted); transform: rotate(90deg); }
+.guide-fold[open] > summary .guide-chevron, .guide-needs[open] > summary .guide-chevron { transform: rotate(-90deg); }
+.guide-fold summary:not(:has(.guide-count)) .guide-chevron, .guide-needs summary:not(:has(.guide-count)) .guide-chevron { margin-left: auto; }
+.guide-fold-body ul { margin: 0; padding-left: 0; list-style-position: outside; }
