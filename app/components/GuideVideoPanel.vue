@@ -46,15 +46,15 @@ async function review(action:'publish'|'reject') {
 
 <template>
  <section v-if="guide.video||canReview" class="guide-video-panel" aria-labelledby="guide-video-title">
-  <div class="guide-video-heading"><div><p class="eyebrow">WATCH THE HIGHLIGHTS</p><h2 id="guide-video-title">Video guide</h2><p>A short visual summary. Read the steps below for full instructions and sources.</p></div><span v-if="guide.video" class="guide-video-label">Captioned · no audio</span></div>
+  <div class="guide-video-heading"><div><h2 id="guide-video-title">Video guide</h2><p>A short visual summary. Read the steps below for full instructions and sources.</p></div><span v-if="guide.video" class="guide-video-label">Captioned · no audio</span></div>
   <video v-if="guide.video" class="guide-video-player" :src="videoUrl(guide.video.id)" controls preload="metadata" playsinline aria-label="Captioned visual summary of this guide" />
   <div v-if="canReview" class="guide-video-editor">
    <p v-if="editorState?.stale" class="reader-warning">The guide changed after its last video was published. Generate and review a new video for this revision.</p>
    <template v-if="editorState?.draft">
-    <p><strong>Draft awaiting review.</strong> This video is visible only to editors until approved.</p>
+    <p class="notice"><strong>Draft awaiting review.</strong> Only editors can see this video until it is approved.</p>
     <video class="guide-video-player" :src="videoUrl(editorState.draft.id)" controls preload="metadata" playsinline aria-label="Draft visual summary for editor review" />
     <label class="guide-video-confirm"><input v-model="reviewed" type="checkbox"> I watched the draft and checked it against this guide.</label>
-    <div class="guide-video-actions"><button class="primary" :disabled="busy||!reviewed" @click="review('publish')">Approve video</button><button class="secondary" :disabled="busy" @click="review('reject')">Reject draft</button></div>
+    <div class="guide-video-actions"><button class="primary" :disabled="busy||!reviewed" @click="review('publish')">Approve video</button><button class="secondary" :disabled="busy" @click="review('reject')">Reject draft</button><span v-if="!reviewed" class="field-hint">Tick the box to approve.</span></div>
    </template>
    <template v-else-if="!guide.video">
     <p>The editor’s browser makes a captioned video from approved guide highlights and photos. Keep this tab open while it records.</p>

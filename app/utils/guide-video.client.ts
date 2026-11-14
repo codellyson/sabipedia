@@ -2,7 +2,7 @@ import type { GuideDetail } from '~~/shared/types'
 
 const width=1280,height=720
 const introSeconds=3.5,stepSeconds=5,outroSeconds=3
-type VideoBrand={logo:HTMLImageElement;mark:HTMLImageElement;font:string;canvas:string;paper:string;ink:string;text:string;muted:string;line:string;soft:string;green:string;orange:string}
+type VideoBrand={logo:HTMLImageElement;mark:HTMLImageElement;font:string;canvas:string;paper:string;ink:string;text:string;line:string;green:string;orange:string}
 
 async function loadBrand():Promise<VideoBrand> {
  await document.fonts.ready
@@ -17,7 +17,10 @@ async function loadBrand():Promise<VideoBrand> {
   image('/brand/whn-mark.svg'),
  ])
  // Published videos use the app's light palette regardless of an editor's theme.
- return {logo,mark,font:getComputedStyle(document.documentElement).fontFamily,canvas:'#f8f6ef',paper:'#fff',ink:'#15201a',text:'#334039',muted:'#68716c',line:'#e3ded2',soft:'#efebe1',green:'#17664e',orange:'#d95417'}
+ const family=getComputedStyle(document.documentElement).fontFamily
+ // Canvas text only uses a web font once it has loaded at that weight.
+ await Promise.all([400,700].map(weight=>document.fonts.load(`${weight} 40px ${family}`)))
+ return {logo,mark,font:family,canvas:'#f8f6ef',paper:'#fff',ink:'#15201a',text:'#334039',line:'#e3ded2',green:'#17664e',orange:'#d95417'}
 }
 
 function font(ctx:CanvasRenderingContext2D,brand:VideoBrand,weight:number,size:number) {
@@ -73,16 +76,14 @@ function drawFrame(ctx:CanvasRenderingContext2D,guide:GuideDetail,steps:ReturnTy
  const fade=slide===-1?Math.min(1,(duration-within)/.35):Math.min(1,within/.35,(duration-within)/.35)
  ctx.fillStyle=brand.canvas;ctx.fillRect(0,0,width,height)
  ctx.drawImage(brand.logo,72,42,351,64)
- ctx.fillStyle=brand.orange;font(ctx,brand,700,22);ctx.fillText('GUIDE HIGHLIGHTS',72,150)
- ctx.fillStyle=brand.line;ctx.fillRect(72,174,width-144,2)
+ ctx.fillStyle=brand.line;ctx.fillRect(72,138,width-144,2)
  ctx.fillStyle=brand.line;ctx.fillRect(72,656,width-144,8)
  ctx.fillStyle=brand.green;ctx.fillRect(72,656,(width-144)*Math.min(1,elapsed/total),8)
  ctx.save();ctx.globalAlpha=Math.max(0,fade)
  if(slide===-1) {
   ctx.fillStyle=brand.paper;ctx.beginPath();ctx.roundRect(790,210,390,360,24);ctx.fill()
   ctx.strokeStyle=brand.line;ctx.lineWidth=2;ctx.stroke()
-  ctx.drawImage(brand.mark,895,275,180,180)
-  ctx.fillStyle=brand.muted;font(ctx,brand,700,20);ctx.textAlign='center';ctx.fillText('PRACTICAL KNOW-HOW',985,505);ctx.textAlign='left'
+  ctx.drawImage(brand.mark,895,300,180,180)
   ctx.fillStyle=brand.ink;font(ctx,brand,700,66)
   drawLines(ctx,excerpt(guide.content.title,130),72,260,660,76,4)
   ctx.fillStyle=brand.text;font(ctx,brand,400,28)
@@ -95,17 +96,13 @@ function drawFrame(ctx:CanvasRenderingContext2D,guide:GuideDetail,steps:ReturnTy
  } else {
   const item=steps[slide]!,image=images.get(item.index)
   const textWidth=image?630:1090
-  ctx.fillStyle=brand.orange;font(ctx,brand,700,26)
-  ctx.fillText(`STEP ${item.index+1} OF ${guide.content.steps.length}`,72,210)
-  ctx.fillStyle=brand.ink;font(ctx,brand,700,54)
-  drawLines(ctx,excerpt(item.text,230),72,295,textWidth,70,5)
-  ctx.fillStyle=brand.muted;font(ctx,brand,400,23);ctx.fillText('See the guide for the complete instructions.',72,600)
+  ctx.fillStyle=brand.orange;font(ctx,brand,700,28)
+  ctx.fillText(`Step ${item.index+1} of ${guide.content.steps.length}`,72,210)
+  ctx.fillStyle=brand.ink;font(ctx,brand,700,image?54:60)
+  drawLines(ctx,excerpt(item.text,230),72,295,textWidth,image?70:76,5)
   if(image) {
    ctx.save();ctx.beginPath();ctx.roundRect(780,164,430,420,22);ctx.clip()
    drawImageCover(ctx,image,780,164,430,420);ctx.restore()
-  } else {
-   ctx.fillStyle=brand.soft;ctx.beginPath();ctx.roundRect(952,398,220,220,110);ctx.fill()
-   ctx.fillStyle=brand.green;font(ctx,brand,700,120);ctx.textAlign='center';ctx.fillText(String(item.index+1),1062,550);ctx.textAlign='left'
   }
  }
  ctx.restore()
