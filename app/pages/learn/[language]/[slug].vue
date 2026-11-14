@@ -31,7 +31,7 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
 </script>
 <template>
  <article v-if="page" class="home learn learn-page">
-  <nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><NuxtLink :to="`/learn/${language!.slug}`">{{language!.name}}</NuxtLink></nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink><span class="breadcrumb-sep" aria-hidden="true">/</span><NuxtLink :to="`/learn/${language!.slug}`">{{language!.name}}</NuxtLink></nav>
   <header class="home-top"><h1>{{page.content.title}}</h1><p class="home-lede">{{page.content.summary}}</p>
    <p class="learn-meta"><span class="home-verified"><UIcon name="i-lucide-check" aria-hidden="true"/>Checked by a {{language!.name}} reviewer</span><span>Voiced by {{page.author}}</span><span>Updated {{updated}}</span></p>
   </header>

@@ -8,7 +8,7 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
 </script>
 <template>
  <div class="home learn">
-  <nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><span>{{language!.name}}</span></nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink><span class="breadcrumb-sep" aria-hidden="true">/</span><span>{{language!.name}}</span></nav>
   <section class="home-top"><h1>{{language!.native}}</h1><p class="home-lede">{{language!.blurb}}</p></section>
   <p v-if="error" role="alert" class="notice">We couldn’t load these pages. Please try again.</p>
   <ul v-else-if="pages?.length" class="home-list">

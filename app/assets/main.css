@@ -143,7 +143,6 @@ form { display: grid; gap: 20px; }
 .reading audio { max-width: 100%; }
 .guide-breadcrumb, .breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; color: var(--muted); font-size: 13px; }
 .breadcrumb { align-items: center; margin-bottom: 20px; }
-.breadcrumb .breadcrumb-icon { width: 14px; height: 14px; flex-basis: 14px; }
 .guide-facets { display: flex; flex-wrap: wrap; gap: 8px 16px; }
 .guide-facets > *:not(:last-child)::after { content: '·'; margin-left: 16px; color: var(--muted); text-decoration: none; }
 .document-nav { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 32px 0 0; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 13px; }
@@ -672,7 +671,7 @@ h2 { font-weight: 600; letter-spacing: -.035em; }
 .site-nav a.router-link-active:not(.nav-cta) { color: var(--ink); }
 .header-search { display: flex; align-items: center; gap: 10px; width: min(260px,18vw); margin-left: auto; padding: 0 18px; border-radius: 8px; background: var(--canvas); }
 .search-lens { width: 20px; height: 20px; flex: 0 0 20px; color: var(--text); }
-.nav-icon,.button-icon,.row-icon,.breadcrumb-icon { width: 18px; height: 18px; flex: 0 0 18px; }
+.nav-icon,.button-icon,.row-icon { width: 18px; height: 18px; flex: 0 0 18px; }
 .writer-return { display: inline-flex; align-items: center; gap: 8px; }
 .header-search input { height: 48px; min-height: 0; padding: 0; border: 0; background: transparent; }
 .header-search input:focus { box-shadow: none; }
@@ -1118,7 +1117,7 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
 .guide-fold[open] > summary .guide-chevron, .guide-needs[open] > summary .guide-chevron { transform: rotate(-90deg); }
 .guide-fold summary:not(:has(.guide-count)) .guide-chevron, .guide-needs summary:not(:has(.guide-count)) .guide-chevron { margin-left: auto; }
 .guide-fold-body ul { margin: 0; padding-left: 0; list-style-position: outside; }
-.guide-reader .guide-breadcrumb .breadcrumb-icon { width: 14px; height: 14px; flex-basis: 14px; }
 .breadcrumb a, .guide-breadcrumb a { color: var(--muted); text-decoration: none; }
 .breadcrumb a:hover, .guide-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
 .breadcrumb, .guide-reader .guide-breadcrumb { font-size: 14px; }
+.breadcrumb-sep { color: color-mix(in srgb, var(--muted) 55%, transparent); }

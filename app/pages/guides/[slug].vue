@@ -84,7 +84,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
  <article v-if="g" class="guide-reader">
   <StepMode v-if="stepMode" :guide-id="g.id" :title="g.content.title" :steps="g.content.steps" :step-documents="g.content.stepDocuments" :step-media-ids="g.content.stepMediaIds" :requirements="g.content.requirements" @close="closeStepMode" />
   <nav class="guide-breadcrumb" aria-label="Breadcrumb">
-   <NuxtLink to="/">Home</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><NuxtLink to="/how-to">How To</NuxtLink><UIcon name="i-lucide-chevron-right" class="breadcrumb-icon" aria-hidden="true"/><NuxtLink :to="`/how-to/${categorySlug(g.content.category)}`">{{g.content.category}}</NuxtLink>
+   <NuxtLink to="/">Home</NuxtLink><span class="breadcrumb-sep" aria-hidden="true">/</span><NuxtLink to="/how-to">How To</NuxtLink><span class="breadcrumb-sep" aria-hidden="true">/</span><NuxtLink :to="`/how-to/${categorySlug(g.content.category)}`">{{g.content.category}}</NuxtLink>
    <ClientOnly><button v-if="canReview&&!revisionComparison" class="guide-editor-chip" :disabled="revisionBusy" @click="showRevision(g.version_id)">Editor · see edits</button></ClientOnly>
   </nav>
   <InlineRevisionDocument v-if="revisionComparison" :comparison="revisionComparison" @close="revisionComparison=null" />
