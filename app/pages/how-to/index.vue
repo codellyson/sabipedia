@@ -31,7 +31,7 @@ useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDesc
 <template>
  <div class="home">
   <section class="home-top" aria-labelledby="home-title">
-   <h1 id="home-title">{{topic?`${topic} guides`:'How to'}}</h1>
+   <h1 id="home-title">{{topic?`${topic} guides`:'How To'}}</h1>
    <p v-if="!topic" class="home-lede">Step-by-step guides for getting things done in Nigeria.</p>
    <form class="home-search" role="search" @submit.prevent="navigateTo({path: '/how-to', query: q.trim() ? {q:q.trim()} : {}})">
     <UIcon name="i-lucide-search" class="home-search-icon" aria-hidden="true"/>

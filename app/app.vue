@@ -52,7 +52,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
     <template v-else>
       <header class="site-header">
         <NuxtLink class="brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
-        <nav class="main-nav" aria-label="Sections"><NuxtLink to="/how-to" :class="{'router-link-active': /^\/(how-to|guides)(\/|$)/.test(route.path)}">How to</NuxtLink><NuxtLink to="/learn" :class="{'router-link-active': /^\/learn(\/|$)/.test(route.path)}">Learn</NuxtLink></nav>
+        <nav class="main-nav" aria-label="Sections"><NuxtLink to="/how-to" :class="{'router-link-active': /^\/(how-to|guides)(\/|$)/.test(route.path)}">How To</NuxtLink><NuxtLink to="/learn" :class="{'router-link-active': /^\/learn(\/|$)/.test(route.path)}">Learn</NuxtLink></nav>
         <form v-if="route.path !== '/' && !route.path.startsWith('/how-to')" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
