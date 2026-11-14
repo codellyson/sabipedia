@@ -830,7 +830,13 @@ details[open] > summary .guide-chevron { transform: rotate(90deg); }
 .guide-fold-body .source-list a { overflow-wrap: anywhere; }
 button.guide-btn-primary { min-height: 44px; background: var(--ink); color: var(--paper); font-weight: 600; }
 button.guide-btn-primary:hover { background: color-mix(in srgb,var(--ink),var(--paper) 15%); color: var(--paper); }
-.guide-history-item { display: grid; gap: 2px; padding: 10px 0; }
+.guide-history-item { display: grid; justify-items: start; gap: 4px; padding: 12px 0; }
+.guide-history-item > * { width: auto; }
+.guide-history-item strong { color: var(--ink); }
+.guide-history-meta { font-size: 13px; }
+.guide-history-item p { margin: 0; color: var(--text); }
+.guide-history-item button.link { min-height: 0; margin-top: 4px; font-size: 14px; }
+.guide-history-item + .guide-history-item { border-top: 1px solid var(--line); }
 .guide-related { margin-top: 48px; }
 .guide-related h2 { font-size: 20px; font-weight: 600; }
 .guide-rail { position: sticky; top: 24px; align-self: start; display: grid; gap: 12px; }
@@ -859,7 +865,7 @@ button.guide-btn-go:hover { background: color-mix(in srgb,var(--ink),var(--paper
   .guide-summary { font-size: 16px; }
   .guide-related .related-guides { grid-template-columns: 1fr; }
 }
-.guide-reader .guide-breadcrumb { margin: 0 0 34px; font-size: 15px; }
+.guide-reader .guide-breadcrumb { margin: 0 0 34px; font-size: 14px; }
 .reader-warning { margin: 30px 0; padding: 18px; border-radius: 10px; background: var(--red-soft); color: #8b2b24; }
 .guide-video-panel { margin-top: 48px; padding: 24px 18px; border-radius: 10px; background: var(--paper); box-shadow: var(--edge-shadow); }
 .guide-video-heading { display: flex; justify-content: space-between; align-items: start; gap: 24px; margin-bottom: 22px; }
@@ -1113,3 +1119,6 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
 .guide-fold summary:not(:has(.guide-count)) .guide-chevron, .guide-needs summary:not(:has(.guide-count)) .guide-chevron { margin-left: auto; }
 .guide-fold-body ul { margin: 0; padding-left: 0; list-style-position: outside; }
 .guide-reader .guide-breadcrumb .breadcrumb-icon { width: 14px; height: 14px; flex-basis: 14px; }
+.breadcrumb a, .guide-breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover, .guide-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
+.breadcrumb, .guide-reader .guide-breadcrumb { font-size: 14px; }

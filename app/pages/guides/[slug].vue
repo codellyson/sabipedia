@@ -13,7 +13,8 @@ if(error.value) throw createError({statusCode:404,statusMessage:'Guide not found
 const reason=ref(''),community=ref(''),location=ref(''),note=ref(''),message=ref(''),busy=ref(false)
 const revisionComparison=ref<RevisionComparison|null>(null),revisionBusy=ref(false),stepMode=ref(false),completed=ref<number[]>([])
 const storageKey=computed(()=>`wikihownaija:progress:${g.value?.id||route.params.slug}`)
-const reviewedDate=computed(()=>{const value=g.value?.created_at;if(!value)return '';const date=new Date(value.includes('T')?value:value.replace(' ','T')+'Z');return Number.isNaN(date.valueOf())?'':new Intl.DateTimeFormat('en-NG',{day:'numeric',month:'short',year:'numeric'}).format(date)})
+const shortDate=(value?:string)=>{if(!value)return '';const date=new Date(value.includes('T')?value:value.replace(' ','T')+'Z');return Number.isNaN(date.valueOf())?'':new Intl.DateTimeFormat('en-NG',{day:'numeric',month:'short',year:'numeric'}).format(date)}
+const reviewedDate=computed(()=>shortDate(g.value?.created_at))
 const completion=computed(()=>g.value?.content.steps.length?Math.round(completed.value.length/g.value.content.steps.length*100):0)
 const generalMedia=computed(()=>{const guide=g.value;if(!guide)return[];const used=new Set(guide.content.stepMediaIds?.flat()||[]);return guide.media.filter(item=>!used.has(item.id))})
 function loadProgress(){try{completed.value=JSON.parse(localStorage.getItem(storageKey.value)||'[]')}catch{}}
@@ -151,7 +152,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
      </details>
      <details class="guide-fold">
       <summary><UIcon name="i-lucide-chevron-right" class="guide-chevron" aria-hidden="true"/>History<span class="guide-count">{{g.history.length}} {{g.history.length===1?'version':'versions'}} · by {{g.author}}</span></summary>
-      <div class="guide-fold-body"><div v-for="v in g.history" :key="String(v.id)" class="guide-history-item"><strong>Revision {{v.number}}</strong> · {{v.author}} · {{v.created_at}}<ClientOnly><template v-if="canReview"> · <button class="link" :disabled="revisionBusy" @click="showRevision(v.id)">View edits inline</button></template></ClientOnly><small>{{v.change_note||'Published revision'}}</small></div></div>
+      <div class="guide-fold-body"><div v-for="v in g.history" :key="String(v.id)" class="guide-history-item"><strong>Revision {{v.number}}</strong><span class="guide-history-meta">{{v.author}} · {{shortDate(v.created_at)}}</span><p>{{v.change_note||'Published revision'}}</p><ClientOnly><UButton v-if="canReview" class="link" :disabled="revisionBusy" @click="showRevision(v.id)">View edits inline</UButton></ClientOnly></div></div>
      </details>
     </div>
     <p v-if="message" class="notice" role="status">{{message}}</p>
