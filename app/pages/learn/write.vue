@@ -30,7 +30,7 @@ useSeoMeta({title:'Add a phrase page — Sabipedia',robots:'noindex'})
 </script>
 <template>
  <section class="learn-write">
-  <header><p class="eyebrow">Learn</p><h1>{{source.lessonId?'Correct a phrase page':'Add a phrase page'}}</h1><p class="home-lede">Write each phrase the way a native speaker says it, with tone marks, then record it. A {{language.name}} reviewer checks the page before it goes live.</p></header>
+  <header><nav class="breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/learn">Learn</NuxtLink></nav><h1>{{source.lessonId?'Correct a phrase page':'Add a phrase page'}}</h1><p class="home-lede">Write each phrase the way a native speaker says it, with tone marks, then record it. A {{language.name}} reviewer checks the page before it goes live.</p></header>
   <div v-if="!me?.signedIn" class="notice"><p>Sign in to add a phrase page.</p><NuxtLink class="button secondary" :to="{path:'/login',query:{next:'/learn/write'}}">Sign in</NuxtLink></div>
   <div v-else-if="sent" class="empty"><h2>Sent to a {{language.name}} reviewer.</h2><p>You’ll get an email when it’s checked.</p><button class="secondary" @click="again">Add another page</button></div>
   <form v-else class="learn-form" @submit.prevent="send">
@@ -57,7 +57,7 @@ useSeoMeta({title:'Add a phrase page — Sabipedia',robots:'noindex'})
    <button type="button" class="secondary" :disabled="form.phrases.length>=60" @click="form.phrases.push(blank())"><UIcon name="i-lucide-plus" class="button-icon" aria-hidden="true"/>Add phrase</button>
    <label v-if="source.lessonId">What you changed<input v-model="form.changeNote" maxlength="600"></label>
    <p v-if="message" role="alert" class="notice">{{message}}</p>
-   <div class="learn-submit"><button type="submit" :disabled="busy||missingAudio>0">Send to {{language.name}} reviewer</button><span v-if="missingAudio" class="field-hint">{{missingAudio}} {{missingAudio===1?'phrase needs':'phrases need'}} a recording.</span></div>
+   <div class="learn-submit"><button type="submit" class="primary" :disabled="busy||missingAudio>0">Send to {{language.name}} reviewer</button><span v-if="missingAudio" class="field-hint">{{missingAudio}} {{missingAudio===1?'phrase needs':'phrases need'}} a recording.</span></div>
   </form>
   <section v-if="me?.submissions?.length" class="learn-mine"><h2>Your phrase pages</h2>
    <ul class="home-list"><li v-for="s in me.submissions" :key="s.id" class="learn-mine-row">

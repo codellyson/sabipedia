@@ -17,9 +17,9 @@ function play(id:string,slow=false){
  audio.play().catch(()=>{playing.value=''})
 }
 onBeforeUnmount(()=>audio?.pause())
-const flagging=ref<number|null>(null),flagNote=ref(''),flagMessage=ref(''),flagBusy=ref(false)
+const flagging=ref<number|null>(null),flagNote=ref(''),flagMessage=ref(''),flagAt=ref<number|null>(null),flagBusy=ref(false)
 async function sendFlag(index:number){
- flagBusy.value=true;flagMessage.value=''
+ flagBusy.value=true;flagMessage.value='';flagAt.value=index
  try{await $fetch('/api/learn/flags',{method:'POST',body:{lessonId:page.value!.id,phraseIndex:index,note:flagNote.value}});flagging.value=null;flagNote.value='';flagMessage.value='Thanks. A reviewer will check it.'}
  catch(e:any){flagMessage.value=e?.data?.statusMessage||'Could not send the report. Try again.'}
  finally{flagBusy.value=false}
@@ -44,13 +44,13 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
     </div>
     <p v-if="p.note" class="phrase-note" lang="en">{{p.note}}</p>
     <div class="phrase-flag" lang="en">
-     <button v-if="flagging!==i" class="link" @click="flagging=i;flagMessage=''">Report a problem</button>
-     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><label>What is wrong with this phrase or recording?<textarea v-model="flagNote" rows="2" maxlength="1000" required /></label><div class="phrase-flag-actions"><button class="secondary" type="button" @click="flagging=null">Cancel</button><button type="submit" :disabled="flagBusy">Send report</button></div></form>
+     <button v-if="flagging!==i" class="link" @click="flagging=i;flagMessage='';flagNote=''">Report a problem</button>
+     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><label>What is wrong with this phrase or recording?<textarea v-model="flagNote" rows="2" maxlength="1000" required /></label><div class="phrase-flag-actions"><button class="secondary" type="button" @click="flagging=null">Cancel</button><button type="submit" class="primary" :disabled="flagBusy">Send report</button></div></form>
      <p v-else><NuxtLink :to="{path:'/login',query:{next:route.fullPath}}">Sign in</NuxtLink> to report a problem.</p>
+     <p v-if="flagMessage&&flagAt===i" role="status" class="field-hint">{{flagMessage}}</p>
     </div>
    </li>
   </ol>
-  <p v-if="flagMessage" role="status" class="field-hint">{{flagMessage}}</p>
   <p class="learn-correct"><NuxtLink :to="`/learn/write?lesson=${page.id}`">Speak {{language!.name}}? Suggest a correction</NuxtLink></p>
  </article>
  <p v-else-if="error" role="alert" class="notice">We couldn’t load this page. Please try again.</p>
