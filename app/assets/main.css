@@ -1121,3 +1121,31 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
 .breadcrumb a:hover, .guide-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
 .breadcrumb, .guide-reader .guide-breadcrumb { font-size: 14px; }
 .breadcrumb-sep { color: color-mix(in srgb, var(--muted) 55%, transparent); }
+
+/* Newsletter: strip above the footer, card after reading, confirm page. */
+.newsletter-strip { padding: 48px var(--page-gutter); border-top: 1px solid var(--line); background: var(--paper); }
+.newsletter { max-width: 560px; }
+.newsletter h2 { margin: 0 0 8px; }
+.newsletter > p { margin: 0 0 16px; color: var(--muted); }
+.newsletter-form { display: flex; gap: 8px; align-items: stretch; }
+.newsletter-form .writer-input { flex: 1 1 auto; min-width: 0; }
+.newsletter-form .writer-input input { height: 44px; }
+.newsletter-form button { flex: 0 0 auto; height: 44px; }
+.newsletter .turnstile-widget { margin-top: 12px; }
+.newsletter-error { margin: 8px 0 0; color: var(--error); }
+.newsletter-popup { position: fixed; z-index: 60; right: 24px; bottom: 24px; width: min(400px, calc(100vw - 32px)); padding: 24px; border-radius: 12px; background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 12px 32px rgba(0,0,0,.14); }
+.newsletter-popup .newsletter h2 { padding-right: 32px; font-size: 22px; }
+.newsletter-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 40px; height: 40px; color: var(--muted); }
+.newsletter-close:hover { color: var(--ink); }
+.newsletter-pop-enter-active { transition: opacity 200ms cubic-bezier(.2,0,0,1), translate 200ms cubic-bezier(.2,0,0,1); }
+.newsletter-pop-leave-active { transition: opacity 150ms ease-out, translate 150ms ease-out; }
+.newsletter-pop-enter-from { opacity: 0; translate: 0 12px; }
+.newsletter-pop-leave-to { opacity: 0; translate: 0 6px; }
+.newsletter-page h1 { margin: 20px 0 16px; }
+.newsletter-page > p { color: var(--muted); }
+@media (max-width: 600px) {
+  .newsletter-strip { padding: 32px 20px; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-popup { right: 16px; bottom: 16px; padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .newsletter-pop-enter-active, .newsletter-pop-leave-active { transition: opacity 150ms ease-out; } .newsletter-pop-enter-from, .newsletter-pop-leave-to { translate: none; } }

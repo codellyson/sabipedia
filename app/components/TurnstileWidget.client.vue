@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props=defineProps<{siteKey:string}>()
+const props=withDefaults(defineProps<{siteKey:string;action?:string}>(),{action:'auth'})
 const emit=defineEmits<{verified:[token:string],expired:[]}>()
 const target=ref<HTMLElement|null>(null)
 let widgetId:string|undefined
@@ -25,7 +25,7 @@ function loadScript(){
 
 onMounted(async()=>{
   await loadScript()
-  if(target.value && window.turnstile) widgetId=window.turnstile.render(target.value,{sitekey:props.siteKey,action:'auth',callback:(token:string)=>emit('verified',token),'expired-callback':()=>emit('expired'),'error-callback':()=>emit('expired'),theme:'auto'})
+  if(target.value && window.turnstile) widgetId=window.turnstile.render(target.value,{sitekey:props.siteKey,action:props.action,callback:(token:string)=>emit('verified',token),'expired-callback':()=>emit('expired'),'error-callback':()=>emit('expired'),theme:'auto'})
 })
 onBeforeUnmount(()=>{if(widgetId && window.turnstile)window.turnstile.remove(widgetId)})
 </script>

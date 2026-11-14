@@ -47,3 +47,12 @@ export function reviewDecisionEmail(input: { name: string; title: string; publis
     html: `<p>Hello ${safeName},</p><p>Your ${escapeHtml(input.kind || 'guide')} <strong>“${safeTitle}”</strong> ${outcome}.</p>${noteHtml}<p><a href="${safeUrl}">See my submissions</a></p>`,
   }
 }
+
+export function newsletterConfirmEmail(confirmUrl: string, unsubscribeUrl: string) {
+  const safeConfirm=escapeHtml(confirmUrl),safeUnsubscribe=escapeHtml(unsubscribeUrl)
+  return {
+    subject: 'Confirm your Sabipedia subscription',
+    text: `Confirm your subscription to get an occasional email when new Sabipedia guides and phrase pages are published:\n${confirmUrl}\n\nIf you did not ask for this, ignore this email and you will not hear from us.\n\nUnsubscribe: ${unsubscribeUrl}`,
+    html: `<p>Confirm your subscription to get an occasional email when new Sabipedia guides and phrase pages are published.</p><p><a href="${safeConfirm}">Confirm my subscription</a></p><p>If you did not ask for this, ignore this email and you will not hear from us.</p><p><a href="${safeUnsubscribe}">Unsubscribe</a></p>`,
+  }
+}

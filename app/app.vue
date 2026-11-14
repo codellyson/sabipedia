@@ -71,6 +71,8 @@ const phoneMenu=computed(()=>[
         </nav>
       </header>
       <main class="site-main"><NuxtPage /></main>
+      <section v-if="route.path !== '/newsletter'" class="newsletter-strip" aria-labelledby="newsletter-strip-title"><NewsletterSignup title-id="newsletter-strip-title" /></section>
+      <NewsletterPopup />
       <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>{{siteDescription}}</span></footer>
     </template>
   </UApp>

@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { passwordResetEmail, reviewDecisionEmail, sendTransactionalEmail, verificationEmail } from '../server/utils/email.ts'
+import { newsletterConfirmEmail, passwordResetEmail, reviewDecisionEmail, sendTransactionalEmail, verificationEmail } from '../server/utils/email.ts'
 
 test('transactional email uses a named, configured sender',async()=>{
  let sent: unknown
@@ -30,4 +30,10 @@ test('review decision email includes the outcome, note and submissions link',()=
  assert.match(message.subject,/Changes requested/)
  assert.match(message.text,/Add one clearer step/)
  assert.match(message.html,/See my submissions/)
+})
+
+test('newsletter confirm email links confirm and unsubscribe, escaping HTML',()=>{
+ const m=newsletterConfirmEmail('https://sabipedia.com/newsletter?confirm=a&b','https://sabipedia.com/newsletter?unsubscribe=a')
+ assert.match(m.html,/confirm=a&amp;b/)
+ assert.match(m.text,/unsubscribe=a/)
 })
