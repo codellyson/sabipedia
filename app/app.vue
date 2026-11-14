@@ -63,7 +63,7 @@ async function signOut(){await authClient.signOut();await navigateTo('/')}
         </nav>
       </header>
       <main class="site-main"><NuxtPage /></main>
-      <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>Practical knowledge, documented and reviewed by Nigerians.</span></footer>
+      <footer class="site-footer"><NuxtLink class="footer-brand brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""></NuxtLink><span>{{siteDescription}}</span></footer>
     </template>
   </UApp>
 </template>
