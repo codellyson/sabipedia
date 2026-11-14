@@ -4,9 +4,9 @@ import { passwordResetEmail, reviewDecisionEmail, sendTransactionalEmail, verifi
 
 test('transactional email uses a named, configured sender',async()=>{
  let sent: unknown
- const env={EMAIL_FROM:'notifications@wikihownaija.kreativekorna.com',EMAIL:{send:async (message: unknown)=>{sent=message}}} as Env
+ const env={EMAIL_FROM:'notifications@sabipedia.com',EMAIL:{send:async (message: unknown)=>{sent=message}}} as Env
  await sendTransactionalEmail(env,{to:'reader@example.com',subject:'Test',text:'Hello',html:'<p>Hello</p>'})
- assert.deepEqual((sent as {from:unknown}).from,{email:'notifications@wikihownaija.kreativekorna.com',name:'Sabipedia'})
+ assert.deepEqual((sent as {from:unknown}).from,{email:'notifications@sabipedia.com',name:'Sabipedia'})
 })
 
 test('password reset email escapes user-controlled HTML',()=>{
