@@ -1079,7 +1079,7 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
 /* Header: one row; every control shares one height and radius; the edges sit on the page gutter. */
 .site-header { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 24px; width: 100%; max-width: none; min-height: 72px; margin: 0; padding: 16px var(--page-gutter); }
 .site-header .brand { min-height: 40px; }
-.site-header .brand-logo { height: 36px; translate: 0 -2.5px; }
+.site-header .brand-logo { height: 36px; translate: 0 -3px; }
 .site-header .main-nav, .site-header .site-nav { display: flex; flex-wrap: nowrap; align-items: center; gap: 4px; width: auto; margin: 0; }
 .site-header .site-nav { margin-left: auto; }
 .site-header .header-search + .site-nav { margin-left: 0; }
