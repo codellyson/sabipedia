@@ -10,6 +10,6 @@ export default defineEventHandler(async event => {
   WHERE id=? AND status='draft' AND EXISTS (
    SELECT 1 FROM guide g WHERE g.id=guide_video.guide_id AND g.slug=? AND g.current_version_id=guide_video.version_id)`)
   .bind(body.data.action==='publish'?'published':'rejected',user.id,body.data.id,getRouterParam(event,'slug')).run()
- if(!result.meta.changes) throw createError({statusCode:409,statusMessage:'The video or guide changed. Reload before reviewing.'})
+ if(!result.meta.changes) throw createError({statusCode:409,statusMessage:'The video or article changed. Reload before reviewing.'})
  return {status:body.data.action==='publish'?'published':'rejected'}
 })

@@ -21,21 +21,21 @@ const filtered=computed(()=>Boolean(searchQuery.value||category.value||searchCom
 // Browsing shows every category as a short list; any search or filter shows one flat list.
 const sections=computed(()=>{
  const list=guides.value||[]
- if(filtered.value) return [{title:category.value||(searchQuery.value?`Results for “${searchQuery.value}”`:'Matching guides'),category:'',guides:list,total:list.length}]
+ if(filtered.value) return [{title:category.value||(searchQuery.value?`Results for “${searchQuery.value}”`:'Matching articles'),category:'',guides:list,total:list.length}]
  return categories.map(c=>{const items=list.filter(g=>g.content.category===c);return {title:c,category:c,guides:items.slice(0,5),total:items.length}}).filter(s=>s.total)
 })
-const pageTitle=computed(()=>topic.value?`${topic.value} guides from Nigeria — Sabipedia`:'How-to guides for life in Nigeria — Sabipedia')
-const pageDescription=computed(()=>topic.value?`Step-by-step ${topic.value.toLowerCase()} guides for life in Nigeria, with sources and community checks.`:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.')
+const pageTitle=computed(()=>topic.value?`${topic.value} articles from Nigeria — Sabipedia`:'How-to articles for life in Nigeria — Sabipedia')
+const pageDescription=computed(()=>topic.value?`Step-by-step ${topic.value.toLowerCase()} articles for life in Nigeria, with sources and community checks.`:'Practical Nigerian knowledge, documented as procedures with sources, local variations and community confirmations.')
 useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDescription:pageDescription})
 </script>
 <template>
  <div class="home">
   <section class="home-top" aria-labelledby="home-title">
-   <h1 id="home-title">{{topic?`${topic} guides`:'How To'}}</h1>
-   <p v-if="!topic" class="home-lede">Step-by-step guides for getting things done in Nigeria.</p>
+   <h1 id="home-title">{{topic?`${topic} articles`:'How To'}}</h1>
+   <p v-if="!topic" class="home-lede">Step-by-step articles for getting things done in Nigeria.</p>
    <form class="home-search" role="search" @submit.prevent="navigateTo({path: '/how-to', query: q.trim() ? {q:q.trim()} : {}})">
     <UIcon name="i-lucide-search" class="home-search-icon" aria-hidden="true"/>
-    <input v-model="q" type="search" aria-label="Search guides" placeholder="How do I…" autocomplete="off">
+    <input v-model="q" type="search" aria-label="Search articles" placeholder="How do I…" autocomplete="off">
    </form>
    <div class="home-cats" role="group" aria-label="Filter by category">
     <NuxtLink to="/how-to" :aria-current="category === '' ? 'page' : undefined">All</NuxtLink>
@@ -50,12 +50,12 @@ useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDesc
    </UCollapsible>
   </section>
 
-  <p v-if="error" role="alert" class="notice">We couldn’t load the guides. Please try again.</p>
-  <div class="collection-feedback" role="status"><span v-if="status==='pending'">Updating guides…</span></div>
+  <p v-if="error" role="alert" class="notice">We couldn’t load the articles. Please try again.</p>
+  <div class="collection-feedback" role="status"><span v-if="status==='pending'">Updating articles…</span></div>
 
   <div v-if="sections.some(s => s.guides.length)" class="home-sections" :class="{'is-filtered':filtered}" :aria-busy="status==='pending'">
    <section v-for="s in sections" :key="s.title" class="home-section">
-    <header class="home-section-head"><h2>{{s.title}}</h2><span>{{s.total}} {{s.total === 1 ? 'guide' : 'guides'}}</span></header>
+    <header class="home-section-head"><h2>{{s.title}}</h2><span>{{s.total}} {{s.total === 1 ? 'article' : 'articles'}}</span></header>
     <ul class="home-list">
      <li v-for="g in s.guides" :key="g.id">
       <NuxtLink :to="'/guides/'+g.slug" class="home-row">
@@ -74,7 +74,7 @@ useSeoMeta({title:pageTitle,description:pageDescription,ogTitle:pageTitle,ogDesc
     <NuxtLink v-if="s.total > s.guides.length" class="home-more" :to="`/how-to/${categorySlug(s.category)}`">See all {{s.total}} in {{s.title}}<UIcon name="i-lucide-arrow-right" class="button-icon" aria-hidden="true"/></NuxtLink>
    </section>
   </div>
-  <div v-else-if="status!=='pending' && !error" class="empty"><h2>{{q||category||community||location?'No guides match these filters.':'The collection starts with what you know.'}}</h2><p>Document a practical skill, a local method, or a process you understand.</p><NuxtLink class="button secondary" to="/write">Know how? Document it.<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></div>
+  <div v-else-if="status!=='pending' && !error" class="empty"><h2>{{q||category||community||location?'No articles match these filters.':'The collection starts with what you know.'}}</h2><p>Document a practical skill, a local method, or a process you understand.</p><NuxtLink class="button secondary" to="/write">Know how? Document it.<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></div>
 
   <section class="contribute-strip"><div><h2>Someone can learn from what you know.</h2><p>A family recipe. A craft. A way of doing things in your community.</p></div><NuxtLink class="button secondary" to="/write">Document knowledge<UIcon name="i-lucide-arrow-right" class="button-icon"/></NuxtLink></section>
  </div>

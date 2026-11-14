@@ -3,7 +3,7 @@ import { guideSelect, present, type GuideRow } from '../../utils/guides'
 export default defineEventHandler(async event => {
  const db=environment(event).DB
  const row=await db.prepare(guideSelect+' WHERE g.slug=?').bind(getRouterParam(event,'slug')).first<GuideRow>()
- if(!row) throw createError({statusCode:404,statusMessage:'Guide not found'})
+ if(!row) throw createError({statusCode:404,statusMessage:'Article not found'})
  const history=await db.prepare(`SELECT v.id,v.number,v.created_at,u.name author,json_extract(v.content,'$.changeNote') change_note,
  (SELECT count(*) FROM confirmation c WHERE c.version_id=v.id) confirmations FROM guide_version v JOIN user u ON u.id=v.author_id WHERE v.guide_id=? ORDER BY v.number DESC`).bind(row.id).all()
  const media=await db.prepare(`SELECT m.id,m.content_type FROM media m,json_each(?,'$.mediaIds') j WHERE m.id=j.value`).bind(row.content).all<{id:string;content_type:string}>()

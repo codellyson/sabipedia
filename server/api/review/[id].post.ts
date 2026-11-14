@@ -24,7 +24,7 @@ export default defineEventHandler(async event => {
  statements.push(db.prepare('UPDATE guide SET current_version_id=? WHERE id=? AND EXISTS(SELECT 1 FROM guide_version WHERE id=?)').bind(vid,gid,vid))
  statements.push(db.prepare("UPDATE submission SET state='published',guide_id=?,moderator_note=?,reviewed_by=?,reviewed_at=datetime('now') WHERE id=? AND EXISTS(SELECT 1 FROM guide_version WHERE id=?)").bind(gid,body.data.note||null,user.id,id,vid))
  const results=await db.batch(statements)
- if(!results[s.guide_id?0:1]?.meta.changes) throw createError({statusCode:409,statusMessage:'The guide changed during review. Review a fresh submission'})
+ if(!results[s.guide_id?0:1]?.meta.changes) throw createError({statusCode:409,statusMessage:'The article changed during review. Review a fresh submission'})
  notify(true)
  return {state:'published',guideId:gid}
 })

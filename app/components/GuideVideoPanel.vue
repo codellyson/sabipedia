@@ -37,7 +37,7 @@ async function review(action:'publish'|'reject') {
   await $fetch(`/api/guide-video-reviews/${encodeURIComponent(props.guide.slug)}`,{method:'POST',body:{id,action}})
   await loadEditorState()
   reviewed.value=false
-  if(action==='publish'){emit('published');message.value='The video is now visible beside this guide.'}
+  if(action==='publish'){emit('published');message.value='The video is now visible beside this article.'}
   else message.value='Draft rejected. You can generate a new one.'
  } catch(error:any) {message.value=error?.data?.statusMessage||error?.message||'Could not save the review decision.'}
  finally{busy.value=false}
@@ -46,18 +46,18 @@ async function review(action:'publish'|'reject') {
 
 <template>
  <section v-if="guide.video||canReview" class="guide-video-panel" aria-labelledby="guide-video-title">
-  <div class="guide-video-heading"><div><h2 id="guide-video-title">Video guide</h2><p>A short visual summary. Read the steps below for full instructions and sources.</p></div><span v-if="guide.video" class="guide-video-label">Captioned · no audio</span></div>
-  <video v-if="guide.video" class="guide-video-player" :src="videoUrl(guide.video.id)" controls preload="metadata" playsinline aria-label="Captioned visual summary of this guide" />
+  <div class="guide-video-heading"><div><h2 id="guide-video-title">Video summary</h2><p>A short visual summary. Read the steps below for full instructions and sources.</p></div><span v-if="guide.video" class="guide-video-label">Captioned · no audio</span></div>
+  <video v-if="guide.video" class="guide-video-player" :src="videoUrl(guide.video.id)" controls preload="metadata" playsinline aria-label="Captioned visual summary of this article" />
   <div v-if="canReview" class="guide-video-editor">
-   <p v-if="editorState?.stale" class="reader-warning">The guide changed after its last video was published. Generate and review a new video for this revision.</p>
+   <p v-if="editorState?.stale" class="reader-warning">The article changed after its last video was published. Generate and review a new video for this revision.</p>
    <template v-if="editorState?.draft">
     <p class="notice"><strong>Draft awaiting review.</strong> Only editors can see this video until it is approved.</p>
     <video class="guide-video-player" :src="videoUrl(editorState.draft.id)" controls preload="metadata" playsinline aria-label="Draft visual summary for editor review" />
-    <label class="guide-video-confirm"><input v-model="reviewed" type="checkbox"> I watched the draft and checked it against this guide.</label>
+    <label class="guide-video-confirm"><input v-model="reviewed" type="checkbox"> I watched the draft and checked it against this article.</label>
     <div class="guide-video-actions"><button class="primary" :disabled="busy||!reviewed" @click="review('publish')">Approve video</button><button class="secondary" :disabled="busy" @click="review('reject')">Reject draft</button><span v-if="!reviewed" class="field-hint">Tick the box to approve.</span></div>
    </template>
    <template v-else-if="!guide.video">
-    <p>The editor’s browser makes a captioned video from approved guide highlights and photos. Keep this tab open while it records.</p>
+    <p>The editor’s browser makes a captioned video from approved article highlights and photos. Keep this tab open while it records.</p>
     <button class="primary" :disabled="busy||!editorState" @click="generate">{{busy?`Generating video… ${progress}%`:'Generate video draft'}}</button>
    </template>
    <p v-if="message" class="notice" role="status">{{message}}</p>

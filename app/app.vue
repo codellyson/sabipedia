@@ -29,9 +29,9 @@ function submitSearch() {
 async function signOut(){await authClient.signOut();await navigateTo('/')}
 // Phones hide the account links and search in the header; this menu carries them.
 const phoneMenu=computed(()=>[
- [{label:'Search guides',icon:'i-lucide-search',to:'/how-to'},
+ [{label:'Search articles',icon:'i-lucide-search',to:'/how-to'},
   ...(canReview.value?[{label:'Editor',icon:'i-lucide-clipboard-check',to:'/review'}]:[]),
-  ...(session.value.data?[{label:'My guides',icon:'i-lucide-file-text',to:'/my-guides'}]:[])],
+  ...(session.value.data?[{label:'My articles',icon:'i-lucide-file-text',to:'/my-guides'}]:[])],
  [session.value.data?{label:'Sign out',icon:'i-lucide-log-out',onSelect:signOut}:{label:'Sign in',icon:'i-lucide-log-in',to:'/login'}]
 ])
 </script>
@@ -44,12 +44,12 @@ const phoneMenu=computed(()=>[
         <form class="admin-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search" placeholder="Search"><kbd>⌘K</kbd></form>
         <nav class="admin-nav" aria-label="Editorial workspace">
           <NuxtLink to="/"><UIcon name="i-lucide-house" class="nav-icon"/>Home</NuxtLink>
-          <NuxtLink to="/articles"><UIcon name="i-lucide-files" class="nav-icon"/>Guides</NuxtLink>
+          <NuxtLink to="/articles"><UIcon name="i-lucide-files" class="nav-icon"/>Articles</NuxtLink>
           <NuxtLink to="/review"><UIcon name="i-lucide-clipboard-check" class="nav-icon"/>Review queue</NuxtLink>
-          <NuxtLink to="/write"><UIcon name="i-lucide-file-plus-2" class="nav-icon"/>New guide</NuxtLink>
+          <NuxtLink to="/write"><UIcon name="i-lucide-file-plus-2" class="nav-icon"/>New article</NuxtLink>
         </nav>
         <div class="admin-sidebar-footer">
-          <NuxtLink class="button admin-new" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New guide</NuxtLink>
+          <NuxtLink class="button admin-new" to="/write"><UIcon name="i-lucide-plus" class="button-icon"/>New article</NuxtLink>
           <ClientOnly><button v-if="session.data" class="admin-account" @click="authClient.signOut()"><span class="avatar">{{session.data.user.name?.slice(0,2).toUpperCase() || 'ME'}}</span><span><strong>{{session.data.user.name}}</strong><small>Editor · Sign out</small></span></button></ClientOnly>
         </div>
       </aside>
@@ -60,11 +60,11 @@ const phoneMenu=computed(()=>[
       <header class="site-header">
         <NuxtLink class="brand" to="/" aria-label="Sabipedia home"><img class="brand-logo brand-logo-light" src="/brand/whn-lockup.svg" alt="Sabipedia"><img class="brand-logo brand-logo-dark" src="/brand/whn-lockup-dark.svg" alt=""><img class="brand-symbol" src="/brand/whn-mark.svg" alt=""></NuxtLink>
         <nav class="main-nav" aria-label="Sections"><NuxtLink to="/how-to" :class="{'router-link-active': /^\/(how-to|guides)(\/|$)/.test(route.path)}">How To</NuxtLink><NuxtLink to="/learn" :class="{'router-link-active': /^\/learn(\/|$)/.test(route.path)}">Learn</NuxtLink></nav>
-        <form v-if="route.path !== '/' && !route.path.startsWith('/how-to')" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search guides" placeholder="How to…"></form>
+        <form v-if="route.path !== '/' && !route.path.startsWith('/how-to')" class="header-search" role="search" @submit.prevent="submitSearch"><UIcon name="i-lucide-search" class="search-lens" aria-hidden="true"/><input v-model="search" aria-label="Search articles" placeholder="How to…"></form>
         <nav class="site-nav" aria-label="Account navigation">
           <NuxtLink v-if="canReview" to="/review">Editor</NuxtLink>
           <ClientOnly><NuxtLink v-if="!session.data" to="/login">Sign in</NuxtLink></ClientOnly>
-          <ClientOnly><NuxtLink v-if="session.data" to="/my-guides">My guides</NuxtLink></ClientOnly>
+          <ClientOnly><NuxtLink v-if="session.data" to="/my-guides">My articles</NuxtLink></ClientOnly>
           <ClientOnly><button v-if="session.data" class="link" @click="signOut">Sign out</button></ClientOnly>
           <ClientOnly><UDropdownMenu :items="phoneMenu" :content="{align:'end',sideOffset:8}" :ui="{content:'writer-select-menu nav-menu-list',item:'writer-select-option nav-menu-item',itemLeadingIcon:'writer-icon',separator:'nav-menu-separator'}"><UButton class="secondary nav-menu" icon="i-lucide-menu" aria-label="Menu" :ui="{leadingIcon:'button-icon'}" /></UDropdownMenu></ClientOnly>
           <NuxtLink class="nav-cta" to="/write">Write</NuxtLink>

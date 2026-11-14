@@ -9,7 +9,7 @@ const route=useRoute()
 const session=authClient.useSession()
 const canReview=computed(()=>session.value.data?.user.role?.split(',').some(role=>['admin','moderator'].includes(role)))
 const {data:g,error,refresh}=await useFetch<GuideDetail>('/api/guides/'+encodeURIComponent(String(route.params.slug)))
-if(error.value) throw createError({statusCode:404,statusMessage:'Guide not found'})
+if(error.value) throw createError({statusCode:404,statusMessage:'Article not found'})
 const reason=ref(''),community=ref(''),location=ref(''),note=ref(''),message=ref(''),busy=ref(false)
 const revisionComparison=ref<RevisionComparison|null>(null),revisionBusy=ref(false),stepMode=ref(false),completed=ref<number[]>([])
 const storageKey=computed(()=>`wikihownaija:progress:${g.value?.id||route.params.slug}`)
@@ -46,7 +46,7 @@ useSeoMeta({
  articlePublishedTime:()=>g.value?.history.at(-1)?.created_at?.replace(' ','T')+'Z',
  articleModifiedTime:()=>g.value?.created_at.replace(' ','T')+'Z',
 })
-// Recipe markup earns recipe cards for food guides; every other guide is a HowTo.
+// Recipe markup earns recipe cards for food articles; every other article is a HowTo.
 const structuredData=computed(()=>{
  const guide=g.value;if(!guide)return null
  const c=guide.content,isRecipe=c.category==='Food & Cooking'
@@ -100,7 +100,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
       <span v-if="g.content.location||g.content.community">{{g.content.location||g.content.community}}</span>
       <a v-if="g.content.warnings.length" href="#warnings" class="guide-meta-warn">{{g.content.warnings.length}} {{g.content.warnings.length===1?'warning':'warnings'}} · read first</a>
      </p>
-     <p v-if="g.disputes" class="reader-warning">This guide has an unresolved major correction. Check its sources before following it.</p>
+     <p v-if="g.disputes" class="reader-warning">This article has an unresolved major correction. Check its sources before following it.</p>
     </header>
 
     <details v-if="g.content.requirements.length" class="guide-needs">
@@ -165,7 +165,7 @@ async function showRevision(id:string){revisionBusy.value=true;message.value='';
      <h2>Your progress</h2>
      <strong>{{allDone?'All done':completed.length?`${completed.length} of ${g.content.steps.length} done`:'Not started'}}</strong>
      <div class="guide-track"><span :style="{width:completion+'%'}" /></div>
-     <button v-if="allDone" class="guide-btn-go" @click="openConfirm">Confirm this guide</button>
+     <button v-if="allDone" class="guide-btn-go" @click="openConfirm">Confirm this article</button>
      <button v-else class="guide-btn-go" @click="stepMode=true">{{completed.length?'Continue step-by-step':'Start step-by-step'}}</button>
     </div>
     <nav class="guide-rail-card" aria-label="On this page">

@@ -90,7 +90,7 @@ function drawFrame(ctx:CanvasRenderingContext2D,guide:GuideDetail,steps:ReturnTy
   drawLines(ctx,excerpt(guide.content.summary,180),72,520,630,38,3)
  } else if(slide===steps.length) {
   ctx.fillStyle=brand.ink;font(ctx,brand,700,70);ctx.fillText('Ready to try it?',72,305)
-  ctx.fillStyle=brand.text;font(ctx,brand,400,31);ctx.fillText('Read every step and source in the full guide.',72,380)
+  ctx.fillStyle=brand.text;font(ctx,brand,400,31);ctx.fillText('Read every step and source in the full article.',72,380)
   ctx.fillStyle=brand.green;font(ctx,brand,700,27);ctx.fillText('sabipedia.com',72,475)
   ctx.drawImage(brand.mark,1020,225,140,140)
  } else {

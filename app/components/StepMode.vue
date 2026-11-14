@@ -32,11 +32,11 @@ function next() {
         <p class="step-mode-number">STEP {{current + 1}}</p>
         <div class="step-mode-instruction"><RichText :document="stepDocuments?.[current]" :text="steps[current]||''" /></div>
         <div v-if="stepMediaIds?.[current]?.length" class="step-mode-images"><img v-for="id in stepMediaIds[current]" :key="id" :src="`/api/media/${id}`" :alt="`Image showing step ${current+1}`"></div>
-        <div v-if="requirements.length" class="step-materials"><strong>For this guide</strong><span v-for="item in requirements.slice(0,4)" :key="item">{{item}}</span></div>
+        <div v-if="requirements.length" class="step-materials"><strong>For this article</strong><span v-for="item in requirements.slice(0,4)" :key="item">{{item}}</span></div>
       </main>
       <footer class="step-mode-actions">
         <button class="secondary" :disabled="current===0" @click="current--"><UIcon name="i-lucide-arrow-left" class="button-icon"/>Back</button>
-        <button class="step-next" @click="next">{{current===steps.length-1?'Finish guide':'Done · next step'}}<UIcon name="i-lucide-arrow-right" class="button-icon"/></button>
+        <button class="step-next" @click="next">{{current===steps.length-1?'Finish article':'Done · next step'}}<UIcon name="i-lucide-arrow-right" class="button-icon"/></button>
       </footer>
     </section>
   </Teleport>

@@ -7,7 +7,7 @@ const query = route.fullPath.split('?').slice(1).join('?')
 const { data, error } = await useFetch<{ clientName: string; clientId: string; redirectUri: string | null; scopes: string[] }>(`/api/mcp-consent?${query}`)
 const busy = ref(false)
 const message = ref('')
-useSeoMeta({ title: 'Authorize guide submissions — Sabipedia' })
+useSeoMeta({ title: 'Authorize article submissions — Sabipedia' })
 
 async function decide(accept: boolean) {
   busy.value = true
@@ -24,13 +24,13 @@ async function decide(accept: boolean) {
 <template>
   <section class="narrow auth-screen">
     <p class="eyebrow">Connected application</p>
-    <h1>Authorize guide submissions</h1>
+    <h1>Authorize article submissions</h1>
     <p v-if="error" role="alert">This authorization request is invalid or expired.</p>
     <div v-else-if="data" class="auth-card">
-      <p><strong>{{ data.clientName }}</strong> requests permission to submit guides under your Sabipedia account.</p>
+      <p><strong>{{ data.clientName }}</strong> requests permission to submit articles under your Sabipedia account.</p>
       <p class="muted">Application ID: {{ data.clientId }}<br>Callback: {{ data.redirectUri }}</p>
-      <p>The guides will appear in your submissions and wait for moderator review before publication.</p>
-      <p v-if="data.scopes.includes('guide:submit')">Permission: submit guide drafts for review.</p>
+      <p>The articles will appear in your submissions and wait for moderator review before publication.</p>
+      <p v-if="data.scopes.includes('guide:submit')">Permission: submit article drafts for review.</p>
       <p v-if="!session.data?.user"><NuxtLink :to="{ path: '/login', query: route.query }">Sign in to continue</NuxtLink></p>
       <p v-if="message" role="alert" class="notice">{{ message }}</p>
       <div v-if="session.data?.user" class="auth-actions">

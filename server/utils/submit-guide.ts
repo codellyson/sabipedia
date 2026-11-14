@@ -14,7 +14,7 @@ export async function submitGuide(env: Pick<Env, 'DB' | 'ANTHROPIC_API_KEY'>, au
   const { guideId, baseVersionId } = input
   if (guideId) {
     const guide = await db.prepare('SELECT current_version_id FROM guide WHERE id=?').bind(guideId).first<{ current_version_id: string }>()
-    if (!guide || guide.current_version_id !== baseVersionId) throw createError({ statusCode: 409, statusMessage: 'This guide changed. Reload it before submitting a correction' })
+    if (!guide || guide.current_version_id !== baseVersionId) throw createError({ statusCode: 409, statusMessage: 'This article changed. Reload it before submitting a correction' })
   }
   for (const mediaId of parsed.data.mediaIds) {
     const owned = await db.prepare(`SELECT id FROM media WHERE id=? AND (owner_id=? OR EXISTS(SELECT 1 FROM guide_version v,json_each(v.content,'$.mediaIds') j WHERE v.id=? AND v.guide_id=? AND j.value=media.id))`).bind(mediaId, authorId, baseVersionId || '', guideId || '').first()

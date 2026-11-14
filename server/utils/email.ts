@@ -64,8 +64,8 @@ export function reviewDecisionEmail(input: { name: string; title: string; publis
   const noteHtml=note?`<div style="margin:0 0 24px;padding:16px 20px;background:#f4f4f1;border-radius:8px"><p style="margin:0 0 6px;font:600 14px/1.4 ${serif};color:#626262">Editor’s note</p><p style="margin:0;font:16px/1.6 ${serif};color:#1a1a1a">${escapeHtml(note).replace(/\n/g,'<br>')}</p></div>`:''
   return {
     subject: input.published?`Published: ${subjectTitle}`:`Changes requested: ${subjectTitle}`,
-    text: `Hello ${input.name || 'there'},\n\nYour ${input.kind || 'guide'} “${input.title}” ${outcome}.${noteText}\n\nSee your submissions: ${input.url}`,
-    html: emailLayout({preheader:`Your ${input.kind || 'guide'} ${outcome}.`,heading:input.published?'Published':'Changes requested',body:p(`Hello ${safeName}, your ${escapeHtml(input.kind || 'guide')} <strong>“${safeTitle}”</strong> ${outcome}.`)+noteHtml,button:{label:'See my submissions',url:safeUrl}}),
+    text: `Hello ${input.name || 'there'},\n\nYour ${input.kind || 'article'} “${input.title}” ${outcome}.${noteText}\n\nSee your submissions: ${input.url}`,
+    html: emailLayout({preheader:`Your ${input.kind || 'article'} ${outcome}.`,heading:input.published?'Published':'Changes requested',body:p(`Hello ${safeName}, your ${escapeHtml(input.kind || 'article')} <strong>“${safeTitle}”</strong> ${outcome}.`)+noteHtml,button:{label:'See my submissions',url:safeUrl}}),
   }
 }
 
