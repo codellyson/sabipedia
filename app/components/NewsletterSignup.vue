@@ -18,8 +18,8 @@ async function submit(){
  <div class="newsletter">
   <template v-if="sent"><h2 :id="props.titleId">Check your email.</h2><p>We sent a link to <strong>{{email}}</strong>. Open it to confirm.</p></template>
   <template v-else>
-   <h2 :id="props.titleId">Get new guides by email</h2>
-   <p>An occasional email when new guides and phrase pages go live. Unsubscribe any time.</p>
+   <h2 :id="props.titleId">New on Sabipedia</h2>
+   <p>An occasional email when something new goes up. Unsubscribe any time.</p>
    <form class="newsletter-form" @submit.prevent="submit" @focusin="armed=true">
     <UInput v-model="email" type="email" required autocomplete="email" placeholder="you@example.com" aria-label="Email address" class="writer-input" />
     <UButton type="submit" class="primary" :disabled="!canSubmit">{{busy?'Sending…':'Subscribe'}}</UButton>

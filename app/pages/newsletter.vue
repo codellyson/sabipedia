@@ -14,7 +14,7 @@ useSeoMeta({title:'Newsletter — Sabipedia',robots:'noindex'})
  <section class="narrow newsletter-page">
   <template v-if="action==='confirm'">
    <h1>{{state==='done'?'You’re subscribed.':'Confirm your subscription.'}}</h1>
-   <p v-if="state==='done'">We’ll email you when new guides and phrase pages go live.</p>
+   <p v-if="state==='done'">We’ll email you when something new goes up on Sabipedia.</p>
    <UButton v-else class="primary" :disabled="state==='busy'" @click="run">{{state==='busy'?'Confirming…':'Confirm subscription'}}</UButton>
   </template>
   <template v-else-if="action==='unsubscribe'">

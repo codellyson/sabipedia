@@ -52,7 +52,7 @@ export function newsletterConfirmEmail(confirmUrl: string, unsubscribeUrl: strin
   const safeConfirm=escapeHtml(confirmUrl),safeUnsubscribe=escapeHtml(unsubscribeUrl)
   return {
     subject: 'Confirm your Sabipedia subscription',
-    text: `Confirm your subscription to get an occasional email when new Sabipedia guides and phrase pages are published:\n${confirmUrl}\n\nIf you did not ask for this, ignore this email and you will not hear from us.\n\nUnsubscribe: ${unsubscribeUrl}`,
-    html: `<p>Confirm your subscription to get an occasional email when new Sabipedia guides and phrase pages are published.</p><p><a href="${safeConfirm}">Confirm my subscription</a></p><p>If you did not ask for this, ignore this email and you will not hear from us.</p><p><a href="${safeUnsubscribe}">Unsubscribe</a></p>`,
+    text: `Confirm your subscription to get an occasional email when something new goes up on Sabipedia:\n${confirmUrl}\n\nIf you did not ask for this, ignore this email and you will not hear from us.\n\nUnsubscribe: ${unsubscribeUrl}`,
+    html: `<p>Confirm your subscription to get an occasional email when something new goes up on Sabipedia.</p><p><a href="${safeConfirm}">Confirm my subscription</a></p><p>If you did not ask for this, ignore this email and you will not hear from us.</p><p><a href="${safeUnsubscribe}">Unsubscribe</a></p>`,
   }
 }
