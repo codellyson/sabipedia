@@ -37,7 +37,7 @@ useSeoMeta({title:'Add a phrase page — Sabipedia',robots:'noindex'})
   <div v-else-if="sent" class="empty"><h2>Sent to a {{language.name}} reviewer.</h2><p>You’ll get an email when it’s checked.</p><UButton class="secondary" @click="again">Add another page</UButton></div>
   <form v-else class="learn-form" @submit.prevent="send">
    <div class="pair">
-    <UFormField label="Language" class="writer-form-field"><USelect v-model="form.language" :items="languageItems" value-key="value" :disabled="Boolean(source.lessonId)" :ui="selectUi" /></UFormField>
+    <UFormField label="Language" class="writer-form-field"><USelect v-model="form.language" placeholder="Choose a language" :items="languageItems" value-key="value" :disabled="Boolean(source.lessonId)" :ui="selectUi" /></UFormField>
     <UFormField label="Page title" required class="writer-form-field"><UInput v-model="form.title" maxlength="140" placeholder="Greetings and respect" required class="writer-input" /></UFormField>
    </div>
    <UFormField label="What the page covers" required class="writer-form-field"><UInput v-model="form.summary" maxlength="300" placeholder="How to greet people of different ages at different times of day." required class="writer-input" /></UFormField>
@@ -48,8 +48,8 @@ useSeoMeta({title:'Add a phrase page — Sabipedia',robots:'noindex'})
       <UButton class="link" :disabled="i===form.phrases.length-1" :aria-label="`Move phrase ${i+1} down`" @click="move(i,1)">Down</UButton>
       <UButton class="link" :disabled="form.phrases.length===1" @click="form.phrases.splice(i,1)">Remove</UButton></span></div>
      <div class="pair">
-      <UFormField :label="`In ${language.name}`" required class="writer-form-field"><UInput v-model="p.text" maxlength="300" required :lang="form.language==='pidgin'?'pcm':form.language.slice(0,2)" class="writer-input" /></UFormField>
-      <UFormField label="Meaning in English" required class="writer-form-field"><UInput v-model="p.meaning" maxlength="300" required class="writer-input" /></UFormField>
+      <UFormField :label="`In ${language.name}`" required class="writer-form-field"><UInput v-model="p.text" maxlength="300" placeholder="As a native speaker says it, with tone marks" required :lang="form.language==='pidgin'?'pcm':form.language.slice(0,2)" class="writer-input" /></UFormField>
+      <UFormField label="Meaning in English" required class="writer-form-field"><UInput v-model="p.meaning" maxlength="300" placeholder="Good morning" required class="writer-input" /></UFormField>
       <UFormField label="Say it like" hint="Optional" class="writer-form-field"><UInput v-model="p.pronunciation" maxlength="200" placeholder="eh SHEH" class="writer-input" /></UFormField>
       <UFormField label="Note" hint="Optional" class="writer-form-field"><UInput v-model="p.note" maxlength="600" placeholder="When or to whom you say it" class="writer-input" /></UFormField>
      </div>
@@ -57,7 +57,7 @@ useSeoMeta({title:'Add a phrase page — Sabipedia',robots:'noindex'})
     </li>
    </ol>
    <UButton class="secondary" icon="i-lucide-plus" :ui="{leadingIcon:'button-icon'}" :disabled="form.phrases.length>=60" @click="form.phrases.push(blank())">Add phrase</UButton>
-   <UFormField v-if="source.lessonId" label="What you changed" class="writer-form-field"><UInput v-model="form.changeNote" maxlength="600" class="writer-input" /></UFormField>
+   <UFormField v-if="source.lessonId" label="What you changed" class="writer-form-field"><UInput v-model="form.changeNote" maxlength="600" placeholder="What you fixed and why" class="writer-input" /></UFormField>
    <p v-if="message" role="alert" class="notice">{{message}}</p>
    <div class="learn-submit"><UButton type="submit" class="primary" :disabled="busy||missingAudio>0">Send to {{language.name}} reviewer</UButton><span v-if="missingAudio" class="field-hint">{{missingAudio}} {{missingAudio===1?'phrase needs':'phrases need'}} a recording.</span></div>
   </form>

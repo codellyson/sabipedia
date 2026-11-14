@@ -43,7 +43,7 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
       <p v-if="p.note" class="phrase-note">{{p.note}}</p>
      </li>
     </ol>
-    <UFormField label="Note to the speaker" hint="Needed when sending back" class="writer-form-field"><UTextarea v-model="notes[item.id]" :rows="2" maxlength="2000" class="writer-input" /></UFormField>
+    <UFormField label="Note to the speaker" hint="Needed when sending back" class="writer-form-field"><UTextarea v-model="notes[item.id]" :rows="2" placeholder="Note for the writer, such as what to fix" maxlength="2000" class="writer-input" /></UFormField>
     <div class="learn-review-actions">
      <UButton class="secondary" :disabled="busy===item.id" @click="decide(item,'reject')">Send back</UButton>
      <UButton class="primary" :disabled="busy===item.id||(item.author_id===data.userId&&!me?.isAdmin)" @click="decide(item,'publish')">Publish</UButton>
@@ -58,7 +58,7 @@ useSeoMeta({title:'Phrase review — Sabipedia',robots:'noindex'})
    </li></ul>
   </template>
   <section v-if="me?.isAdmin" class="learn-reviewers"><h2>Language reviewers</h2>
-   <form class="pair" @submit.prevent="setReviewer(invite.email,invite.language)"><UFormField label="Account email" class="writer-form-field"><UInput v-model="invite.email" type="email" required class="writer-input" /></UFormField><UFormField label="Language" class="writer-form-field"><USelect v-model="invite.language" :items="languageItems" value-key="value" :ui="{base:'writer-select',content:'writer-select-menu',item:'writer-select-option'}" /></UFormField><UButton type="submit" class="primary">Add reviewer</UButton></form>
+   <form class="pair" @submit.prevent="setReviewer(invite.email,invite.language)"><UFormField label="Account email" class="writer-form-field"><UInput v-model="invite.email" type="email" placeholder="reviewer@example.com" required class="writer-input" /></UFormField><UFormField label="Language" class="writer-form-field"><USelect v-model="invite.language" placeholder="Choose a language" :items="languageItems" value-key="value" :ui="{base:'writer-select',content:'writer-select-menu',item:'writer-select-option'}" /></UFormField><UButton type="submit" class="primary">Add reviewer</UButton></form>
    <p v-if="inviteMessage" role="alert" class="field-hint">{{inviteMessage}}</p>
    <ul class="home-list"><li v-for="r in reviewers||[]" :key="r.user_id+r.language" class="learn-mine-row"><div><strong>{{r.name}}</strong><span class="home-row-meta"><span>{{r.email}}</span><span>{{languageBySlug(r.language)?.name}}</span></span></div><UButton class="secondary" @click="setReviewer(r.email,r.language,true)">Remove</UButton></li></ul>
   </section>

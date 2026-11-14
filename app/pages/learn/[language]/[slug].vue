@@ -45,7 +45,7 @@ useSeoMeta({title,description,ogTitle:title,ogDescription:description})
     <p v-if="p.note" class="phrase-note" lang="en">{{p.note}}</p>
     <div class="phrase-flag" lang="en">
      <UButton v-if="flagging!==i" class="link" @click="flagging=i;flagMessage='';flagNote=''">Report a problem</UButton>
-     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><UFormField label="What is wrong with this phrase or recording?" class="writer-form-field"><UTextarea v-model="flagNote" :rows="2" maxlength="1000" required class="writer-input" /></UFormField><div class="phrase-flag-actions"><UButton class="secondary" @click="flagging=null">Cancel</UButton><UButton type="submit" class="primary" :disabled="flagBusy">Send report</UButton></div></form>
+     <form v-else-if="session.data" @submit.prevent="sendFlag(i)"><UFormField label="What is wrong with this phrase or recording?" class="writer-form-field"><UTextarea v-model="flagNote" :rows="2" placeholder="What is wrong? For example, a missing tone mark or the wrong meaning." maxlength="1000" required class="writer-input" /></UFormField><div class="phrase-flag-actions"><UButton class="secondary" @click="flagging=null">Cancel</UButton><UButton type="submit" class="primary" :disabled="flagBusy">Send report</UButton></div></form>
      <p v-else><NuxtLink :to="{path:'/login',query:{next:route.fullPath}}">Sign in</NuxtLink> to report a problem.</p>
      <p v-if="flagMessage&&flagAt===i" role="status" class="field-hint">{{flagMessage}}</p>
     </div>

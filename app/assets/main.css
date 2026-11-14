@@ -1149,3 +1149,4 @@ button.writer-select:not(.link), button.date-select-control:not(.link) { font-we
   .newsletter-popup { right: 16px; bottom: 16px; padding: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { .newsletter-pop-enter-active, .newsletter-pop-leave-active { transition: opacity 150ms ease-out; } .newsletter-pop-enter-from, .newsletter-pop-leave-to { translate: none; } }
+button.writer-select [data-slot='placeholder'], button.date-select-control [data-slot='placeholder'] { color: var(--muted); }
