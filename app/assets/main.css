@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "@nuxt/ui";
 @custom-variant dark (&:where(.dark, .dark *));
+@font-face { font-family: "Newsreader"; src: url("/fonts/newsreader-var.woff2") format("woff2-variations"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("/fonts/newsreader-italic-var.woff2") format("woff2-variations"); font-weight: 200 800; font-style: italic; font-display: swap; }
 
 :root {
-  font-family: 'OpenAI Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: "Newsreader", Georgia, "Iowan Old Style", serif;
   font-size: 14px; line-height: 1.4; color: var(--text); background: var(--canvas); color-scheme: light;
   --ink: #000; --text: #000; --muted: #626262; --line: #e5e7eb;
   --paper: #fff; --canvas: #fff; --soft: #f3f4f6;
